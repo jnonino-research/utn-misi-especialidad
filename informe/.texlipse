@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Mon Nov 03 22:39:40 ART 2014
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=informe.tex
+outputFile=informe.pdf
+langSpell=es
+markDer=true
+srcDir=
