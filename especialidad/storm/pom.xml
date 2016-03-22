@@ -12,5 +12,21 @@
 
     <artifactId>storm</artifactId>
 
+    <properties>
+        <storm.version>0.10.0</storm.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm</artifactId>
+            <version>${storm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm-core</artifactId>
+            <version>${storm.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
