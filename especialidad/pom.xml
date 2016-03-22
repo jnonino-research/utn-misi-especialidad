@@ -17,5 +17,10 @@
         <module>flink</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+
+        </dependencies>
+    </dependencyManagement>
 
 </project>
