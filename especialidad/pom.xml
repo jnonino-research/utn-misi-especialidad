@@ -15,6 +15,7 @@
         <module>storm</module>
         <module>spark</module>
         <module>flink</module>
+        <module>kafka</module>
     </modules>
 
     <dependencyManagement>
