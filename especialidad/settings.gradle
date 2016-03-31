@@ -1,0 +1,12 @@
+rootProject.name = 'especialidad'
+include ':aws-tools'
+include ':storm'
+include ':spark'
+include ':flink'
+include ':kafka'
+
+project(':aws-tools').projectDir = "$rootDir/aws-tools" as File
+project(':storm').projectDir = "$rootDir/storm" as File
+project(':spark').projectDir = "$rootDir/spark" as File
+project(':flink').projectDir = "$rootDir/flink" as File
+project(':kafka').projectDir = "$rootDir/kafka" as File
