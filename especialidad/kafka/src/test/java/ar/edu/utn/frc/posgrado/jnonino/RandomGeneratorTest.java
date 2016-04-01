@@ -1,9 +1,11 @@
-package ar.edu.utn.frc.jnonino;
+package ar.edu.utn.frc.posgrado.jnonino;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.After;
+import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 import static org.junit.Assert.*;
 
 /**

@@ -1,4 +1,4 @@
-package ar.edu.utn.frc.jnonino;
+package ar.edu.utn.frc.posgrado.jnonino;
 
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.streaming.api.datastream.DataStream;

@@ -1,4 +1,4 @@
-package ar.edu.utn.frc.jnonino;
+package ar.edu.utn.frc.posgrado.jnonino;
 
 import java.util.*;
 

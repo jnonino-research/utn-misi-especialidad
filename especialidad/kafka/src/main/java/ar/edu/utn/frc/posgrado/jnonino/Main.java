@@ -1,4 +1,4 @@
-package ar.edu.utn.frc.jnonino;
+package ar.edu.utn.frc.posgrado.jnonino;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,22 +35,22 @@ public class Main {
 
             String topic_one = null;
             String id_one = null;
-            MetricsProducer producer_one = new MetricsProducer(topic_one, id_one, startDate.getTime(), endDate.getTime(), TEN_MINUTES);
+            ar.edu.utn.frc.posgrado.jnonino.MetricsProducer producer_one = new ar.edu.utn.frc.posgrado.jnonino.MetricsProducer(topic_one, id_one, startDate.getTime(), endDate.getTime(), TEN_MINUTES);
             producer_one.start();
 
             String topic_two = null;
             String id_two = null;
-            MetricsProducer producer_two = new MetricsProducer(topic_two, id_two, startDate.getTime(), endDate.getTime(), ONE_HOUR);
+            ar.edu.utn.frc.posgrado.jnonino.MetricsProducer producer_two = new ar.edu.utn.frc.posgrado.jnonino.MetricsProducer(topic_two, id_two, startDate.getTime(), endDate.getTime(), ONE_HOUR);
             producer_two.start();
 
             String topic_three = null;
             String id_three = null;
-            MetricsProducer producer_three = new MetricsProducer(topic_three, id_three, startDate.getTime(), endDate.getTime(), SIX_HOURS);
+            ar.edu.utn.frc.posgrado.jnonino.MetricsProducer producer_three = new ar.edu.utn.frc.posgrado.jnonino.MetricsProducer(topic_three, id_three, startDate.getTime(), endDate.getTime(), SIX_HOURS);
             producer_three.start();
 
             String topic_four = null;
             String id_four = null;
-            MetricsProducer producer_four = new MetricsProducer(topic_four, id_four, startDate.getTime(), endDate.getTime(), ONE_DAY);
+            ar.edu.utn.frc.posgrado.jnonino.MetricsProducer producer_four = new ar.edu.utn.frc.posgrado.jnonino.MetricsProducer(topic_four, id_four, startDate.getTime(), endDate.getTime(), ONE_DAY);
             producer_four.start();
         }
     }

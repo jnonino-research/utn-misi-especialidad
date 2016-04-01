@@ -1,4 +1,4 @@
-package ar.edu.utn.frc.jnonino;
+package ar.edu.utn.frc.posgrado.jnonino;
 
 import com.google.gson.JsonObject;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -17,7 +17,7 @@ public class MetricsProducer extends Thread {
 
     private final KafkaProducer<Integer, JsonObject> producer;
     private final String topic;
-    private final RandomGenerator metricsGenerator;
+    private final ar.edu.utn.frc.posgrado.jnonino.RandomGenerator metricsGenerator;
     private final long startDateInMillis;
     private final long endDateInMillis;
 
@@ -41,7 +41,7 @@ public class MetricsProducer extends Thread {
         this.endDateInMillis = endDateInMillis;
         this.messageIntervalInMillis = messageIntervalInMillis;
 
-        this.metricsGenerator = RandomGenerator.getInstance();
+        this.metricsGenerator = ar.edu.utn.frc.posgrado.jnonino.RandomGenerator.getInstance();
 
         this.messageNumber = 1;
     }
