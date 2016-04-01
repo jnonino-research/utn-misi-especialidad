@@ -17,9 +17,12 @@ public class MetricsProducer extends Thread {
 
     private final KafkaProducer<Integer, JsonObject> producer;
     private final String topic;
-    private String producerId;
+    private final RandomGenerator metricsGenerator;
     private final long startDateInMillis;
     private final long endDateInMillis;
+
+    private int messageNumber;
+    private String producerId;
     private long currentTime;
     private long messageIntervalInMillis;
 
@@ -37,37 +40,40 @@ public class MetricsProducer extends Thread {
         this.startDateInMillis = startDateInMillis;
         this.endDateInMillis = endDateInMillis;
         this.messageIntervalInMillis = messageIntervalInMillis;
+
+        this.metricsGenerator = RandomGenerator.getInstance();
+
+        this.messageNumber = 1;
     }
 
     public void run() {
-        int messageNo = 1;
-
         this.currentTime = this.startDateInMillis;
         while (this.currentTime > this.endDateInMillis) {
+            JsonObject metricsMessage = new JsonObject();
 
+            long timeStamp = System.currentTimeMillis();
+            metricsMessage.addProperty("timestamp", timeStamp);
 
+            metricsMessage.addProperty("producer", producerId);
 
+            metricsMessage.addProperty("temperature", this.metricsGenerator.getTemperatureValue());
+            metricsMessage.addProperty("humidity", this.metricsGenerator.getHumidity());
+            metricsMessage.addProperty("wind_speed", this.metricsGenerator.getWindSpeed());
+            metricsMessage.addProperty("win_direction", this.metricsGenerator.getWindDirection());
+
+            ProducerRecord<Integer, JsonObject> producerRecord = new ProducerRecord<>(this.topic, this.messageNumber, metricsMessage);
+
+            try {
+                producer.send(producerRecord).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
 
             // Increment times
             this.currentTime += this.messageIntervalInMillis;
-        }
-
-
-        while (true) {
-
-            long timeStamp = System.currentTimeMillis();
-
-            JsonObject message = new JsonObject();
-            message.addProperty("timestamp", timeStamp);
-            message.addProperty("producer", producerId);
-
-
-            try {
-                producer.send(new ProducerRecord<>(topic, messageNo, message)).get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-            ++messageNo;
+            this.messageNumber += 1;
         }
     }
 }

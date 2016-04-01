@@ -1,8 +1,8 @@
 
-description = ''
-
 dependencies {
     compile group: 'org.apache.flink', name: 'flink-streaming-java_2.11', version:'1.0.0'
     compile group: 'org.apache.flink', name: 'flink-java', version:'1.0.0'
     compile group: 'org.apache.flink', name: 'flink-clients_2.11', version:'1.0.0'
+
+    testCompile "junit:junit:4.12"
 }

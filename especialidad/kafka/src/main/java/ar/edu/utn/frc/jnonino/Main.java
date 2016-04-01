@@ -22,7 +22,7 @@ public class Main {
 
         String startDateInString = "01-01-2016 00:00:00";
         Date startDate = null;
-        String endDateInString = "31-12-2016 23:59:59";
+        String endDateInString = "30-06-2016 23:59:59";
         Date endDate = null;
         try {
             startDate = sdf.parse(startDateInString);
@@ -31,15 +31,28 @@ public class Main {
             e.printStackTrace();
         }
 
-        if (startDate != null && endDate != null){
-            String topic = null;
-            String id = null;
-            MetricsProducer producer = new MetricsProducer(topic, id, startDate.getTime(), endDate.getTime(), SIX_HOURS);
+        if (startDate != null && endDate != null) {
+
+            String topic_one = null;
+            String id_one = null;
+            MetricsProducer producer_one = new MetricsProducer(topic_one, id_one, startDate.getTime(), endDate.getTime(), TEN_MINUTES);
+            producer_one.start();
+
+            String topic_two = null;
+            String id_two = null;
+            MetricsProducer producer_two = new MetricsProducer(topic_two, id_two, startDate.getTime(), endDate.getTime(), ONE_HOUR);
+            producer_two.start();
+
+            String topic_three = null;
+            String id_three = null;
+            MetricsProducer producer_three = new MetricsProducer(topic_three, id_three, startDate.getTime(), endDate.getTime(), SIX_HOURS);
+            producer_three.start();
+
+            String topic_four = null;
+            String id_four = null;
+            MetricsProducer producer_four = new MetricsProducer(topic_four, id_four, startDate.getTime(), endDate.getTime(), ONE_DAY);
+            producer_four.start();
         }
-
-
-
-
     }
 
 }
