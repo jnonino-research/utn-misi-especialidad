@@ -7,19 +7,20 @@ task wrapper(type: Wrapper) {
 }
 
 allprojects {
-    apply plugin: 'java'
 
-    group 'ar.edu.utn.frc.posgrado.jnonino'
-    version '1.0-SNAPSHOT'
 }
 
 subprojects {
+    group 'ar.edu.utn.frc.posgrado.jnonino'
+    version '1.0-SNAPSHOT'
+
+    apply plugin: 'java'
     apply plugin: 'checkstyle'
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
     apply plugin: "jacoco"
 
-    sourceCompatibility = 1.5
+    sourceCompatibility = 1.8
 
     repositories {
         mavenCentral()
@@ -28,4 +29,37 @@ subprojects {
     dependencies {
         testCompile "junit:junit:4.12"
     }
+
+    checkstyle {
+        toolVersion = '6.17'
+    }
+
+    tasks.withType(Checkstyle) {
+        ignoreFailures = true
+        configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+        reports {
+            xml.enabled = false
+            html.enabled = true
+        }
+    }
+
+    tasks.withType(Pmd) {
+        ignoreFailures = true
+        reports {
+            xml.enabled = false
+            html.enabled = true
+        }
+    }
+
+    tasks.withType(FindBugs) {
+        ignoreFailures = true
+        effort = "max"
+        reportLevel = "low"
+        reports {
+            xml.enabled = false
+            html.enabled = true
+        }
+    }
+
+    jacocoTestReport.dependsOn test
 }

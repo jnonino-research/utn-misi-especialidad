@@ -1,6 +1,3 @@
-
 dependencies {
-    compile group: 'org.apache.spark', name: 'spark-core_2.10', version:'1.6.1'
-
-    testCompile "junit:junit:4.12"
+    compile "org.apache.spark:spark-core_2.10:1.6.1"
 }

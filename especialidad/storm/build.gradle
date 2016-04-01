@@ -1,7 +1,4 @@
-
 dependencies {
-    compile group: 'org.apache.storm', name: 'storm', version:'0.10.0'
-    compile group: 'org.apache.storm', name: 'storm-core', version:'0.10.0'
-
-    testCompile "junit:junit:4.12"
+    compile "org.apache.storm:storm:0.10.0"
+    compile "org.apache.storm:storm-core:0.10.0"
 }
