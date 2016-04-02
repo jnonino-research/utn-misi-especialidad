@@ -35,23 +35,28 @@ public class Main {
 
             String topic_one = null;
             String id_one = null;
-            ar.edu.utn.frc.posgrado.jnonino.MetricsProducer producer_one = new ar.edu.utn.frc.posgrado.jnonino.MetricsProducer(topic_one, id_one, startDate.getTime(), endDate.getTime(), TEN_MINUTES);
+            MetricsProducer producer_one = new MetricsProducer(topic_one, id_one, startDate.getTime(), endDate.getTime(), ONE_MINUTE);
             producer_one.start();
 
             String topic_two = null;
             String id_two = null;
-            ar.edu.utn.frc.posgrado.jnonino.MetricsProducer producer_two = new ar.edu.utn.frc.posgrado.jnonino.MetricsProducer(topic_two, id_two, startDate.getTime(), endDate.getTime(), ONE_HOUR);
+            MetricsProducer producer_two = new MetricsProducer(topic_two, id_two, startDate.getTime(), endDate.getTime(), TEN_MINUTES);
             producer_two.start();
 
             String topic_three = null;
             String id_three = null;
-            ar.edu.utn.frc.posgrado.jnonino.MetricsProducer producer_three = new ar.edu.utn.frc.posgrado.jnonino.MetricsProducer(topic_three, id_three, startDate.getTime(), endDate.getTime(), SIX_HOURS);
+            MetricsProducer producer_three = new MetricsProducer(topic_three, id_three, startDate.getTime(), endDate.getTime(), ONE_HOUR);
             producer_three.start();
 
             String topic_four = null;
             String id_four = null;
-            ar.edu.utn.frc.posgrado.jnonino.MetricsProducer producer_four = new ar.edu.utn.frc.posgrado.jnonino.MetricsProducer(topic_four, id_four, startDate.getTime(), endDate.getTime(), ONE_DAY);
+            MetricsProducer producer_four = new MetricsProducer(topic_four, id_four, startDate.getTime(), endDate.getTime(), SIX_HOURS);
             producer_four.start();
+
+            String topic_five = null;
+            String id_five = null;
+            MetricsProducer producer_five = new MetricsProducer(topic_five, id_five, startDate.getTime(), endDate.getTime(), ONE_DAY);
+            producer_five.start();
         }
     }
 

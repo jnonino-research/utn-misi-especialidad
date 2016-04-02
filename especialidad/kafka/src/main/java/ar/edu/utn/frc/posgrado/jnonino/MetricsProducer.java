@@ -17,7 +17,7 @@ public class MetricsProducer extends Thread {
 
     private final KafkaProducer<Integer, JsonObject> producer;
     private final String topic;
-    private final ar.edu.utn.frc.posgrado.jnonino.RandomGenerator metricsGenerator;
+    private final RandomGenerator metricsGenerator;
     private final long startDateInMillis;
     private final long endDateInMillis;
 
@@ -71,7 +71,7 @@ public class MetricsProducer extends Thread {
                 e.printStackTrace();
             }
 
-            // Increment times
+            // Increment time
             this.currentTime += this.messageIntervalInMillis;
             this.messageNumber += 1;
         }
