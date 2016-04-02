@@ -82,7 +82,21 @@ public class RandomGeneratorTest {
 
     @Test
     public void getWindDirection() throws Exception {
+        boolean windDirectionNotInPossibleDirections = false;
 
+        for(int i = 0; i < AMOUNT_OF_CALLS_TO_RANDOM_METHOD; i++) {
+            String windDirection = this.randomGenerator.getWindDirection();
+            if (!this.randomGenerator.WIND_DIRECTIONS.contains(windDirection)) {
+                windDirectionNotInPossibleDirections = true;
+                break;
+            }
+        }
+        if(windDirectionNotInPossibleDirections) {
+            String message = "Random Wind Direction generator return a value not in possible directions";
+            assertTrue(message, false);
+        } else {
+            assertTrue(true);
+        }
     }
 
     private void processRandomTestsResult(String metricType, boolean greaterThanMaximum, boolean lowerThanMinimum) {
