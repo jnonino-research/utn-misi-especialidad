@@ -14,11 +14,12 @@ subprojects {
     group 'ar.edu.utn.frc.posgrado.jnonino'
     version '1.0-SNAPSHOT'
 
+    apply plugin: 'application'
     apply plugin: 'java'
     apply plugin: 'checkstyle'
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
-    apply plugin: "jacoco"
+    apply plugin: 'jacoco'
 
     sourceCompatibility = 1.8
 

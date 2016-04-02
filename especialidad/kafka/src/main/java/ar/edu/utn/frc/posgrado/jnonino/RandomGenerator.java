@@ -7,14 +7,14 @@ import java.util.*;
  */
 public class RandomGenerator {
 
-    private static final int MINUMUM_TEMPERATURE_VALUE = -15;
-    private static final int MAXIMUM_TEMPERATURE_VALUE = 45;
-    private static final int MINUMUM_HUMIDITY_VALUE = 0;
-    private static final int MAXIMUM_HUMIDITY_VALUE = 100;
-    private static final int MINUMUM_WIND_SPEED_VALUE = 0;
-    private static final int MAXIMUM_WIND_SPEED_VALUE = 400;
+    public static final int MINUMUM_TEMPERATURE_VALUE = -15;
+    public static final int MAXIMUM_TEMPERATURE_VALUE = 45;
+    public static final int MINUMUM_HUMIDITY_VALUE = 0;
+    public static final int MAXIMUM_HUMIDITY_VALUE = 100;
+    public static final int MINUMUM_WIND_SPEED_VALUE = 0;
+    public static final int MAXIMUM_WIND_SPEED_VALUE = 400;
 
-    private static final ArrayList<String> WIND_DIRECTIONS = new ArrayList<String>() {{
+    public static final ArrayList<String> WIND_DIRECTIONS = new ArrayList<String>() {{
         add("North");
         add("North East");
         add("East");
