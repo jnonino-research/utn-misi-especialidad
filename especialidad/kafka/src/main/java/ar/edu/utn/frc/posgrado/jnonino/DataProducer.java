@@ -68,6 +68,7 @@ public class DataProducer extends Thread {
         float pressure = Float.parseFloat(values.get(6));
         float windSpeed = Float.parseFloat(values.get(7));
         String windDirection = values.get(8);
+        String owner = values.get(9);
 
         boolean invalidMetric = country.equalsIgnoreCase("")
                 || state.equalsIgnoreCase("")
@@ -85,7 +86,8 @@ public class DataProducer extends Thread {
             metricsMessage.addProperty("humidity", humidity);
             metricsMessage.addProperty("pressure", pressure);
             metricsMessage.addProperty("wind_speed", windSpeed);
-            metricsMessage.addProperty("win_direction", windDirection);
+            metricsMessage.addProperty("wind_direction", windDirection);
+            metricsMessage.addProperty("owner", owner);
 //        metricsMessage.addProperty("producer", producerId);
             return metricsMessage;
         }
