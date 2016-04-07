@@ -3,6 +3,8 @@ package ar.edu.utn.frc.posgrado.jnonino;
 import com.google.gson.JsonObject;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.Arrays;
@@ -14,6 +16,8 @@ import java.util.concurrent.ExecutionException;
  * Created by Julián on 2/4/2016.
  */
 public class DataProducer extends Thread {
+
+    private static final Logger logger = LogManager.getLogger(DataProducer.class);
 
     private final KafkaProducer<Integer, JsonObject> producer;
 
@@ -44,15 +48,16 @@ public class DataProducer extends Thread {
                         e.printStackTrace();
                     }
 //                    System.out.println(metricRecord.toString());
+//                    logger.info(metricRecord.toString());
                 }
             }
             bufferedReader.close();
-            System.out.println("SUCCESS - " + count + " metric records were published.");
+            logger.info("SUCCESS - " + count + " metric records were published.");
         } catch (FileNotFoundException ex) {
-            System.out.println("Unable to open file data.txt");
+            logger.error("Unable to open file data.txt");
             ex.printStackTrace();
         } catch (IOException ex) {
-            System.out.println("Error reading file data.txt");
+            logger.error("Error reading file data.txt");
             ex.printStackTrace();
         }
     }
@@ -89,7 +94,11 @@ public class DataProducer extends Thread {
             metricsMessage.addProperty("wind_direction", windDirection);
             metricsMessage.addProperty("owner", owner);
 //        metricsMessage.addProperty("producer", producerId);
+
+            logger.info(metricsMessage.toString());
+
             return metricsMessage;
+
         }
     }
 }
