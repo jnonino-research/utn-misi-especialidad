@@ -40,15 +40,14 @@ public class DataProducer extends Thread {
                     topic.concat(metricRecord.get("state").getAsString());
                     topic.concat(metricRecord.get("city").getAsString());
                     ProducerRecord<Integer, JsonObject> producerRecord = new ProducerRecord<>(topic, count, metricRecord);
-                    try {
-                        producer.send(producerRecord).get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
-//                    System.out.println(metricRecord.toString());
-//                    logger.info(metricRecord.toString());
+//                    try {
+//                        producer.send(producerRecord).get();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    } catch (ExecutionException e) {
+//                        e.printStackTrace();
+//                    }
+                    logger.info(metricRecord.toString());
                 }
             }
             bufferedReader.close();
@@ -94,11 +93,7 @@ public class DataProducer extends Thread {
             metricsMessage.addProperty("wind_direction", windDirection);
             metricsMessage.addProperty("owner", owner);
 //        metricsMessage.addProperty("producer", producerId);
-
-            logger.info(metricsMessage.toString());
-
             return metricsMessage;
-
         }
     }
 }
