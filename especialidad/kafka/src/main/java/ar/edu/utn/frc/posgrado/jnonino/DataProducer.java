@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -40,13 +39,13 @@ public class DataProducer extends Thread {
                     topic.concat(metricRecord.get("state").getAsString());
                     topic.concat(metricRecord.get("city").getAsString());
                     ProducerRecord<Integer, JsonObject> producerRecord = new ProducerRecord<>(topic, count, metricRecord);
-//                    try {
-//                        producer.send(producerRecord).get();
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    } catch (ExecutionException e) {
-//                        e.printStackTrace();
-//                    }
+                    try {
+                        producer.send(producerRecord).get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
                     logger.info(metricRecord.toString());
                 }
             }
