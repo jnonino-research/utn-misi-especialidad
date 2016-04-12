@@ -1,3 +1,4 @@
+mainClassName = "ar.edu.utn.frc.posgrado.jnonino.Main"
 
 dependencies {
     compile "org.apache.flink:flink-streaming-java_2.11:1.0.0"

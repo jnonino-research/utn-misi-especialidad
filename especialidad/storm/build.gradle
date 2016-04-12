@@ -1,3 +1,5 @@
+mainClassName = "ar.edu.utn.frc.posgrado.jnonino.Main"
+
 dependencies {
     compile "org.apache.storm:storm:0.10.0"
     compile "org.apache.storm:storm-core:0.10.0"
