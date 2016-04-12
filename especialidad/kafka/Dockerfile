@@ -8,8 +8,8 @@ ENV JAVA_VERSION=8 \
     JDK_DOWNLOAD_URL="http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION}u${JAVA_UPDATE}-b${JAVA_BUILD}/jdk-${JAVA_VERSION}u${JAVA_UPDATE}-linux-x64.tar.gz" \
     SCALA_VERSION=2.11 \
     KAFKA_VERSION=0.9.0.1 \
+    KAFKA_DOWNLOAD_URL="http://mirrors.dcarsat.com.ar/apache/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz"
     KAFKA_HOME="/opt/kafka_${SCALA_VERSION}-{$KAFKA_VERSION}"
-
 
 RUN apk add --no-cache --virtual=build-dependencies wget ca-certificates && \
     cd "/tmp" && \
@@ -21,11 +21,12 @@ RUN apk add --no-cache --virtual=build-dependencies wget ca-certificates && \
     ln -s "$JAVA_HOME/bin/"* "/usr/bin/" && \
     rm -rf "$JAVA_HOME/"*src.zip && \
     apk del build-dependencies && \
-    rm "/tmp/"* && \
-    cd ~ && \
-    wget http://mirrors.dcarsat.com.ar/apache/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \
-    tar xzf kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
-    cd kafka_${SCALA_VERSION}-${KAFKA_VERSION} && \
+    rm "/tmp/"*
+
+RUN cd ~ && \
+    wget ${KAFKA_DOWNLOAD_URL} && \
+    tar xzf "kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz" && \
+    cd "kafka_${SCALA_VERSION}-${KAFKA_VERSION}" && \
     ./bin/zookeeper-server-start.sh config/zookeeper.properties && \
     ./bin/kafka-server-start.sh config/server.properties
 
