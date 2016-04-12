@@ -1,13 +1,14 @@
 FROM alpine:3.3
 
-ENV JAVA_VERSION=8 \
-    JAVA_UPDATE=77 \
-    JAVA_BUILD=03 \
+ENV JAVA_VERSION="8" \
+    JAVA_UPDATE="77" \
+    JAVA_BUILD="03" \
     JAVA_HOME="/usr/lib/jvm/default-jvm" \
     ORACLE_COOKIE_HEADER="Cookie: oraclelicense=accept-securebackup-cookie;" \
-    JDK_DOWNLOAD_URL="http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION}u${JAVA_UPDATE}-b${JAVA_BUILD}/jdk-${JAVA_VERSION}u${JAVA_UPDATE}-linux-x64.tar.gz" \
     SCALA_VERSION=2.11 \
-    KAFKA_VERSION=0.9.0.1 \
+    KAFKA_VERSION=0.9.0.1
+
+ENV JDK_DOWNLOAD_URL="http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION}u${JAVA_UPDATE}-b${JAVA_BUILD}/jdk-${JAVA_VERSION}u${JAVA_UPDATE}-linux-x64.tar.gz" \
     KAFKA_DOWNLOAD_URL="http://mirrors.dcarsat.com.ar/apache/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz"
 
 RUN apk add --no-cache --virtual=build-dependencies wget ca-certificates && \
