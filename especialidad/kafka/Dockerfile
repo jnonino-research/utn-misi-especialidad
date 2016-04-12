@@ -9,7 +9,6 @@ ENV JAVA_VERSION=8 \
     SCALA_VERSION=2.11 \
     KAFKA_VERSION=0.9.0.1 \
     KAFKA_DOWNLOAD_URL="http://mirrors.dcarsat.com.ar/apache/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz"
-    KAFKA_HOME="/opt/kafka_${SCALA_VERSION}-{$KAFKA_VERSION}"
 
 RUN apk add --no-cache --virtual=build-dependencies wget ca-certificates && \
     cd "/tmp" && \
