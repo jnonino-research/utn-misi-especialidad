@@ -7,7 +7,7 @@ ENV JAVA_VERSION=8 \
     ORACLE_COOKIE_HEADER="Cookie: oraclelicense=accept-securebackup-cookie;" \
     JDK_DOWNLOAD_URL="http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION}u${JAVA_UPDATE}-b${JAVA_BUILD}/jdk-${JAVA_VERSION}u${JAVA_UPDATE}-linux-x64.tar.gz" \
     SCALA_VERSION=2.11 \
-    KAFKA_VERSION=0.8.2.1 \
+    KAFKA_VERSION=0.9.0.1 \
     KAFKA_HOME="/opt/kafka_${SCALA_VERSION}-{$KAFKA_VERSION}"
 
 
@@ -21,7 +21,18 @@ RUN apk add --no-cache --virtual=build-dependencies wget ca-certificates && \
     ln -s "$JAVA_HOME/bin/"* "/usr/bin/" && \
     rm -rf "$JAVA_HOME/"*src.zip && \
     apk del build-dependencies && \
-    rm "/tmp/"*
+    rm "/tmp/"* && \
+    cd ~ && \
+    wget http://mirrors.dcarsat.com.ar/apache/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \
+    tar xzf kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
+    cd kafka_${SCALA_VERSION}-${KAFKA_VERSION} && \
+    ./bin/zookeeper-server-start.sh config/zookeeper.properties && \
+    ./bin/kafka-server-start.sh config/server.properties
+
+ADD build/lib/kafka-1.0-SNAPSHOT.jar ~/
+
+RUN cd ~ && \
+    java -jar kafka-1.0-SNAPSHOT.jar
 
 
 #RUN apk add --no-cache --virtual=build-dependencies wget ca-certificates && \
