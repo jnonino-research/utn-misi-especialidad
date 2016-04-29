@@ -1,6 +1,0 @@
-rootProject.name = 'especialidad'
-include 'kafka'
-include 'flink'
-include 'storm'
-include 'spark'
-
