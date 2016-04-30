@@ -1,6 +1,11 @@
 package ar.edu.utn.frc.posgrado.jnonino;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.IntegerSerializer;
+import org.apache.kafka.connect.json.JsonSerializer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Properties;
 
@@ -9,11 +14,25 @@ import java.util.Properties;
  */
 public class Main {
 
+    private static final Logger logger = LogManager.getLogger(Main.class);
+
     public static void main(String [ ] args) {
+
+        String kafkaHostIP = null;
+
+        if (args.length == 1) {
+            kafkaHostIP = args[0];
+        } else {
+            logger.error("Not enough params");
+            logger.error("Usage java -jar jarfile.jar <KAFKA_HOST_IP_ADDRESS>");
+            System.exit(1);
+        }
+
         Properties props = new Properties();
-        props.put("zk.connect", "127.0.0.1:2181");
-        props.put("key.serializer", "org.apache.kafka.common.serialization.IntegerSerializer");
-        props.put("value.serializer", "org.apache.kafka.connect.json.JsonSerializer");
+
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaHostIP + ":9092");
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, JsonSerializer.class.getName());
 
 //        props.put("bootstrap.servers", "localhost:9092");
 //        props.put("client.id", "DemoProducer");
