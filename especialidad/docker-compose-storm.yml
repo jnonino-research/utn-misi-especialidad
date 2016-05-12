@@ -1,29 +1,17 @@
-version: '2'
-services:
-  zookeeper:
-    image: oddpoet/zookeeper
-    hostname: zookeeper
-    command:
-      - "2181"
-    ports:
-      - "2181:2181"
-  kafka:
-    image: wurstmeister/kafka
-    hostname: kafka
-    ports:
-      - "9092:9092"
-    links:
-      - zookeeper:zk
-    environment:
-      KAFKA_ADVERTISED_HOST_NAME: 192.168.99.100
-      KAFKA_ADVERTISED_PORT: 9092
-  producer:
-    build:
-      context: ./kafka/.
-      args:
-        HOST_IP: "192.168.99.100"
-    links:
-      - kafka
+zookeeper:
+  image: wurstmeister/zookeeper:3.4.6
+  ports:
+    - "2181:2181"
+kafka:
+  image: wurstmeister/kafka:0.9.0.1
+  ports:
+    - "9092:9092"
+  links:
+    - zookeeper:zk
+  environment:
+    KAFKA_ADVERTISED_HOST_NAME: 192.168.0.107
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
 
 #nimbus:
 #  image: wurstmeister/storm-nimbus:0.9.2
