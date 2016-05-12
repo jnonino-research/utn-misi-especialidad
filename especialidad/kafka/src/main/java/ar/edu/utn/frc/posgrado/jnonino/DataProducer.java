@@ -25,28 +25,11 @@ public class DataProducer extends Thread {
             InputStream in = getClass().getResourceAsStream("/data.txt");
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
             String line = null;
-//            JsonObject metricRecord;
             int count = 0;
             while ((line = bufferedReader.readLine()) != null) {
                 count += 1;
                 ProducerRecord<Integer, String> record = new ProducerRecord<>("metrics", count, line);
                 this.producer.send(record);
-//                metricRecord = createMetricRecord(line);
-//                if (metricRecord != null) {
-//                    count += 1;
-//                    String topic = metricRecord.get("country").getAsString();
-//                    topic.concat(metricRecord.get("state").getAsString());
-//                    topic.concat(metricRecord.get("city").getAsString());
-//                    ProducerRecord<Integer, JsonObject> producerRecord = new ProducerRecord<>(topic, count, metricRecord);
-//                    try {
-//                        producer.send(producerRecord).get();
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    } catch (ExecutionException e) {
-//                        e.printStackTrace();
-//                    }
-//                    logger.info(metricRecord.toString());
-//                }
             }
             bufferedReader.close();
             logger.info("SUCCESS - " + count + " metric records were published.");
@@ -60,40 +43,4 @@ public class DataProducer extends Thread {
             producer.close();
         }
     }
-
-//    private JsonObject createMetricRecord(String line) {
-//        List<String> values = Arrays.asList(line.split("\\s*,\\s*"));
-//        String country = values.get(0);
-//        String state = values.get(1);
-//        String city = values.get(2);
-//        long timestamp = Long.parseLong(values.get(3));
-//        float temperature = Float.parseFloat(values.get(4));
-//        float humidity = Float.parseFloat(values.get(5));
-//        float pressure = Float.parseFloat(values.get(6));
-//        float windSpeed = Float.parseFloat(values.get(7));
-//        String windDirection = values.get(8);
-//        String owner = values.get(9);
-//
-//        boolean invalidMetric = country.equalsIgnoreCase("")
-//                || state.equalsIgnoreCase("")
-//                || city.equalsIgnoreCase("");
-//
-//        if (invalidMetric) {
-//            return null;
-//        } else {
-//            JsonObject metricsMessage = new JsonObject();
-//            metricsMessage.addProperty("country", country);
-//            metricsMessage.addProperty("state", state);
-//            metricsMessage.addProperty("city", city);
-//            metricsMessage.addProperty("timestamp", timestamp);
-//            metricsMessage.addProperty("temperature", temperature);
-//            metricsMessage.addProperty("humidity", humidity);
-//            metricsMessage.addProperty("pressure", pressure);
-//            metricsMessage.addProperty("wind_speed", windSpeed);
-//            metricsMessage.addProperty("wind_direction", windDirection);
-//            metricsMessage.addProperty("owner", owner);
-////        metricsMessage.addProperty("producer", producerId);
-//            return metricsMessage;
-//        }
-//    }
 }
