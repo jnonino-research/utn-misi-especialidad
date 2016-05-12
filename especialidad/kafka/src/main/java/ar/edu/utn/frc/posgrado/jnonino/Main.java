@@ -1,12 +1,12 @@
 package ar.edu.utn.frc.posgrado.jnonino;
 
+import com.google.common.io.Resources;
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.IntegerSerializer;
-import org.apache.kafka.connect.json.JsonSerializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -18,29 +18,33 @@ public class Main {
 
     public static void main(String [ ] args) {
 
-        String kafkaHostIP = null;
+        KafkaProducer<Integer, String> producer;
 
-        if (args.length == 1) {
-            kafkaHostIP = args[0];
-            logger.info("Looking for Kafka Broker at host: " + kafkaHostIP);
-        } else {
-            logger.error("Not enough param" +
-                    "s");
-            logger.error("Usage java -jar jarfile.jar <KAFKA_HOST_IP_ADDRESS>");
-            System.exit(1);
+        try {
+            try (InputStream props = Resources.getResource("producer.properties").openStream()) {
+                Properties properties = new Properties();
+                properties.load(props);
+                producer = new KafkaProducer<>(properties);
+
+                DataProducer producerThread = new DataProducer(producer);
+                producerThread.start();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        Properties props = new Properties();
 
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaHostIP + ":9092");
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class.getName());
+//        Properties props = new Properties();
+//
+//        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaHostIP + ":9092");
+//        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
+//        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class.getName());
 
 //        props.put("bootstrap.servers", "localhost:9092");
 //        props.put("client.id", "DemoProducer");
 
-        DataProducer producer = new DataProducer(new KafkaProducer<>(props));
-        producer.start();
+
+
     }
 
 }

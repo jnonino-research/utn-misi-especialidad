@@ -16,6 +16,7 @@
         <module>storm</module>
         <module>spark</module>
         <module>flink</module>
+        <module>kafka-test-consumer</module>
     </modules>
 
     <properties>
@@ -41,6 +42,13 @@
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>
                 <version>${log4j.version}</version>
+            </dependency>
+
+            <!--Google Guava-->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>19.0</version>
             </dependency>
 
             <!--Gson-->
