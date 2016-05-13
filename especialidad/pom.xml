@@ -12,11 +12,11 @@
 
     <modules>
         <module>build-tools</module>
+        <module>commons</module>
         <module>kafka</module>
         <module>storm</module>
         <module>spark</module>
         <module>flink</module>
-        <module>kafka-test-consumer</module>
     </modules>
 
     <properties>
@@ -26,13 +26,20 @@
         <slf4j.version>1.6.2</slf4j.version>
         <gson.version>2.4</gson.version>
         <kafka.version>0.9.0.1</kafka.version>
-        <storm.version>0.10.0</storm.version>
+        <storm.version>0.9.4</storm.version>
         <spark.version>1.6.1</spark.version>
         <flink.version>1.0.0</flink.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!--Own Modules-->
+            <dependency>
+                <groupId>ar.edu.utn.frc.posgrado.jnonino</groupId>
+                <artifactId>commons</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!--Log4J-->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
@@ -79,11 +86,6 @@
             <!--Storm-->
             <dependency>
                 <groupId>org.apache.storm</groupId>
-                <artifactId>storm</artifactId>
-                <version>${storm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.storm</groupId>
                 <artifactId>storm-core</artifactId>
                 <version>${storm.version}</version>
             </dependency>
@@ -92,7 +94,7 @@
             <dependency>
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-core_2.10</artifactId>
-                <version>${storm.version}</version>
+                <version>${spark.version}</version>
             </dependency>
 
             <!--Flink-->
