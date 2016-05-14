@@ -1,11 +1,14 @@
 package ar.edu.utn.frc.posgrado.jnonino;
 
 import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer082;
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer09;
 import org.apache.flink.streaming.util.serialization.SimpleStringSchema;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.util.Properties;
 
 /**
  * Created by Julián on 21/3/2016.
@@ -23,56 +26,42 @@ import org.apache.flink.streaming.util.serialization.SimpleStringSchema;
  */
 public class Main {
 
+    private static final Logger logger = LogManager.getLogger(Main.class);
+
     public static void main(String [ ] args){
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        ParameterTool parameterTool = ParameterTool.fromArgs(args);
+        String kafkaServerIP = "";
+        String topic = "";
+        if (args.length == 2) {
+            kafkaServerIP = args[0];
+            topic = args[1];
+        } else {
+            logger.error("Should run with two arguments");
+            String usage = "Usage: java -jar flink-1.0-SNAPSHOT-jar-with-dependencies.jar <KAFKA_SERVER_IP> <TOPIC>";
+            logger.error(usage);
+            System.exit(1);
+        }
 
-        FlinkKafkaConsumer082<String> flinkKafkaConsumer = new FlinkKafkaConsumer082<String>(
-                parameterTool.getRequired("topic"),
+        Properties properties = new Properties();
+        properties.setProperty("bootstrap.servers", kafkaServerIP + ":9092");
+        properties.setProperty("zookeeper.connect", kafkaServerIP + ":2181");
+        properties.setProperty("group.id", "test");
+
+        FlinkKafkaConsumer09<String> kafkaConsumer = new FlinkKafkaConsumer09<String>(
+                topic,
                 new SimpleStringSchema(),
-                parameterTool.getProperties());
+                properties);
 
-        DataStream<String> messageStream = env.addSource(flinkKafkaConsumer);
-
+        DataStream<String> messageStream = env.addSource(kafkaConsumer);
         messageStream.rebalance().map((MapFunction<String, MetricRecord>) s -> {
-            MetricRecord metricRecord = new MetricRecord(s);
-            return metricRecord;
+            return new MetricRecord(s);
         }).print();
 
-
-//        messageStream.rebalance().map(new MapFunction<String, String>() {
-//            private static final long serialVersionUID = -6867736771747690202L;
-//
-//            @Override
-//            public String map(String value) throws Exception {
-//                return "Kafka and Flink says: " + value;
-//            }
-//        }).print();
-
-
-        // Process numbers.txt file
-//        String name = ClassLoader.getSystemResource("numbers.txt").getFile();
-//        DataStream<String> text = env.readTextFile(name);
-//        DataStream<String> parsed = text.map(new MapFunction<String, String>() {
-//            public String map(String value) {
-//                return "Number: " + value;
-//            }
-//        });
-//        parsed.print();
-//
-//
-//        try {
-//            env.execute();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-
-
-
-
+        try {
+            env.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-
 }
