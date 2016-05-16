@@ -16,3 +16,5 @@ build
 target
 .gradle
 *.iml
+RemoteSystemsTempFiles
+.metadata
