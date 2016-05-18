@@ -27,24 +27,15 @@ public class Main {
 
         boolean runProducer = false;
         boolean runConsumer = false;
+        long producerRateTime = 1000;
 
-        if (args.length == 3) {
+        if (args.length == 4) {
             kafkaServerIP = args[0];
-            String enableProducer = args[1];
-            String enableConsumer = args[2];
+            String enableConsumer = args[1];
+            String enableProducer = args[2];
+            producerRateTime = Long.parseLong(args[3]);
 
             logger.info("Kafka Server Address: " + kafkaServerIP);
-
-            if (enableProducer.equals("yes")) {
-                runProducer = true;
-                logger.info("The producer will run");
-            } else if (enableProducer.equals("no")) {
-                runProducer = false;
-                logger.info("The producer will not run");
-            } else {
-                logger.error("No valid value for ENABLE_PRODUCER - Use yes or no");
-                System.exit(1);
-            }
 
             if (enableConsumer.equals("yes")) {
                 runConsumer = true;
@@ -56,12 +47,24 @@ public class Main {
                 logger.error("No valid value for ENABLE_TEST_CONSUMER - Use yes or no");
                 System.exit(1);
             }
+
+            if (enableProducer.equals("yes")) {
+                runProducer = true;
+                logger.info("The producer will run");
+            } else if (enableProducer.equals("no")) {
+                runProducer = false;
+                logger.info("The producer will not run");
+            } else {
+                logger.error("No valid value for ENABLE_PRODUCER - Use yes or no");
+                System.exit(1);
+            }
         } else {
             logger.error("Should run with three arguments");
-            String usage = "Usage: java -jar kafka-1.0-SNAPSHOT-jar-with-dependencies.jar <KAFKA_SERVER_IP> <ENABLE_PRODUCER> <ENABLE_TEST_CONSUMER>";
+            String usage = "Usage: java -jar kafka-1.0-SNAPSHOT-jar-with-dependencies.jar <KAFKA_SERVER_IP> <ENABLE_TEST_CONSUMER> <ENABLE_PRODUCER> <MESSAGE_PRODUCTION_RATE>";
             logger.error(usage);
-            logger.error("<ENABLE_PRODUCER>: <yes|no>");
             logger.error("<ENABLE_TEST_CONSUMER>: <yes|no>");
+            logger.error("<ENABLE_PRODUCER>: <yes|no>");
+            logger.error("<MESSAGE_PRODUCTION_RATE>: <long value>");
             System.exit(1);
         }
 
@@ -100,7 +103,7 @@ public class Main {
 
             producer = new KafkaProducer<>(properties);
 
-            DataProducer producerThread = new DataProducer(producer);
+            DataProducer producerThread = new DataProducer(producer, producerRateTime);
             producerThread.start();
         }
 

@@ -15,9 +15,11 @@ public class DataProducer extends Thread {
     private static final Logger logger = LogManager.getLogger(DataProducer.class);
 
     private final KafkaProducer<Integer, String> producer;
+    private long producingRateMillis = 1000;
 
-    public DataProducer(KafkaProducer<Integer, String> prod) {
+    public DataProducer(KafkaProducer<Integer, String> prod, long producingRateInMillis) {
         this.producer = prod;
+        this.producingRateMillis = producingRateInMillis;
     }
 
     public void run() {
@@ -27,6 +29,12 @@ public class DataProducer extends Thread {
             String line = null;
             int count = 0;
             while ((line = bufferedReader.readLine()) != null) {
+                try {
+                    sleep(this.producingRateMillis);
+                } catch (InterruptedException e) {
+                    logger.error("Interrupted Exception while waiting producing rate time");
+                    e.printStackTrace();
+                }
                 count += 1;
                 ProducerRecord<Integer, String> record = new ProducerRecord<>("metrics", count, line);
                 this.producer.send(record);
