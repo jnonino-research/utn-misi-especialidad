@@ -1,0 +1,3 @@
+http://thenewstack.io/apache-flink-addresses-continuous-stream-processing/
+
+http://www.confluent.io/blog/real-time-stream-processing-the-next-step-for-apache-flink/
