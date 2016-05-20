@@ -2,8 +2,8 @@ del informe.log
 del informe.lof
 del informe.toc
 del informe.aux
+del informe.out
 del informe.pdf
-pdflatex informe.tex
-bibtex informe.tex
-pdflatex informe.tex
-pdflatex informe.tex
+pdflatex informe
+bibtex informe
+pdflatex informe

@@ -5,7 +5,7 @@
 %																				%
 %		Titulo:																	%
 %																				%
-%		Autores:	Julián Nonino												%
+%		Autores:	Julian Nonino												%
 %																				%
 %	DOCUMENTO PRINCIPAL															%	
 %																				%
@@ -34,9 +34,6 @@
 	% Matematica
 		\usepackage[cmex10]{amsmath}
 		\usepackage{amssymb}
-	% Referencias
-		\usepackage[dcucite]{harvard}
-		\usepackage{hyperref}
 	% Colores
 		\usepackage{color}
 		% Definicion de colores
@@ -46,6 +43,13 @@
 			\definecolor{violeta}{RGB}{127,0,85}
 	% Insertar código
 		\usepackage{listings}
+	% URLs
+		\usepackage{url}
+	% Referencias
+		%\usepackage[dcucite]{harvard}
+		\usepackage{hyperref}
+		\usepackage[style=numeric,backend=bibtex]{biblatex}
+		\addbibresource{referencias.bib}
 
 % Margenes
 	% Controla los márgenes {izquierda}{derecha}{arriba}{abajo}
@@ -121,6 +125,7 @@
 	% APENDICES
 		\appendix
 		\part{Apéndices}
+		
 			% Nuevo proyecto en Xilinx XPS
 				%\input{./apendices/nuevos_proyectos_XPS/nuevos_proyectos_XPS}
 			% Creacion de un nuevo IP core	
@@ -138,8 +143,9 @@
 		\backmatter
 		% Referencias
 			\addcontentsline{toc}{chapter}{Bibliografía}
-			\bibliographystyle{dcu}
-			\bibliography{referencias}		
+			%\bibliographystyle{dcu}
+			%\bibliography{referencias}
+			\printbibliography
 		% Indices
 			% Indice de contenido
 				\addcontentsline{toc}{chapter}{Índice de contenido} % para que aparezca en el indice de contenidos
