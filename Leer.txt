@@ -1,3 +1,13 @@
 http://thenewstack.io/apache-flink-addresses-continuous-stream-processing/
 
 http://www.confluent.io/blog/real-time-stream-processing-the-next-step-for-apache-flink/
+
+https://ci.apache.org/projects/flink/flink-docs-release-1.0/apis/streaming/index.html
+
+https://ci.apache.org/projects/flink/flink-docs-release-1.0/apis/streaming/libs/cep.html
+
+https://www.infoq.com/articles/stream-processing-hadoop
+
+http://es.slideshare.net/sbaltagi/flink-vs-spark
+
+http://data-artisans.com/high-throughput-low-latency-and-exactly-once-stream-processing-with-apache-flink/
