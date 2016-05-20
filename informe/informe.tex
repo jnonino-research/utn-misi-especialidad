@@ -81,9 +81,9 @@
  			\end{titlepage}
  		% Resumen
  			% Resumen ejecutivo
- 				%\input{./resumen/resumen_ejecutivo}
+ 				\input{./resumen/resumen_ejecutivo}
  			% Executive Summary
- 				%\input{./resumen/executive_summary}
+ 				\input{./resumen/executive_summary}
  		% Tabla de contenido inicial
  			\shorttableofcontents{Tabla de contenido}{0}
  		
@@ -116,11 +116,11 @@
  		% Resultados y Conclusiones			
  			\part{Resultados y Conclusiones}
  				%Resultados obtenidos
- 					%\input{./resultados_conclusiones/resultados/chap_resultados}
+ 					%\input{./conclusiones/resultados/chap_resultados}
  				% Conclusiones
- 					%\input{./resultados_conclusiones/chap_conclusiones}
+ 					\input{./conclusiones/conclusiones}
  				% Trabajo futuro
- 					%\input{./resultados_conclusiones/chap_trabajo_futuro}	
+ 					\input{./conclusiones/trabajo_futuro}	
  	
 	% APENDICES
 		\appendix
@@ -139,20 +139,18 @@
 			% Códigos en C de los programas ejecutados
 				%\input{./apendices/codigos_programas/codigos_programas}
 	
-	%INICIO DE LA PARTE FINAL. Bibliografia e indices
+	%INICIO DE LA PARTE FINAL. Bibliografia e Índices
 		\backmatter
 		% Referencias
 			\addcontentsline{toc}{chapter}{Bibliografía}
-			%\bibliographystyle{dcu}
-			%\bibliography{referencias}
 			\printbibliography
 		% Indices
 			% Indice de contenido
-				\addcontentsline{toc}{chapter}{Índice de contenido} % para que aparezca en el indice de contenidos
+				\addcontentsline{toc}{chapter}{Índice de contenido}
 				\tableofcontents
 			% Índice de Figuras
 				\cleardoublepage
-				\addcontentsline{toc}{chapter}{Índice de Figuras} % para que aparezca en el indice de contenidos
-				\listoffigures % indice de Figuras
+				\addcontentsline{toc}{chapter}{Índice de Figuras}
+				\listoffigures
 
 \end{document}
