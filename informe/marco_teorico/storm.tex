@@ -16,23 +16,53 @@
 \chapter{Apache Storm}
 \label{chapter_apache_storm}
 
+Apache Storm es una herramienta de procesamiento de datos en tiempo real de
+código abierto y gratuita creada por Twitter y luego liberada en lo órbita de
+los proyectos Apache.
 
+La finalidad de Storm es proveer un mecanismo confiable para procesamiento de
+flujos de datos ilimitados, haciendo para flujos de datos (\emph{realtime
+stream processing}) lo que Hadoop hace en procesamiento por lotes (\emph{batch
+processing})\cite{ApacheStorm101}.
 
+Deacuerdo a su documentación, es capaz de procesar un millón de tuplas de datos
+por segundo por nodo. Provee características de escalabilidad, tolerancia a
+fallos, garantías de que todos los datos serán procesados, etcétera\cite{ApacheStorm101}.
 
-Apache Storm is an open source framework that provides massively scalable event
-collection. Storm was created by Twitter and is composed of other open source
-components, especially ZooKeeper for cluster management, ZeroMQ for multicast
-messaging, and Kafka for queued messaging.
+Una \emph{topología} de Storm consume flujos de datos, los procesa y genera
+nuevos flujos de datos.
 
-Storm runs in production in several deployments. Storm is in the incubator stage
-of Apache standard process - current version is 0.9.1-incubating. No
-commercial support is available today, though Storm is adopted more and more. In
-the meantime, some Hadoop vendors such as Hortonworks are adding it to their
-platform step by step. The current release of Apache Storm is a sound choice if
-you are looking for a stream processing framework. If your team wants to
-implement a custom application by coding without any license fees, then Storm is
-worth considering. Brian Bulkowski, founder of Aerospike (a company which offers
-a NoSQL database with connectors to Storm) has great introductory slides, which
-let you get a feeling about how to install, develop and run Storm applications.
-Storm website shows some reference use cases for stream processing at
-companies such as Groupon, Twitter, Spotify, HolidayCheck, Alibaba, and others.
+\section{Conceptos Básicos}
+
+	En ésta sección se analizarán los conceptos básicos que definen a un programa
+	Storm.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=.9\linewidth]{./marco_teorico/img/storm/topology}
+	\end{figure}
+	
+	\subsection{\emph{Topologies} (Topologías)}
+	
+	Las \emph{topologías} son los contenedores de la lógica de una aplicación de
+	procesamiento de datos en tiempo real. Es el análogo a un trabajo de MapReduce
+	de
+	Hadoop\footnote{https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html}.
+	La diferencia principal con éstos últimos es que un trabajo MapReduce de
+	Hadoop, eventualmente concluye mientras que las topologías pueden correr
+	indefinidamente.
+	Una topología es un grafo formado por \emph{Spouts} y \emph{Bolts} conectados a
+	través de \emph{Stream Groupings}.
+	
+	\subsection{\emph{Streams} (Flujos de Datos)}
+	
+	\subsection{\emph{Spouts} (Tuberías)}
+	
+	\subsection{\emph{Bolts} (Piezas))}
+
+	\subsection{\emph{Streams Grouping} (Agrupamientos de Flujos de Datos)}
+	
+	\subsection{\emph{Tasks} (Tareas)}
+	
+	\subsection{\emph{Workers} (Trabajadores))}
+	
