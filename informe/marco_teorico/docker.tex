@@ -62,10 +62,10 @@ red. Contenedores múltiples comparten el mismo núcleo, pero cada contenedor
 puede ser restringido a utilizar sólo una cantidad definida de recursos como
 CPU, memoria y E/S. \cite{WikipediaDocker}
 
-Usando Docker para crear y gestionar contenedores puede simplificar la creación
-de sistemas altamente distribuidos, permitiendo múltiples aplicaciones, las
-tareas de los trabajadores y otros procesos para funcionar de forma autónoma en
-una única máquina física o en varias máquinas virtuales. Esto permite que el
+Usando Docker para crear y gestionar contenedores se puede simplificar la
+creación de sistemas altamente distribuidos, permitiendo múltiples aplicaciones,
+las tareas de los trabajadores y otros procesos para funcionar de forma autónoma
+en una única máquina física o en varias máquinas virtuales. Esto permite que el
 despliegue de nodos se realice a medida que se dispone de recursos o cuando se
 necesiten más nodos, lo que permite una plataforma como servicio (PaaS -
 Plataform as a Service) de estilo de despliegue y ampliación de los sistemas
@@ -73,13 +73,105 @@ como Apache Cassandra, MongoDB o Riak. Docker también simplifica la creación y
 el funcionamiento de las tareas de carga de trabajo o las colas y otros sistemas
 distribuidos. \cite{WikipediaDocker}
 
-\section{Imagenes y Contenedores}
+\section{Imagenes y Contenedores\cite{GetStartedDocker2016}}
+	
+	Un \emph{contenedor} (container) es una version de un sistema operativo Linux,
+	solo con los componentes más básicos. Una \emph{imagen} es software que se
+	carga dentro del container al momento de ejecutar el comando \emph{run}.
+	
+\lstset{language=bash}
+\begin{lstlisting}
+docker run hello-world
+\end{lstlisting}
+	
+	El comando \emph{run} recibe como parámetro requerido el nombre de la
+	\emph{imagen} que se desea cargar en un \emph{contenedor}, en éste caso
+	\emph{hello-world}.
+	
+	Al correr dicho comando, Docker ejecuta las siguientes acciones:
+	\begin{itemize}
+	    \item Comprobar si existe en el sistema una imagen con el nombre
+	    \emph{hello-world}.
+	    \item En caso de que no exista dicha imagen en el sistema descargarla desde
+	    el repositorio de imágenes configurado, por defecto es \emph{Docker Hub},
+	    un repositorio propiedad de Docker donde existen miles de imagenes
+	    disponibles. Es posible tener repositorios privados utilizando lo que se
+	    conoce como \emph{Docker Registry}.
+	    \item Cargar la imagen en el contenedor y ejecutarla.
+	\end{itemize}
+	
+	Por otro lado, una imagen de Docker puede ejecutar un simple comando o cargar
+	un complejo sistema de base de datos.
+	
+	Para construir una imagen de Docker, es necesario crear un archivo llamado
+	\emph{Dockerfile}.
+	
+\lstset{language=bash}
+\begin{lstlisting}
+FROM ubuntu:16.04
 
+RUN apt-get -y update
 
+CMD["echo Hola"]
+\end{lstlisting}
+	
+	El Dockerfile anterior buscara una imagen de Ubuntu con la etiqueta
+	(\emph{tag}) \emph{16.04}. Luego ejecutará un comando para actualizar los
+	paquetes del sistema operativo y luego mostrará el mensaje \emph{Hola}.
 
-\section{Docker Compose}
+	El comando para construir una imagen de Docker es:
+
+\lstset{language=bash}
+\begin{lstlisting}
+docker build -t miimagen .
+\end{lstlisting}
+
+	Se ejecutará el comando \emph{build} para construir la imagen. El argumento
+	\emph{-t} indica que se le pondrá la etiqueta \emph{miimagen} a la imagen y
+	punto al final indica el directorio de contexto de la imagen, ésto es útil
+	porque se pueden agregar archivos al container al momento de construir la
+	imagen. En éste caso, el contexto será el directorio donde se encuentra el
+	Dockerfile.
+
+	Luego, es posible cargar la imagen en un contenedor mediante el comando:
+	
+\lstset{language=bash}
+\begin{lstlisting}
+docker run miimagen
+\end{lstlisting}
+
+	\subsection{Crear nuevas etiquetas}
+	
+		Para ponerle una nueva etiqueta a una imagen, primero debemos encontrar el
+		número de identificación de la imagen. Ésto se hace corriendo el comando:
+
+\lstset{language=bash}
+\begin{lstlisting}
+docker images
+\end{lstlisting}
+
+	El comando anterior, mostrará una lista de las imágenes existentes en el
+	sistema mostrando la última etiqueta de la misma, el número de identificación,
+	la fecha de creación y el tamaño de la imagen.
+	
+	Luego, para aplicarle una nueva etiqueta, se ejecuta el comando:
+	
+\lstset{language=bash}
+\begin{lstlisting}
+docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
+\end{lstlisting}	
+	
+\section{Docker Compose\cite{DockerComposeDocumentation}}
 
 	Docker Compose es una herramienta que permite correr un sistema formado por
-	múltiples contenedores.
+	múltiples contenedores. Para ello, se debe crear un archivo \emph{.yml} en el
+	que se definan los servicios con los que va a contar la aplicación. Cada
+	servicio estará formado por un contenedor corriendo una imagen de Docker.
 	
+	Para cada servicio pueden definirse nombres, puertos expuestos, conexiones de
+	red, etcétera, luego, con los siguientes comandos se puede operar con el
+	sistema.
 	
+	Para una lista completa de los comandos de Docker Compose, acceder a
+	\href{https://docs.docker.com/compose/reference/}{Docker Compose Command-Line
+	Reference}\footnote{https://docs.docker.com/compose/reference/}.
