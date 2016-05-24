@@ -42,7 +42,7 @@ nuevos flujos de datos.
 		\includegraphics[width=.9\linewidth]{./marco_teorico/img/storm/topology}
 	\end{figure}
 	
-	\subsection{\emph{Topologies} (Topologías)}
+	\subsection{Topologies}
 	
 	Las \emph{topologías} son los contenedores de la lógica de una aplicación de
 	procesamiento de datos en tiempo real. Es el análogo a un trabajo de MapReduce
@@ -54,15 +54,91 @@ nuevos flujos de datos.
 	Una topología es un grafo formado por \emph{Spouts} y \emph{Bolts} conectados a
 	través de \emph{Stream Groupings}.
 	
-	\subsection{\emph{Streams} (Flujos de Datos)}
+	\subsection{Streams}
 	
-	\subsection{\emph{Spouts} (Tuberías)}
+		Los streams son una secuencia ilimitada de tuplas de datos que son creadas y
+		procesadas de manera distribuida. Los streams se definen creando un esquema
+		que contenga todos los campos de datos de cada tupla que forma parte del
+		stream. Las tuplas pueden contener valores enteros (\emph{integer}), bytes,
+		cadenas de caracteres (\emph{strings}), valores booleanos, etcétera.
 	
-	\subsection{\emph{Bolts} (Piezas))}
+	\subsection{Spouts}
+	
+		Los spouts son la fuente de streams para la topología. Generalemente leen
+		tuplas de datos desde una fuente externa y las emiten dentro de la topología
+		para que sea procesada. Los spouts pueden ser:
+		\begin{itemize}
+		    \item \textbf{reliable} (confiable): es un spout capaz de reenviar una
+		    tupla si Storm falló en procesarla.
+		    \item \textbf{unreliable} (no confiable): el spout \emph{se olvida} de las
+		    tuplas en el momento en el que las emite hacia la topología.
+		\end{itemize}
+	
+	\subsection{Bolts}
 
-	\subsection{\emph{Streams Grouping} (Agrupamientos de Flujos de Datos)}
+		Dentro de una topología, todo el procesamiento sobre los datos es realizado en
+		los bolts. Los bolts pueden ser programados para realizar cualquier tarea como
+		filtrado, agregación, uniones con bases de datos, funciones, etcétera.
+		
+		Los bolts reciben uno o varios streams de datos y pueden emitir nuevamente uno
+		o varios de ellos.
+
+	\subsection{Stream Grouping}
 	
-	\subsection{\emph{Tasks} (Tareas)}
+		Al definir una topología, es necesaria especificar que streams debe recibir
+		como entrada cada uno de los bolts. Los \emph{stream groupings} definen como
+		los streams deben ser particionados en las tareas de cada bolt.
+		
+		Existen ocho \emph{stream groupings} predefinidos pero existe la posibilidad
+		de crear nuevos implementando la interfaz \emph{CustomStreamGrouping}.
+		\begin{itemize}
+		    \item \emph{Shuffle grouping}: Las tuplas son distribuidas
+		    aleatoriamente en las tareas de los bolts de manera tal que se
+		    garantice que todos los bolts reciben las misma cantidad de tuplas.
+		    
+		    \item \emph{Fields grouping}: El stream es particionado deacuerdo a los
+		    campos de datos que contenga la tupla. Por ejemplo, si la tupla contiene
+		    un campo llamado \emph{usuario} y se agrupa el stream por el campo
+		    \emph{usuario}, todos aquellas tuplas que tengan el mismo valor en dicho
+		    campo serán procesadas por el mismo bolt.
+		    
+		    \item \emph{Partial Key grouping}: El stream es particionado de la misma
+		    manera que en el caso de \emph{Fields grouping} solo que la carga es
+		    balanceada entre dos bolts para proporcionar una mejor utilización de los
+		    recursos.
+		    
+		    \item \emph{All grouping}: El stream de datos es replicado en TODAS las
+		    tareas de los bolts.
+		    
+		    \item \emph{Global grouping}: El stream completo es dirigido hacia una
+		    única tarea de un bolt.
+		    
+		    \item \emph{None grouping}: Al utilizar esta forma de agrupamiento, se
+		    está indicando que no es importante como el stream es dirigido hacia los
+		    bolts.
+		    
+		    \item \emph{Direct grouping}: En éste caso, el productor de la tupla de
+		    datos decide a que tarea del bolt consumidor desea enviar la tupla.
+		    
+		    \item \emph{Local grouping}: Si el bolt de destino tiene una o más tareas
+		    en el mismo proceso \emph{worker}, las tuplas irán aleatoriamente hacia
+		    alquellas tareas que estén siendo ejecutadas. En caso contrario, se
+		    comportará como un \emph{Shuffle grouping}.
+		\end{itemize}
+
+	\subsection{Tasks}
 	
-	\subsection{\emph{Workers} (Trabajadores))}
+		Cada spout o bolt ejecuta sus tareas en el cluster de Storm. Cada tarea
+		corresponde con un hilo de ejecución (\emph{thread}) y los \emph{Stream
+		groupings} definen como las tuplas viajan entre las tareas.
+		
+	\subsection{Workers}
 	
+		Las topologías corren sobre uno o más procesos \emph{worker}. Cada uno de
+		estos procesos es una JVM física que ejecuta un subconjunto de las tareas de
+		la topología.
+	
+\section{Material}
+
+	La información de éste capítulo ha sido extraída mayormente desde la
+	documentación de Apache Storm 1.0 \cite{ApacheStorm101}.
