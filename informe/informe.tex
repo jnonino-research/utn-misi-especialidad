@@ -48,7 +48,7 @@
 	% Referencias
 		%\usepackage[dcucite]{harvard}
 		\usepackage{hyperref}
-		\usepackage[style=numeric,backend=bibtex]{biblatex}
+		\usepackage[style=numeric,backend=bibtex,sorting=none]{biblatex}
 		\addbibresource{referencias.bib}
 
 % Margenes
@@ -109,14 +109,18 @@
  					\input{./marco_teorico/flink}
  		% Desarrollo
  			\part{Desarrollo}
- 				% Desarrollo e Implementación
- 					%\input{./desarrollo/diseno_implementacion/chap_diseno_implementacion}
- 				% Implementación en FPGA
- 					%\input{./desarrollo/implementacion_FPGA/chap_implementacion_fpga}
+ 				% Problema a Resolver
+ 					\input{./desarrollo/problema_planteado}
+ 				% Diseño de la Arquitectura del Sistema
+ 					\input{./desarrollo/arquitectura}
+ 				% Diseño Detallado/Implementación usando Apache Storm
+ 					\input{./desarrollo/implementacion_storm}
+ 				% Diseño Detallado/Implementación usando Apache Spark
+ 					\input{./desarrollo/implementacion_spark}
+ 				% Diseño Detallado/Implementación usando Apache Flink
+					\input{./desarrollo/implementacion_flink}
  		% Resultados y Conclusiones			
- 			\part{Resultados y Conclusiones}
- 				%Resultados obtenidos
- 					%\input{./conclusiones/resultados/chap_resultados}
+ 			\part{Conclusiones}
  				% Conclusiones
  					\input{./conclusiones/conclusiones}
  				% Trabajo futuro
@@ -146,7 +150,7 @@
 			\printbibliography
 		% Indices
 			% Indice de contenido
-				\addcontentsline{toc}{chapter}{Índice de contenido}
+				\addcontentsline{toc}{chapter}{Índice de Contenido}
 				\tableofcontents
 			% Índice de Figuras
 				\cleardoublepage
