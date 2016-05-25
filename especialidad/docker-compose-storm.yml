@@ -12,26 +12,28 @@ kafka:
     KAFKA_ADVERTISED_HOST_NAME: 192.168.0.107
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
-
-#nimbus:
-#  image: wurstmeister/storm-nimbus:0.9.2
-#  ports:
-#    - "3773:3773"
-#    - "3772:3772"
-#    - "6627:6627"
-#  links:
-#    - zookeeper:zk
-#supervisor:
-#  image: wurstmeister/storm-supervisor:0.9.2
-#  ports:
-#    - "8000:8000"
-#  links:
-#    - nimbus:nimbus
-#    - zookeeper:zk
-#ui:
-#  image: wurstmeister/storm-ui:0.9.2
-#  ports:
-#    - "8080:8080"
-#  links:
-#    - nimbus:nimbus
-#    - zookeeper:zk
+nimbus:
+  image: wurstmeister/storm-nimbus:0.9.4
+  ports:
+    - "49773:3773"
+    - "49772:3772"
+    - "49627:6627"
+    - "22"
+  links:
+    - zookeeper:zk
+supervisor:
+  image: wurstmeister/storm-supervisor:0.9.4
+  ports:
+    - "8000:8000"
+    - "22"
+  links:
+    - nimbus:nimbus
+    - zookeeper:zk
+ui:
+  image: wurstmeister/storm-ui:0.9.4
+  ports:
+    - "49080:8080"
+    - "22"
+  links:
+    - nimbus:nimbus
+    - zookeeper:zk
