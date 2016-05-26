@@ -1,0 +1,596 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%																				%
+%	TRABAJO:	Trabajo Final													%
+%				Especialidad en Ingeniería en Sistemas de Información			%
+%																				%
+%		Titulo:																	%
+%																				%
+%		Autores:	Julian Nonino												%
+%																				%
+%	Marco Teórico																%	
+%																				%
+%	Año: 2016																	%
+%																				%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Marco Teórico}
+\label{chapter_marco_teorico}
+
+\section{Procesamiento de Datos en Tiempo Real}
+\label{section_real_time}
+
+	En los últimos tiempos, la demanda de procesamiento de flujos continuos de datos
+	(data streams) se ha incrementado considerablemente. Esto se debe a que ya no es
+	suficiente con procesar grandes volúmenes de datos. Los datos, además, deben ser
+	procesados rápidamente permitiendo a los sistemas reaccionar ante los eventos lo
+	antes posible. Ejemplos de sistemas que necesitan éste nivel de procesamiento
+	son los sistemas de detección de fraude, monitoreo de recursos, comercio,
+	etcétera.
+
+	\subsection{Big Data}
+	
+		El término Big Data, muy utilizado en la actualidad, hace referencia a lo que
+		se conoce como las tres V, Volumen, Variedad y Velocidad. Con ello, se quiere
+		indicar que un sistema Big Data no solo implica trabajar con grandes volúmenes
+		de datos, sino que estos datos pueden ser muy variados y se deben procesar
+		rápidamente \cite{Wahner2014}.
+	
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=.5\linewidth]{./introduccion/img/real_time/big_data_tres_v}
+		\end{figure}
+
+	\subsection{Procesamiento de Flujos de Datos (Stream Processing)}
+		
+		Es un sistema diseñado para analizar y actuar en tiempo real un flujo continuo
+		de datos. En contraste a los modelos de procesamiento de datos tradicionales en
+		los cuales los datos son primero almacenados y luego procesados y analizados,
+		cuando se procesa un flujo de datos, los datos son procesados y analizados
+		mientras entran en el sistema. Esto permite lo que se llama procesar datos en
+		movimiento. Esto permite conectar a los procesadores de datos a fuentes de
+		datos externas introduciendo a los mismos al flujo de procesamiento.
+			
+		Una solución de procesamiento de datos en tiempo real debe ser capaz de:
+		\begin{itemize}
+		    \item Procesar cantidades enormes de datos permitiendo filtrado,
+		    agregación, predicción, alertas, reglas, etcétera.
+			\item Respuesta en tiempo real a los mensajes/eventos recibdos.
+			\item Asegurar rendimiento y escalabilidad cuando el volumen de datos crece en
+			tamaño y/o complejidad.
+			\item Integración fácil y rápida con la infraestructura y fuentes de datos
+			existentes.
+			\item Rápida implementación y puesta en producción de nuevos requisitos de
+			procesamiento.
+		\end{itemize}
+		
+	\section{Docker}
+	\label{section_docker}
+
+	Docker es un proyecto de código abierto que automatiza el despliegue de
+	aplicaciones dentro de contenedores de software, proporcionando una capa
+	adicional de abstracción y automatización de virtualización a nivel de sistema
+	operativo en Linux. Docker utiliza características de aislamiento de recursos
+	del kernel de Linux, tales como cgroups y espacios de nombres (namespaces) para
+	permitir que \emph{contenedores} independientes se ejecuten dentro de una sola
+	instancia de Linux, evitando la sobrecarga de iniciar y mantener máquinas
+	virtuales. \cite{WikipediaDocker}
+	
+	El soporte del kernel de Linux para los espacios de nombres aísla de vista, en
+	su mayoría, una aplicación del entorno operativo, incluyendo árboles de proceso,
+	red, ID de usuario y sistemas de archivos montados, mientras que los cgroups del
+	kernel proporcionan aislamiento de recursos, incluyendo la CPU, la memoria, el
+	bloque de E/S y de la red. Desde la versión 0.9, Docker incluye la librería
+	libcontainer como su propia manera de utilizar directamente las facilidades de
+	virtualización que ofrece el kernel de Linux, además de utilizar las interfaces
+	abstraídas de virtualización mediante libvirt, LXC (Linux Containers) y
+	systemd-nspawn. \cite{WikipediaDocker}
+	
+	Docker implementa una API de alto nivel para proporcionar contenedores livianos
+	que ejecutan procesos de manera aislada.
+	Construido sobre las facilidades proporcionadas por el kernel de Linux
+	(principalmente cgroups y namespaces), un contenedor Docker, a diferencia de una
+	máquina virtual, no requiere incluir un sistema operativo independiente. En su
+	lugar, se basa en las funcionalidades del kernel y utiliza el aislamiento de
+	recursos (CPU, la memoria, el bloque E/S, red, etc.) y namespaces separados
+	para aislar de vista la aplicación del sistema operativo. Docker accede a la
+	virtualización del kernel de Linux ya sea directamente a través de la biblioteca
+	libcontainer (disponible desde Docker 0.9), o indirectamente a través de
+	libvirt, LXC o systemd-nspawn. \cite{WikipediaDocker}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{./introduccion/img/docker/vm_vs_docker}
+		\caption{Contenedor Docker (derecha) versus Máquina Virtual (izquierda)
+		\cite{WhatIsDocker2016}}
+	\end{figure}
+
+	Mediante el uso de contenedores, los recursos pueden ser aislados, los servicios
+	restringidos, y se otorga a los procesos la capacidad de tener una visión casi
+	completamente privada del sistema operativo con su propio identificador de
+	espacio de proceso, la estructura del sistema de archivos, y las interfaces de
+	red. Contenedores múltiples comparten el mismo núcleo, pero cada contenedor
+	puede ser restringido a utilizar sólo una cantidad definida de recursos como
+	CPU, memoria y E/S. \cite{WikipediaDocker}
+	
+	Usando Docker para crear y gestionar contenedores se puede simplificar la
+	creación de sistemas altamente distribuidos, permitiendo múltiples aplicaciones,
+	las tareas de los trabajadores y otros procesos para funcionar de forma autónoma
+	en una única máquina física o en varias máquinas virtuales. Esto permite que el
+	despliegue de nodos se realice a medida que se dispone de recursos o cuando se
+	necesiten más nodos, lo que permite una plataforma como servicio (PaaS -
+	Plataform as a Service) de estilo de despliegue y ampliación de los sistemas
+	como Apache Cassandra, MongoDB o Riak. Docker también simplifica la creación y
+	el funcionamiento de las tareas de carga de trabajo o las colas y otros sistemas
+	distribuidos. \cite{WikipediaDocker}
+
+	\subsection{Imagenes y Contenedores\cite{GetStartedDocker2016}}
+	
+		Un \emph{contenedor} (container) es una version de un sistema operativo Linux,
+		solo con los componentes más básicos. Una \emph{imagen} es software que se
+		carga dentro del container al momento de ejecutar el comando \emph{run}.
+	
+\lstset{language=bash}
+\begin{lstlisting}
+docker run hello-world
+\end{lstlisting}
+	
+		El comando \emph{run} recibe como parámetro requerido el nombre de la
+		\emph{imagen} que se desea cargar en un \emph{contenedor}, en éste caso
+		\emph{hello-world}.
+		
+		Al correr dicho comando, Docker ejecuta las siguientes acciones:
+		\begin{itemize}
+		    \item Comprobar si existe en el sistema una imagen con el nombre
+		    \emph{hello-world}.
+		    \item En caso de que no exista dicha imagen en el sistema descargarla desde
+		    el repositorio de imágenes configurado, por defecto es \emph{Docker Hub},
+		    un repositorio propiedad de Docker donde existen miles de imagenes
+		    disponibles. Es posible tener repositorios privados utilizando lo que se
+		    conoce como \emph{Docker Registry}.
+		    \item Cargar la imagen en el contenedor y ejecutarla.
+		\end{itemize}
+		
+		Por otro lado, una imagen de Docker puede ejecutar un simple comando o cargar
+		un complejo sistema de base de datos.
+		
+		Para construir una imagen de Docker, es necesario crear un archivo llamado
+		\emph{Dockerfile}.
+	
+\lstset{language=bash}
+\begin{lstlisting}
+FROM ubuntu:16.04
+
+RUN apt-get -y update
+
+CMD["echo Hola"]
+\end{lstlisting}
+	
+		El Dockerfile anterior buscara una imagen de Ubuntu con la etiqueta
+		(\emph{tag}) \emph{16.04}. Luego ejecutará un comando para actualizar los
+		paquetes del sistema operativo y luego mostrará el mensaje \emph{Hola}.
+	
+		El comando para construir una imagen de Docker es:
+
+\lstset{language=bash}
+\begin{lstlisting}
+docker build -t miimagen .
+\end{lstlisting}
+
+		Se ejecutará el comando \emph{build} para construir la imagen. El argumento
+		\emph{-t} indica que se le pondrá la etiqueta \emph{miimagen} a la imagen y
+		punto al final indica el directorio de contexto de la imagen, ésto es útil
+		porque se pueden agregar archivos al container al momento de construir la
+		imagen. En éste caso, el contexto será el directorio donde se encuentra el
+		Dockerfile.
+	
+		Luego, es posible cargar la imagen en un contenedor mediante el comando:
+	
+\lstset{language=bash}
+\begin{lstlisting}
+docker run miimagen
+\end{lstlisting}
+
+	\subsection{Crear nuevas etiquetas}
+	
+		Para ponerle una nueva etiqueta a una imagen, primero debemos encontrar el
+		número de identificación de la imagen. Ésto se hace corriendo el comando:
+
+\lstset{language=bash}
+\begin{lstlisting}
+docker images
+\end{lstlisting}
+
+		El comando anterior, mostrará una lista de las imágenes existentes en el
+		sistema mostrando la última etiqueta de la misma, el número de identificación,
+		la fecha de creación y el tamaño de la imagen.
+		
+		Luego, para aplicarle una nueva etiqueta, se ejecuta el comando:
+	
+\lstset{language=bash}
+\begin{lstlisting}
+docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
+\end{lstlisting}	
+	
+	\subsection{Docker Compose\cite{DockerComposeDocumentation}}
+	
+		Docker Compose es una herramienta que permite correr un sistema formado por
+		múltiples contenedores. Para ello, se debe crear un archivo \emph{.yml} en el
+		que se definan los servicios con los que va a contar la aplicación. Cada
+		servicio estará formado por un contenedor corriendo una imagen de Docker.
+		
+		Para cada servicio pueden definirse nombres, puertos expuestos, conexiones de
+		red, etcétera, luego, con los siguientes comandos se puede operar con el
+		sistema.
+		
+		Para una lista completa de los comandos de Docker Compose, acceder a
+		\href{https://docs.docker.com/compose/reference/}{Docker Compose Command-Line
+		Reference}\footnote{https://docs.docker.com/compose/reference/}.
+
+	\subsection{Material}
+	
+		La información de ésta sección ha sido extraída mayormente desde la
+		documentación de Docker\cite{GetStartedDocker2016} y Docker Compose \cite{DockerComposeDocumentation}.		
+		
+\section{Apache Kafka}
+\label{section_apache_kafka}
+
+	Kafka es un sistema de mensajes distribuido, particionado y con
+	replicación\cite{ApacheKafka090}.
+
+	\begin{itemize}
+	    \item Kafka mantiene los mensajes agrupados en categorías llamadas
+	    \emph{topics.}
+		\item Los productores de mensajes se llaman \emph{producers}.
+		\item Los consumidores de mensajes se llaman \emph{consumers}.
+		\item Kafka corre en un cluster formado por uno o mas servidores. cada uno de
+		ellos es llamado \emph{broker}.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=.5\linewidth]{./introduccion/img/kafka/high_level_arch}
+		\caption{Kafka, arquitectura de alto nivel\cite{ApacheKafka090}}
+	\end{figure}
+
+	\subsection{Topics}
+	
+		Los \emph{topics} de Kafka son categorías de mensajes para los cuales Kafka
+		mantiene registros particionados.
+		
+		Cada partición es una secuencia ordenada e inmutable de mensajes. El número de
+		orden de cada mensaje es llamado \emph{offset} e identifica univocamente a cada
+		mensaje de la partición.
+		
+		Kafka mantiene los mensajes publicados por un período de tiempo configurable,
+		sin importar si fueron consumidos o no por algún proceso \emph{consumer}. Cada
+		consumidor se encarga de mantener el \emph{offset} y tiene libertad para ir
+		hacia atrás y hacia adelante en los mensajes publicados para procesarlos.
+		
+		El tener los mensajes de un \emph{topic} particionados permite separar el
+		\emph{topic} en varios servidores. Ésto permite manejar grandes volumenes de
+		datos y además otorogar un nivel superior de paralelismo.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=.5\linewidth]{./introduccion/img/kafka/kafka_topics}
+			\caption{Topics en Kafka\cite{ApacheKafka090}}
+		\end{figure}
+		
+		Cada partición está formada por un líder (\emph{leader}) que se encuentra en
+		uno de los servidores y por cero o más seguidores (\emph{followers}) que
+		replican al líder todo el tiempo en servidores distintos. Si el líder falla,
+		alguno de los seguidores se convertirá en el nuevo líder garantizando que el
+		sistema siga operando. la configuración ideal es que cada servidor sea líder de
+		alguna partición y seguidor de las otras.
+		
+	\subsection{Productores}
+		
+		Los productores en Kafka son programas encargados de publicar datos en los
+		\emph{topics}. El productor decide, para cada mensaje, el topic y la partición
+		en el cual publicarlo. Generalmente la partición es elegida siguiendo un
+		esquema \emph{round-robin} para lograr un óptimo balance de carga entre
+		particiones, pero se puede utilizar cualquier lógica.
+		
+	\subsection{Consumidores}
+	
+		Los sitemas de mensajería pueden ser clasificados en dos categorías,
+		\emph{cola de mensajes} o \emph{publicación-subscripción}. En el primero, los
+		mensajes son encolados y cada mensaje es dirigido hacia alguno de los
+		consumidores. En el segundo, cada mensaje es transmitido a todos los
+		consumidores. kafka maneja ambos mundos con lo que se conoce como grupos de
+		consumidores (\emph{consumer groups}).
+		
+		Cada consumidor debe ubicarse dentro de alguno de los grupos de consumidores y
+		cuando un mensajes es publicado en un \emph{topic}, el mensaje es transmitido a
+		un único consumidor de cada uno de los grupos de consumidores.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=.5\linewidth]{./introduccion/img/kafka/kafka_consumers}
+			\caption{Grupos de Consumidores\cite{ApacheKafka090}}
+		\end{figure}
+		
+		Si todos los consumidores se encuentran en el mismo grupo, el sistema funciona
+		como una cola de mensajes distribuyendo la carga entre cada uno de los
+		consumidores.
+		
+		Si todos los consumidores se encuentran en distintos grupos, el sistema
+		funciona como un sistema publicación-subscripción y todos los mensajes son
+		transmitidos a todos los consumidores.
+		
+	\subsection{Material}
+	
+		La información de éste capítulo ha sido extraída mayormente desde la
+		documentación de Apache Kafka 0.9 \cite{ApacheKafka090}.
+		
+\section{Apache Storm}
+\label{section_apache_storm}
+	
+	Apache Storm es una herramienta de procesamiento de datos en tiempo real de
+	código abierto y gratuita creada por Twitter y luego liberada en lo órbita de
+	los proyectos Apache.
+	
+	La finalidad de Storm es proveer un mecanismo confiable para procesamiento de
+	flujos de datos ilimitados, haciendo para flujos de datos (\emph{realtime
+	stream processing}) lo que Hadoop hace en procesamiento por lotes (\emph{batch
+	processing})\cite{ApacheStorm101}.
+	
+	Deacuerdo a su documentación, es capaz de procesar un millón de tuplas de datos
+	por segundo por nodo. Provee características de escalabilidad, tolerancia a
+	fallos, garantías de que todos los datos serán procesados, etcétera\cite{ApacheStorm101}.
+	
+	Una \emph{topología} de Storm consume flujos de datos, los procesa y genera
+	nuevos flujos de datos.
+	
+	\subsection{Conceptos Básicos}
+	
+		En ésta sección se analizarán los conceptos básicos que definen a un programa
+		Storm.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=.9\linewidth]{./introduccion/img/storm/topology}
+		\end{figure}
+		
+		\subsubsection{Topologies}
+		
+		Las \emph{topologías} son los contenedores de la lógica de una aplicación de
+		procesamiento de datos en tiempo real. Es el análogo a un trabajo de MapReduce
+		de
+		Hadoop\footnote{https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html}.
+		La diferencia principal con éstos últimos es que un trabajo MapReduce de
+		Hadoop, eventualmente concluye mientras que las topologías pueden correr
+		indefinidamente.
+		Una topología es un grafo formado por \emph{Spouts} y \emph{Bolts} conectados a
+		través de \emph{Stream Groupings}.
+		
+		\subsubsection{Streams}
+		
+			Los streams son una secuencia ilimitada de tuplas de datos que son creadas y
+			procesadas de manera distribuida. Los streams se definen creando un esquema
+			que contenga todos los campos de datos de cada tupla que forma parte del
+			stream. Las tuplas pueden contener valores enteros (\emph{integer}), bytes,
+			cadenas de caracteres (\emph{strings}), valores booleanos, etcétera.
+		
+		\subsubsection{Spouts}
+		
+			Los spouts son la fuente de streams para la topología. Generalemente leen
+			tuplas de datos desde una fuente externa y las emiten dentro de la topología
+			para que sea procesada. Los spouts pueden ser:
+			\begin{itemize}
+			    \item \textbf{reliable} (confiable): es un spout capaz de reenviar una
+			    tupla si Storm falló en procesarla.
+			    \item \textbf{unreliable} (no confiable): el spout \emph{se olvida} de las
+			    tuplas en el momento en el que las emite hacia la topología.
+			\end{itemize}
+		
+		\subsubsection{Bolts}
+	
+			Dentro de una topología, todo el procesamiento sobre los datos es realizado en
+			los bolts. Los bolts pueden ser programados para realizar cualquier tarea como
+			filtrado, agregación, uniones con bases de datos, funciones, etcétera.
+			
+			Los bolts reciben uno o varios streams de datos y pueden emitir nuevamente uno
+			o varios de ellos.
+	
+		\subsubsection{Stream Grouping}
+		
+			Al definir una topología, es necesaria especificar que streams debe recibir
+			como entrada cada uno de los bolts. Los \emph{stream groupings} definen como
+			los streams deben ser particionados en las tareas de cada bolt.
+			
+			Existen ocho \emph{stream groupings} predefinidos pero existe la posibilidad
+			de crear nuevos implementando la interfaz \emph{CustomStreamGrouping}.
+			\begin{itemize}
+			    \item \emph{Shuffle grouping}: Las tuplas son distribuidas
+			    aleatoriamente en las tareas de los bolts de manera tal que se
+			    garantice que todos los bolts reciben las misma cantidad de tuplas.
+			    
+			    \item \emph{Fields grouping}: El stream es particionado deacuerdo a los
+			    campos de datos que contenga la tupla. Por ejemplo, si la tupla contiene
+			    un campo llamado \emph{usuario} y se agrupa el stream por el campo
+			    \emph{usuario}, todos aquellas tuplas que tengan el mismo valor en dicho
+			    campo serán procesadas por el mismo bolt.
+			    
+			    \item \emph{Partial Key grouping}: El stream es particionado de la misma
+			    manera que en el caso de \emph{Fields grouping} solo que la carga es
+			    balanceada entre dos bolts para proporcionar una mejor utilización de los
+			    recursos.
+			    
+			    \item \emph{All grouping}: El stream de datos es replicado en TODAS las
+			    tareas de los bolts.
+			    
+			    \item \emph{Global grouping}: El stream completo es dirigido hacia una
+			    única tarea de un bolt.
+			    
+			    \item \emph{None grouping}: Al utilizar esta forma de agrupamiento, se
+			    está indicando que no es importante como el stream es dirigido hacia los
+			    bolts.
+			    
+			    \item \emph{Direct grouping}: En éste caso, el productor de la tupla de
+			    datos decide a que tarea del bolt consumidor desea enviar la tupla.
+			    
+			    \item \emph{Local grouping}: Si el bolt de destino tiene una o más tareas
+			    en el mismo proceso \emph{worker}, las tuplas irán aleatoriamente hacia
+			    alquellas tareas que estén siendo ejecutadas. En caso contrario, se
+			    comportará como un \emph{Shuffle grouping}.
+			\end{itemize}
+	
+		\subsubsection{Tasks}
+		
+			Cada spout o bolt ejecuta sus tareas en el cluster de Storm. Cada tarea
+			corresponde con un hilo de ejecución (\emph{thread}) y los \emph{Stream
+			groupings} definen como las tuplas viajan entre las tareas.
+			
+		\subsubsection{Workers}
+		
+			Las topologías corren sobre uno o más procesos \emph{worker}. Cada uno de
+			estos procesos es una JVM física que ejecuta un subconjunto de las tareas de
+			la topología.
+		
+	\subsection{Material}
+	
+		La información de éste capítulo ha sido extraída mayormente desde la
+		documentación de Apache Storm 1.0 \cite{ApacheStorm101}.
+		
+\section{Apache Spark}
+\label{section_apache_spark}
+
+	Spark es una herramienta de código abierto desarrollada para procesar datos de
+	manera rápida y fácil. Su desarrollo comenzó en 2009 en el AMPLab de la
+	Universidad de Berkeley, siendo liberado su código en 2010 como un proyecto
+	Apache.
+	
+	Spark provee herramientas para procesar diversos conjuntos de datos de distinta
+	naturaleza (textos, grafos, etcétera) y datos de distintas fuentes,
+	procesamiento de datos por lotes o procesamiento de un flujo de datos en tiempo
+	real.
+	
+	Las aplicaciones para Spark pueden ser escritas en Java, Scala o Python y el
+	paquete incluye mas de 80 operadores de alto nivel para trabajar con los datos.
+	Además de operaciones \emph{Map and Reduce} sobre Hadoop, soporta consultas SQL,
+	flujos de datos y \emph{Machine Learning} \cite{Penchikala2015SparkIntro}.
+	
+\section{Apache Flink}
+\label{section_apache_flink}
+
+	\subsection{Conceptos\cite{ApacheFlink10Docs}}
+	
+		Los \emph{programas Flink} son programas comunes que implementan
+		transformaciones en colecciones distribuidas, por ejemplo, filtrado,
+		correspondencia, actualización de estado, uniones, agrupamientos, agregaciones,
+		etcétera. Éstas colecciones se forman a partir de las fuentes de datos
+		(\emph{sources}). Dichas fuentes se forman leyendo archivos, conectando Flink a
+		un servidor de mensajes como Apache Kafka \ref{chapter_apache_kafka} o mediante
+		colecciones definidas localmente.
+		
+		Los resultados de la ejecución de un programa Flink son devueltos mediante el
+		uso de receptores de datos \emph{sinks}. Éstos receptores pueden consistir en
+		escritura de archivos, impresión en la consola de ejecución, etcétera.
+		
+		Los programas Flink pueden correr localmente (standalone), embebidos en otros
+		programas o en clusters.
+		
+		Dependiendo del tipo de fuente de datos (\emph{source}), es decir, acotados o
+		no acotados, el programa Flink deberá realizar una ejecución por lotes
+		(\emph{batch}) o una ejecución en tiempo real sobre el flujo de datos
+		(\emph{straming}). Para el primer caso, se deberá utilizar la
+		\textbf{\emph{DataSet API}} y para el segundo caso la \textbf{\emph{DataStream
+		API}}.
+		
+		Los bloques básicos de un programa Flink son los flujos de datos (streams) y
+		las transformaciones (operaciones).
+	
+		Al ejecutarse, un programa Flink se corresponde con lo que se conoce como
+		\emph{Streaming Dataflow}. Cada \emph{Dataflow}, comienza con una o más fuentes
+		de datos (\emph{sources}) y termina en uno o más receptores de datos
+		(\emph{sinks}).
+		En la mayoría de los casos, existe una correspondencia uno a uno entre las
+		transformaciones especificadas en el programa y las operaciones del
+		\emph{Dataflow} pero puede ocurrir que una transformación esté formada por mas
+		de un operador de transformación.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\linewidth]{./introduccion/img/flink/building_blocks}
+			\caption{Bloques Fundamentales de un Programa Flink\cite{ApacheFlink10Docs}}
+		\end{figure}
+	
+	\subsubsection{Usar Flink}
+		
+			Para escribir un programa Flink, se deben incluir las libreías Flink en el
+			proyecto, en el caso de Maven, ésto se logra insertando las siguientes líneas
+			en el pom.xml del proyecto.
+		
+\lstset{language=XML}
+\begin{lstlisting}
+<dependency>
+	<groupId>org.apache.flink</groupId>
+	<artifactId>flink-core_2.11</artifactId>
+	<version>1.0.3</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.flink</groupId>
+	<artifactId>flink-java_2.11</artifactId>
+	<version>1.0.3</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.flink</groupId>
+	<artifactId>flink-clients_2.11</artifactId>
+	<version>1.0.3</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.flink</groupId>
+	<artifactId>flink-streaming-java_2.11</artifactId>
+	<version>1.0.3</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.flink</groupId>
+	<artifactId>flink-connector-kafka-0.9_2.11</artifactId>
+	<version>1.0.3</version>
+</dependency>
+\end{lstlisting}
+	
+		\subsubsection{DataSet y DataStreams\cite{ApacheFlink10Docs}}		
+	
+			Para representar datos en un programa Flink existen dos tipos de clases
+			DataSet y DataStream. Se puede considerar que son colecciones inmutables de
+			datos que pueden contener duplicados. En el caso del DataSet la cantidad de
+			datos es finita, mientras que en un DataStream pueden ser ilimitados.
+			
+			Éstas colecciones son diferentes a las Java en el sentido de que son
+			inmutables, una vez creadas no pueden añadirse ni removerse elementos. Tampoco
+			es posible inspeccionar los elementos contenidos dentro de la colección.
+			
+			Como se menciono anteriormente, una colección DataSet o DataStream es creada
+			en el momento en que se añade una fuente de datos \emph{source} y nuevas
+			colecciones son creadas cada vez que una operación de transformación es
+			ejecutada.
+	
+		\subsubsection{Evaluación Postergada}
+		
+			Al ejecutar un programa Flink, el método \emph{main} es ejecutado pero la
+			carga de datos y las transformaciones no ocurren directamente. Cada operación
+			es creada y añadida a un plan de ejecución del programa. Las operaciones, son
+			ejecutadas cuando son exlicitamente disparada mediante el llamado del método
+			\emph{execute()} sobre el entorno de ejecución \cite{ApacheFlink10Docs}.
+	
+	
+	\subsection{Flink DataStreams}
+	
+	API Programming Guide (Source: https://ci.apache.org/projects/flink/flink-docs-release-1.0/apis/streaming/index.html)
+	
+	DataStream programs in Flink are regular programs that implement transformations
+	on data streams (e.g., filtering, updating state, defining windows,
+	aggregating). The data streams are initially created from various sources (e.g.,
+	message queues, socket streams, files). Results are returned via sinks, which
+	may for example write the data to files, or to standard output (for example the
+	command line terminal). Flink programs run in a variety of contexts, standalone,
+	or embedded in other programs. The execution can happen in a local JVM, or on
+	clusters of many machines.
+	
+	
+	\subsection{Material}
+	
+		La información de éste capítulo ha sido extraída mayormente desde la
+		documentación de Apache Flink 1.0 \cite{ApacheFlink10Docs}.
