@@ -8,7 +8,7 @@ RUN apt-get update && apt-get dist-upgrade -y
 RUN apt-get install -y zookeeper
 
 #Hacer que la consola sea el destino por defecto del log de Zookeeper
-#Originalment es un archivo
+#Originalmente es un archivo
 RUN sed -i 's/ROLLINGFILE/CONSOLE/' /etc/zookeeper/conf/environment
 
 #Iniciar Zookeeper en modo de nodo unico, requiere ejecutar la siguiente linea
@@ -16,5 +16,5 @@ RUN sed -i 's/ROLLINGFILE/CONSOLE/' /etc/zookeeper/conf/environment
 
 #Lo recomendado es que Zookeeper corrar en un cluster de al menos 3 nodos
 #El script de inicio de Zookeeper va a estar en un archivo separado para facilitar los cambios de configuracion
-ADD start.sh /usr/local/bin/
+COPY start.sh /usr/local/bin
 CMD ["/usr/local/bin/start.sh"]
