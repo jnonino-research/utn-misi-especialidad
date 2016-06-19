@@ -17,6 +17,7 @@ docker build -t jnonino/storm-base storm-base
 #### Para inciar el cluster
 
 docker-compose -f cluster.yml up
+docker-compose -f clusterV2.yml up
 
 #### Verificar que el cluster de Zookeeper esta funcionando
 Ejecutar:
