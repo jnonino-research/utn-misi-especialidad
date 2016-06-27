@@ -2,44 +2,40 @@ version: '2'
 
 services:
   zookeeper1:
-    build: ./zookeeper
     image: jnonino/zookeeper
     environment:
-      ZK_SERVERS: "server.1=192.168.0.106:2888:3888 server.2=192.168.0.106:2889:3889 server.3=192.168.0.106:2890:3890"
+      ZK_SERVERS: "server.1=192.168.0.107:2888:3888 server.2=192.168.0.107:2889:3889 server.3=192.168.0.107:2890:3890"
       ZK_ID: 1
     ports:
       - "2181:2181"
       - "2888:2888"
       - "3888:3888"
   zookeeper2:
-    build: ./zookeeper
     image: jnonino/zookeeper
     environment:
-      ZK_SERVERS: "server.1=192.168.0.106:2888:3888 server.2=192.168.0.106:2889:3889 server.3=192.168.0.106:2890:3890"
+      ZK_SERVERS: "server.1=192.168.0.107:2888:3888 server.2=192.168.0.107:2889:3889 server.3=192.168.0.107:2890:3890"
       ZK_ID: 2
     ports:
       - "2182:2181"
       - "2889:2889"
       - "3889:3889"
   zookeeper3:
-    build: ./zookeeper
     image: jnonino/zookeeper
     environment:
-      ZK_SERVERS: "server.1=192.168.0.106:2888:3888 server.2=192.168.0.106:2889:3889 server.3=192.168.0.106:2890:3890"
+      ZK_SERVERS: "server.1=192.168.0.107:2888:3888 server.2=192.168.0.107:2889:3889 server.3=192.168.0.107:2890:3890"
       ZK_ID: 3
     ports:
       - "2183:2181"
       - "2890:2890"
       - "3890:3890"
   kafka1:
-    build: ./kafka
     image: jnonino/kafka:0.9.0.1
     environment:
-      KAFKA_HEAP_OPTS: "-Xmx64M -Xms64M"
+      KAFKA_HEAP_OPTS: "-Xmx256M -Xms256M"
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: "192.168.0.106:2181,192.168.0.106:2182,192.168.0.106:2183"
+      KAFKA_ZOOKEEPER_CONNECT: "192.168.0.107:2181,192.168.0.107:2182,192.168.0.107:2183"
       KAFKA_ADVERTISED_PORT: 9092
-      KAFKA_ADVERTISED_HOST_NAME: 192.168.0.106
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.0.107
     links:
       - zookeeper1:zk1
       - zookeeper2:zk2
@@ -47,14 +43,13 @@ services:
     ports:
       - "9092:9092"
   kafka2:
-    build: ./kafka
     image: jnonino/kafka:0.9.0.1
     environment:
-      KAFKA_HEAP_OPTS: "-Xmx64M -Xms64M"
+      KAFKA_HEAP_OPTS: "-Xmx256M -Xms256M"
       KAFKA_BROKER_ID: 2
-      KAFKA_ZOOKEEPER_CONNECT: "192.168.0.106:2181,192.168.0.106:2182,192.168.0.106:2183"
+      KAFKA_ZOOKEEPER_CONNECT: "192.168.0.107:2181,192.168.0.107:2182,192.168.0.107:2183"
       KAFKA_ADVERTISED_PORT: 9093
-      KAFKA_ADVERTISED_HOST_NAME: 192.168.0.106
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.0.107
     links:
       - zookeeper1:zk1
       - zookeeper2:zk2
@@ -62,17 +57,66 @@ services:
     ports:
       - "9093:9092"
   kafka3:
-    build: ./kafka
     image: jnonino/kafka:0.9.0.1
     environment:
-      KAFKA_HEAP_OPTS: "-Xmx64M -Xms64M"
+      KAFKA_HEAP_OPTS: "-Xmx256M -Xms256M"
       KAFKA_BROKER_ID: 3
-      KAFKA_ZOOKEEPER_CONNECT: "192.168.0.106:2181,192.168.0.106:2182,192.168.0.106:2183"
+      KAFKA_ZOOKEEPER_CONNECT: "192.168.0.107:2181,192.168.0.107:2182,192.168.0.107:2183"
       KAFKA_ADVERTISED_PORT: 9094
-      KAFKA_ADVERTISED_HOST_NAME: 192.168.0.106
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.0.107
     links:
       - zookeeper1:zk1
       - zookeeper2:zk2
       - zookeeper3:zk3
     ports:
       - "9094:9092"
+#  storm-nimbus:
+#    image: jnonino/storm-nimbus:0.9.6
+#    environment:
+#      NIMBUS_HOST: 192.168.0.107
+#      ZK: 192.168.0.107
+#    links:
+#      - zookeeper1:zk1
+#      - zookeeper2:zk2
+#      - zookeeper3:zk3
+#      - kafka1:k1
+#      - kafka2:k2
+#      - kafka3:k3
+#    ports:
+#      - "3772:3772"
+#      - "3773:3773"
+#      - "6627:6627"
+#  storm-supervisor:
+#    image: jnonino/storm-supervisor:0.9.6
+#    environment:
+#      HOST_NAME: 192.168.0.107
+#      NIMBUS_HOST: 192.168.0.107
+#      ZK: 192.168.0.107
+#    links:
+#      - zookeeper1:zk1
+#      - zookeeper2:zk2
+#      - zookeeper3:zk3
+#      - kafka1:k1
+#      - kafka2:k2
+#      - kafka3:k3
+#    ports:
+#      - "6700:6700"
+#      - "6701:6701"
+#      - "6702:6702"
+#      - "6703:6703"
+#      - "8000:8000"
+#  storm-ui:
+#    image: jnonino/storm-ui:0.9.6
+#    environment:
+#      HOST_NAME: 192.168.0.107
+#      NIMBUS_HOST: 192.168.0.107
+#      ZK: "192.168.0.107:2181,192.168.0.107:2182,192.168.0.107:2183"
+#    links:
+#      - zookeeper1:zk1
+#      - zookeeper2:zk2
+#      - zookeeper3:zk3
+#      - kafka1:k1
+#      - kafka2:k2
+#      - kafka3:k3
+#    ports:
+#      - "8080:8080"

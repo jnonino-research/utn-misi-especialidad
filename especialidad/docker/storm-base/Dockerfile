@@ -1,5 +1,6 @@
 #Basar esta imagen en Ubuntu 14.04 actualizada
-FROM jnonino/ubuntu-base
+FROM jnonino/ubuntu-base:14.04
+MAINTAINER Julian Nonino <noninojulian@outlook.com>
 
 ENV STORM_VERSION 0.9.6
 
