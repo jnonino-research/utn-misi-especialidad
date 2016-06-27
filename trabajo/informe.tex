@@ -49,7 +49,7 @@
 		%\usepackage[dcucite]{harvard}
 		\usepackage{hyperref}
 		\usepackage[style=numeric,backend=bibtex,sorting=none]{biblatex}
-		\addbibresource{referencias.bib}
+		\addbibresource{./informe/referencias.bib}
 
 % Margenes
 	% Controla los márgenes {izquierda}{derecha}{arriba}{abajo}
@@ -76,14 +76,14 @@
  		\frontmatter
  		% Portada
  			\begin{titlepage}
- 				\input{./portada/portada}
+ 				\input{./informe/portada/portada}
  				\thispagestyle{empty}
  			\end{titlepage}
  		% Resumen
  			% Resumen ejecutivo
- 				\input{./resumen/resumen_ejecutivo}
+ 				\input{./informe/resumen/resumen_ejecutivo}
  			% Executive Summary
- 				\input{./resumen/executive_summary}
+ 				\input{./informe/resumen/executive_summary}
  		% Tabla de contenido inicial
  			\shorttableofcontents{Tabla de contenido}{0}
  		
@@ -92,44 +92,44 @@
  		% Introducción
  			\part{Introducción}
  				% Introducción
-					\input{./introduccion/introduccion}
+					\input{./informe/introduccion/introduccion}
 				% Marco Teórico
-					\input{./introduccion/marco_teorico}
+					\input{./informe/introduccion/marco_teorico}
  		% Desarrollo
  			\part{Desarrollo}
  				% Problema a Resolver
- 					\input{./desarrollo/problema_planteado}
+ 					\input{./informe/desarrollo/problema_planteado}
  				% Diseño de la Arquitectura del Sistema
- 					\input{./desarrollo/arquitectura}
+ 					\input{./informe/desarrollo/arquitectura}
  				% Diseño Detallado/Implementación usando Apache Storm
- 					\input{./desarrollo/implementacion_storm}
+ 					\input{./informe/desarrollo/implementacion_storm}
  				% Diseño Detallado/Implementación usando Apache Spark
- 					\input{./desarrollo/implementacion_spark}
+ 					\input{./informe/desarrollo/implementacion_spark}
  				% Diseño Detallado/Implementación usando Apache Flink
-					\input{./desarrollo/implementacion_flink}
+					\input{./informe/desarrollo/implementacion_flink}
  		% Resultados y Conclusiones			
  			\part{Conclusiones}
  				% Conclusiones
- 					\input{./conclusiones/conclusiones}
+ 					\input{./informe/conclusiones/conclusiones}
  				% Trabajo futuro
- 					\input{./conclusiones/trabajo_futuro}	
+ 					\input{./informe/conclusiones/trabajo_futuro}	
  	
 	% APENDICES
 		\appendix
 		\part{Apéndices}
 		
 			% Nuevo proyecto en Xilinx XPS
-				%\input{./apendices/nuevos_proyectos_XPS/nuevos_proyectos_XPS}
+				%\input{./informe/apendices/nuevos_proyectos_XPS/nuevos_proyectos_XPS}
 			% Creacion de un nuevo IP core	
-				%\input{./apendices/creacion_IP_core/creacion_IP_core}
+				%\input{./informe/apendices/creacion_IP_core/creacion_IP_core}
 			% Interrupciones en los IP core
-				%\input{./apendices/interrupciones/interrupciones}
+				%\input{./informe/apendices/interrupciones/interrupciones}
 			% Gestión de la metodología de desarrollo
-				%\input{./apendices/metodologia/metodologia}
+				%\input{./informe/apendices/metodologia/metodologia}
 			% Códigos en Verilog de los IP cores
-				%\input{./apendices/codigos_ipcores/codigos_ipcores}
+				%\input{./informe/apendices/codigos_ipcores/codigos_ipcores}
 			% Códigos en C de los programas ejecutados
-				%\input{./apendices/codigos_programas/codigos_programas}
+				%\input{./informe/apendices/codigos_programas/codigos_programas}
 	
 	%INICIO DE LA PARTE FINAL. Bibliografia e Índices
 		\backmatter

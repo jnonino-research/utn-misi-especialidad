@@ -18,12 +18,22 @@ public class Main {
 
     public static void main(String [ ] args) {
 
-        Broker broker = new Broker("localhost", 9092);
+        String zookeeperServerIP = "";
+        String topicName = "";
+        if (args.length == 2) {
+            zookeeperServerIP = args[0];
+            topicName = args[1];
+        } else {
+            logger.error("Should run with two arguments");
+            String usage = "Usage: java -jar storm-1.0-SNAPSHOT-jar-with-dependencies.jar <ZOOKEEPER_SERVER_IP> <TOPIC>";
+            logger.error(usage);
+            System.exit(1);
+        }
+
+        Broker broker = new Broker(zookeeperServerIP, 9092);
         GlobalPartitionInformation partitionInfo = new GlobalPartitionInformation();
         partitionInfo.addPartition(0, broker);
         StaticHosts hosts = new StaticHosts(partitionInfo);
-
-        String topicName = "";
 
         SpoutConfig spoutConfig = new SpoutConfig(hosts, topicName, "/" + topicName, UUID.randomUUID().toString());
         spoutConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
