@@ -1,0 +1,141 @@
+\section{Apache Spark}
+\label{section_apache_spark}
+
+	Spark es una herramienta de código abierto desarrollada para procesar datos de
+	manera rápida y fácil. Su desarrollo comenzó en 2009 en el AMPLab de la
+	Universidad de Berkeley, siendo liberado su código en 2010 como un proyecto
+	Apache.
+	
+	Spark provee herramientas para procesar diversos conjuntos de datos de distinta
+	naturaleza (textos, grafos, etcétera) y datos de distintas fuentes,
+	procesamiento de datos por lotes o procesamiento de un flujo de datos en tiempo
+	real.
+	
+	Las aplicaciones para Spark pueden ser escritas en Java, Scala o Python y el
+	paquete incluye mas de 80 operadores de alto nivel para trabajar con los datos.
+	Además de operaciones \emph{Map and Reduce} sobre Hadoop, soporta consultas SQL,
+	flujos de datos y \emph{Machine Learning} \cite{Penchikala2015SparkIntro}.
+	
+\section{Apache Flink}
+\label{section_apache_flink}
+
+	\subsection{Conceptos\cite{ApacheFlink10Docs}}
+	
+		Los \emph{programas Flink} son programas comunes que implementan
+		transformaciones en colecciones distribuidas, por ejemplo, filtrado,
+		correspondencia, actualización de estado, uniones, agrupamientos, agregaciones,
+		etcétera. Éstas colecciones se forman a partir de las fuentes de datos
+		(\emph{sources}). Dichas fuentes se forman leyendo archivos, conectando Flink a
+		un servidor de mensajes como Apache Kafka \ref{chapter_apache_kafka} o mediante
+		colecciones definidas localmente.
+		
+		Los resultados de la ejecución de un programa Flink son devueltos mediante el
+		uso de receptores de datos \emph{sinks}. Éstos receptores pueden consistir en
+		escritura de archivos, impresión en la consola de ejecución, etcétera.
+		
+		Los programas Flink pueden correr localmente (standalone), embebidos en otros
+		programas o en clusters.
+		
+		Dependiendo del tipo de fuente de datos (\emph{source}), es decir, acotados o
+		no acotados, el programa Flink deberá realizar una ejecución por lotes
+		(\emph{batch}) o una ejecución en tiempo real sobre el flujo de datos
+		(\emph{straming}). Para el primer caso, se deberá utilizar la
+		\textbf{\emph{DataSet API}} y para el segundo caso la \textbf{\emph{DataStream
+		API}}.
+		
+		Los bloques básicos de un programa Flink son los flujos de datos (streams) y
+		las transformaciones (operaciones).
+	
+		Al ejecutarse, un programa Flink se corresponde con lo que se conoce como
+		\emph{Streaming Dataflow}. Cada \emph{Dataflow}, comienza con una o más fuentes
+		de datos (\emph{sources}) y termina en uno o más receptores de datos
+		(\emph{sinks}).
+		En la mayoría de los casos, existe una correspondencia uno a uno entre las
+		transformaciones especificadas en el programa y las operaciones del
+		\emph{Dataflow} pero puede ocurrir que una transformación esté formada por mas
+		de un operador de transformación.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\linewidth]{./informe/introduccion/img/flink/building_blocks}
+			\caption{Bloques Fundamentales de un Programa Flink\cite{ApacheFlink10Docs}}
+		\end{figure}
+	
+	\subsubsection{Usar Flink}
+		
+			Para escribir un programa Flink, se deben incluir las libreías Flink en el
+			proyecto, en el caso de Maven, ésto se logra insertando las siguientes líneas
+			en el pom.xml del proyecto.
+		
+\lstset{language=XML}
+\begin{lstlisting}
+<dependency>
+	<groupId>org.apache.flink</groupId>
+	<artifactId>flink-core_2.11</artifactId>
+	<version>1.0.3</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.flink</groupId>
+	<artifactId>flink-java_2.11</artifactId>
+	<version>1.0.3</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.flink</groupId>
+	<artifactId>flink-clients_2.11</artifactId>
+	<version>1.0.3</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.flink</groupId>
+	<artifactId>flink-streaming-java_2.11</artifactId>
+	<version>1.0.3</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.flink</groupId>
+	<artifactId>flink-connector-kafka-0.9_2.11</artifactId>
+	<version>1.0.3</version>
+</dependency>
+\end{lstlisting}
+	
+		\subsubsection{DataSet y DataStreams\cite{ApacheFlink10Docs}}		
+	
+			Para representar datos en un programa Flink existen dos tipos de clases
+			DataSet y DataStream. Se puede considerar que son colecciones inmutables de
+			datos que pueden contener duplicados. En el caso del DataSet la cantidad de
+			datos es finita, mientras que en un DataStream pueden ser ilimitados.
+			
+			Éstas colecciones son diferentes a las Java en el sentido de que son
+			inmutables, una vez creadas no pueden añadirse ni removerse elementos. Tampoco
+			es posible inspeccionar los elementos contenidos dentro de la colección.
+			
+			Como se menciono anteriormente, una colección DataSet o DataStream es creada
+			en el momento en que se añade una fuente de datos \emph{source} y nuevas
+			colecciones son creadas cada vez que una operación de transformación es
+			ejecutada.
+	
+		\subsubsection{Evaluación Postergada}
+		
+			Al ejecutar un programa Flink, el método \emph{main} es ejecutado pero la
+			carga de datos y las transformaciones no ocurren directamente. Cada operación
+			es creada y añadida a un plan de ejecución del programa. Las operaciones, son
+			ejecutadas cuando son exlicitamente disparada mediante el llamado del método
+			\emph{execute()} sobre el entorno de ejecución \cite{ApacheFlink10Docs}.
+	
+	
+	\subsection{Flink DataStreams}
+	
+	API Programming Guide (Source: https://ci.apache.org/projects/flink/flink-docs-release-1.0/apis/streaming/index.html)
+	
+	DataStream programs in Flink are regular programs that implement transformations
+	on data streams (e.g., filtering, updating state, defining windows,
+	aggregating). The data streams are initially created from various sources (e.g.,
+	message queues, socket streams, files). Results are returned via sinks, which
+	may for example write the data to files, or to standard output (for example the
+	command line terminal). Flink programs run in a variety of contexts, standalone,
+	or embedded in other programs. The execution can happen in a local JVM, or on
+	clusters of many machines.
+	
+	
+	\subsection{Material}
+	
+		La información de éste capítulo ha sido extraída mayormente desde la
+		documentación de Apache Flink 1.0 \cite{ApacheFlink10Docs}.

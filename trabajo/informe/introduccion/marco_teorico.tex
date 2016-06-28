@@ -5,7 +5,7 @@
 %																				%
 %		Titulo:																	%
 %																				%
-%		Autores:	Julian Nonino												%
+%		Autor:	Julián Nonino													%
 %																				%
 %	Marco Teórico																%	
 %																				%
@@ -19,13 +19,13 @@
 \section{Procesamiento de Datos en Tiempo Real}
 \label{section_real_time}
 
-	En los últimos tiempos, la demanda de procesamiento de flujos continuos de datos
-	(data streams) se ha incrementado considerablemente. Esto se debe a que ya no es
-	suficiente con procesar grandes volúmenes de datos. Los datos, además, deben ser
-	procesados rápidamente permitiendo a los sistemas reaccionar ante los eventos lo
-	antes posible. Ejemplos de sistemas que necesitan éste nivel de procesamiento
-	son los sistemas de detección de fraude, monitoreo de recursos, comercio,
-	etcétera.
+	En los últimos tiempos, la demanda de procesamiento de flujos continuos de
+	datos (data streams) se ha incrementado considerablemente. Esto se debe a que
+	ya no es suficiente con procesar grandes volúmenes de datos. Los datos, además,
+	deben ser procesados rápidamente permitiendo a los sistemas reaccionar ante los
+	eventos lo antes posible. Ejemplos de sistemas que necesitan éste nivel de
+	procesamiento son los sistemas de detección de fraude, monitoreo de recursos,
+	comercio, etcétera.
 
 	\subsection{Big Data}
 	
@@ -46,9 +46,9 @@
 		de datos. En contraste a los modelos de procesamiento de datos tradicionales en
 		los cuales los datos son primero almacenados y luego procesados y analizados,
 		cuando se procesa un flujo de datos, los datos son procesados y analizados
-		mientras entran en el sistema. Esto permite lo que se llama procesar datos en
-		movimiento. Esto permite conectar a los procesadores de datos a fuentes de
-		datos externas introduciendo a los mismos al flujo de procesamiento.
+		mientras entran en el sistema. Esto se conoce como procesar datos en movimiento.
+		Esto permite conectar a los procesadores de datos a fuentes de datos externas
+		introduciendo a los mismos al flujo de procesamiento.
 			
 		Una solución de procesamiento de datos en tiempo real debe ser capaz de:
 		\begin{itemize}
@@ -63,8 +63,8 @@
 			procesamiento.
 		\end{itemize}
 		
-	\section{Docker}
-	\label{section_docker}
+\section{Docker}
+\label{section_docker}
 
 	Docker es un proyecto de código abierto que automatiza el despliegue de
 	aplicaciones dentro de contenedores de software, proporcionando una capa
@@ -75,6 +75,14 @@
 	instancia de Linux, evitando la sobrecarga de iniciar y mantener máquinas
 	virtuales. \cite{WikipediaDocker}
 	
+	Docker implementa una API de alto nivel para proporcionar contenedores livianos
+	que ejecutan procesos de manera aislada.
+	Construido sobre las facilidades proporcionadas por el kernel de Linux (nombradas
+	anteriorment), un \emph{contenedor} Docker, a diferencia de una máquina virtual, no
+	requiere incluir un sistema operativo independiente. En su lugar, se basa en las
+	funcionalidades del kernel y utiliza el aislamiento de recursos y namespaces
+	separados para aislar de vista la aplicación del sistema operativo.\cite{WikipediaDocker}
+
 	El soporte del kernel de Linux para los espacios de nombres aísla de vista, en
 	su mayoría, una aplicación del entorno operativo, incluyendo árboles de proceso,
 	red, ID de usuario y sistemas de archivos montados, mientras que los cgroups del
@@ -84,18 +92,6 @@
 	virtualización que ofrece el kernel de Linux, además de utilizar las interfaces
 	abstraídas de virtualización mediante libvirt, LXC (Linux Containers) y
 	systemd-nspawn. \cite{WikipediaDocker}
-	
-	Docker implementa una API de alto nivel para proporcionar contenedores livianos
-	que ejecutan procesos de manera aislada.
-	Construido sobre las facilidades proporcionadas por el kernel de Linux
-	(principalmente cgroups y namespaces), un contenedor Docker, a diferencia de una
-	máquina virtual, no requiere incluir un sistema operativo independiente. En su
-	lugar, se basa en las funcionalidades del kernel y utiliza el aislamiento de
-	recursos (CPU, la memoria, el bloque E/S, red, etc.) y namespaces separados
-	para aislar de vista la aplicación del sistema operativo. Docker accede a la
-	virtualización del kernel de Linux ya sea directamente a través de la biblioteca
-	libcontainer (disponible desde Docker 0.9), o indirectamente a través de
-	libvirt, LXC o systemd-nspawn. \cite{WikipediaDocker}
 
 	\begin{figure}[H]
 		\centering
@@ -113,21 +109,18 @@
 	CPU, memoria y E/S. \cite{WikipediaDocker}
 	
 	Usando Docker para crear y gestionar contenedores se puede simplificar la
-	creación de sistemas altamente distribuidos, permitiendo múltiples aplicaciones,
-	las tareas de los trabajadores y otros procesos para funcionar de forma autónoma
-	en una única máquina física o en varias máquinas virtuales. Esto permite que el
-	despliegue de nodos se realice a medida que se dispone de recursos o cuando se
-	necesiten más nodos, lo que permite una plataforma como servicio (PaaS -
-	Plataform as a Service) de estilo de despliegue y ampliación de los sistemas
-	como Apache Cassandra, MongoDB o Riak. Docker también simplifica la creación y
-	el funcionamiento de las tareas de carga de trabajo o las colas y otros sistemas
-	distribuidos. \cite{WikipediaDocker}
+	creación de sistemas altamente distribuidos, permitiendo múltiples aplicaciones
+	funcionar de forma autónoma en una única máquina física o en varias máquinas
+	virtuales. Esto permite que el despliegue de nodos se realice a medida que se
+	dispone de recursos o cuando se necesiten, lo que se conoce como un estilo
+	de desplieque \emph{Plataforma como Servicio} (\emph{PaaS - Plataform as a
+	Service}).\cite{WikipediaDocker}
 
 	\subsection{Imagenes y Contenedores\cite{GetStartedDocker2016}}
 	
-		Un \emph{contenedor} (container) es una version de un sistema operativo Linux,
-		solo con los componentes más básicos. Una \emph{imagen} es software que se
-		carga dentro del container al momento de ejecutar el comando \emph{run}.
+		Un \emph{contenedor} (\emph{container}) es una version de un sistema operativo
+		Linux, solo con los componentes más básicos. Una \emph{imagen} es software que se
+		carga dentro del contenedor al momento de ejecutar el comando \emph{run}.
 	
 \lstset{language=bash}
 \begin{lstlisting}
@@ -140,20 +133,20 @@ docker run hello-world
 		
 		Al correr dicho comando, Docker ejecuta las siguientes acciones:
 		\begin{itemize}
-		    \item Comprobar si existe en el sistema una imagen con el nombre
+		    \item Comprobar si existe en el sistema una \emph{imagen} con el nombre
 		    \emph{hello-world}.
-		    \item En caso de que no exista dicha imagen en el sistema descargarla desde
+		    \item En caso de que no exista dicha \emph{imagen} en el sistema descargarla desde
 		    el repositorio de imágenes configurado, por defecto es \emph{Docker Hub},
 		    un repositorio propiedad de Docker donde existen miles de imagenes
 		    disponibles. Es posible tener repositorios privados utilizando lo que se
 		    conoce como \emph{Docker Registry}.
-		    \item Cargar la imagen en el contenedor y ejecutarla.
+		    \item Cargar la \emph{imagen} en el \emph{contenedor} y ejecutarla.
 		\end{itemize}
 		
-		Por otro lado, una imagen de Docker puede ejecutar un simple comando o cargar
-		un complejo sistema de base de datos.
+		Por otro lado, una \emph{imagen} de Docker puede ejecutar un simple comando o
+		cargar un complejo sistema de base de datos.
 		
-		Para construir una imagen de Docker, es necesario crear un archivo llamado
+		Para construir una \emph{imagen} de Docker, es necesario crear un archivo llamado
 		\emph{Dockerfile}.
 	
 \lstset{language=bash}
@@ -165,11 +158,11 @@ RUN apt-get -y update
 CMD["echo Hola"]
 \end{lstlisting}
 	
-		El Dockerfile anterior buscara una imagen de Ubuntu con la etiqueta
+		El Dockerfile anterior buscara una \emph{imagen} de Ubuntu con la etiqueta
 		(\emph{tag}) \emph{16.04}. Luego ejecutará un comando para actualizar los
-		paquetes del sistema operativo y luego mostrará el mensaje \emph{Hola}.
+		paquetes del sistema operativo y finalmente mostrará el mensaje \emph{Hola}.
 	
-		El comando para construir una imagen de Docker es:
+		El comando para construir una \emph{imagen} de Docker es:
 
 \lstset{language=bash}
 \begin{lstlisting}
@@ -177,13 +170,13 @@ docker build -t miimagen .
 \end{lstlisting}
 
 		Se ejecutará el comando \emph{build} para construir la imagen. El argumento
-		\emph{-t} indica que se le pondrá la etiqueta \emph{miimagen} a la imagen y
-		punto al final indica el directorio de contexto de la imagen, ésto es útil
-		porque se pueden agregar archivos al container al momento de construir la
-		imagen. En éste caso, el contexto será el directorio donde se encuentra el
-		Dockerfile.
+		\emph{-t} indica que se le pondrá la etiqueta \emph{miimagen} a la \emph{imagen}
+		y punto al final indica el directorio de contexto de la \emph{imagen}, esto
+		permite agregarle archivos al momento de construirla. En éste caso, el contexto
+		será el directorio donde se encuentra el Dockerfile.
 	
-		Luego, es posible cargar la imagen en un contenedor mediante el comando:
+		Luego, es posible cargar la \emph{imagen} en un \emph{contenedor} mediante el
+		comando:
 	
 \lstset{language=bash}
 \begin{lstlisting}
@@ -192,8 +185,9 @@ docker run miimagen
 
 	\subsection{Crear nuevas etiquetas}
 	
-		Para ponerle una nueva etiqueta a una imagen, primero debemos encontrar el
-		número de identificación de la imagen. Ésto se hace corriendo el comando:
+		Para ponerle una nueva etiqueta a una \emph{imagen}, primero debemos encontrar
+		el número de identificación de la \emph{imagen}. Ésto se hace corriendo el
+		comando:
 
 \lstset{language=bash}
 \begin{lstlisting}
@@ -216,7 +210,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		Docker Compose es una herramienta que permite correr un sistema formado por
 		múltiples contenedores. Para ello, se debe crear un archivo \emph{.yml} en el
 		que se definan los servicios con los que va a contar la aplicación. Cada
-		servicio estará formado por un contenedor corriendo una imagen de Docker.
+		servicio estará formado por un \emph{contenedor} corriendo una \emph{imagen} de Docker.
 		
 		Para cada servicio pueden definirse nombres, puertos expuestos, conexiones de
 		red, etcétera, luego, con los siguientes comandos se puede operar con el
@@ -230,6 +224,11 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 	
 		La información de ésta sección ha sido extraída mayormente desde la
 		documentación de Docker\cite{GetStartedDocker2016} y Docker Compose \cite{DockerComposeDocumentation}.		
+		
+\section{Apache Zookeeper}
+\label{section_apache_zookeeper}
+
+		
 		
 \section{Apache Kafka}
 \label{section_apache_kafka}
@@ -452,145 +451,3 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 	
 		La información de éste capítulo ha sido extraída mayormente desde la
 		documentación de Apache Storm 1.0 \cite{ApacheStorm101}.
-		
-\section{Apache Spark}
-\label{section_apache_spark}
-
-	Spark es una herramienta de código abierto desarrollada para procesar datos de
-	manera rápida y fácil. Su desarrollo comenzó en 2009 en el AMPLab de la
-	Universidad de Berkeley, siendo liberado su código en 2010 como un proyecto
-	Apache.
-	
-	Spark provee herramientas para procesar diversos conjuntos de datos de distinta
-	naturaleza (textos, grafos, etcétera) y datos de distintas fuentes,
-	procesamiento de datos por lotes o procesamiento de un flujo de datos en tiempo
-	real.
-	
-	Las aplicaciones para Spark pueden ser escritas en Java, Scala o Python y el
-	paquete incluye mas de 80 operadores de alto nivel para trabajar con los datos.
-	Además de operaciones \emph{Map and Reduce} sobre Hadoop, soporta consultas SQL,
-	flujos de datos y \emph{Machine Learning} \cite{Penchikala2015SparkIntro}.
-	
-\section{Apache Flink}
-\label{section_apache_flink}
-
-	\subsection{Conceptos\cite{ApacheFlink10Docs}}
-	
-		Los \emph{programas Flink} son programas comunes que implementan
-		transformaciones en colecciones distribuidas, por ejemplo, filtrado,
-		correspondencia, actualización de estado, uniones, agrupamientos, agregaciones,
-		etcétera. Éstas colecciones se forman a partir de las fuentes de datos
-		(\emph{sources}). Dichas fuentes se forman leyendo archivos, conectando Flink a
-		un servidor de mensajes como Apache Kafka \ref{chapter_apache_kafka} o mediante
-		colecciones definidas localmente.
-		
-		Los resultados de la ejecución de un programa Flink son devueltos mediante el
-		uso de receptores de datos \emph{sinks}. Éstos receptores pueden consistir en
-		escritura de archivos, impresión en la consola de ejecución, etcétera.
-		
-		Los programas Flink pueden correr localmente (standalone), embebidos en otros
-		programas o en clusters.
-		
-		Dependiendo del tipo de fuente de datos (\emph{source}), es decir, acotados o
-		no acotados, el programa Flink deberá realizar una ejecución por lotes
-		(\emph{batch}) o una ejecución en tiempo real sobre el flujo de datos
-		(\emph{straming}). Para el primer caso, se deberá utilizar la
-		\textbf{\emph{DataSet API}} y para el segundo caso la \textbf{\emph{DataStream
-		API}}.
-		
-		Los bloques básicos de un programa Flink son los flujos de datos (streams) y
-		las transformaciones (operaciones).
-	
-		Al ejecutarse, un programa Flink se corresponde con lo que se conoce como
-		\emph{Streaming Dataflow}. Cada \emph{Dataflow}, comienza con una o más fuentes
-		de datos (\emph{sources}) y termina en uno o más receptores de datos
-		(\emph{sinks}).
-		En la mayoría de los casos, existe una correspondencia uno a uno entre las
-		transformaciones especificadas en el programa y las operaciones del
-		\emph{Dataflow} pero puede ocurrir que una transformación esté formada por mas
-		de un operador de transformación.
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=1\linewidth]{./informe/introduccion/img/flink/building_blocks}
-			\caption{Bloques Fundamentales de un Programa Flink\cite{ApacheFlink10Docs}}
-		\end{figure}
-	
-	\subsubsection{Usar Flink}
-		
-			Para escribir un programa Flink, se deben incluir las libreías Flink en el
-			proyecto, en el caso de Maven, ésto se logra insertando las siguientes líneas
-			en el pom.xml del proyecto.
-		
-\lstset{language=XML}
-\begin{lstlisting}
-<dependency>
-	<groupId>org.apache.flink</groupId>
-	<artifactId>flink-core_2.11</artifactId>
-	<version>1.0.3</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.flink</groupId>
-	<artifactId>flink-java_2.11</artifactId>
-	<version>1.0.3</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.flink</groupId>
-	<artifactId>flink-clients_2.11</artifactId>
-	<version>1.0.3</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.flink</groupId>
-	<artifactId>flink-streaming-java_2.11</artifactId>
-	<version>1.0.3</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.flink</groupId>
-	<artifactId>flink-connector-kafka-0.9_2.11</artifactId>
-	<version>1.0.3</version>
-</dependency>
-\end{lstlisting}
-	
-		\subsubsection{DataSet y DataStreams\cite{ApacheFlink10Docs}}		
-	
-			Para representar datos en un programa Flink existen dos tipos de clases
-			DataSet y DataStream. Se puede considerar que son colecciones inmutables de
-			datos que pueden contener duplicados. En el caso del DataSet la cantidad de
-			datos es finita, mientras que en un DataStream pueden ser ilimitados.
-			
-			Éstas colecciones son diferentes a las Java en el sentido de que son
-			inmutables, una vez creadas no pueden añadirse ni removerse elementos. Tampoco
-			es posible inspeccionar los elementos contenidos dentro de la colección.
-			
-			Como se menciono anteriormente, una colección DataSet o DataStream es creada
-			en el momento en que se añade una fuente de datos \emph{source} y nuevas
-			colecciones son creadas cada vez que una operación de transformación es
-			ejecutada.
-	
-		\subsubsection{Evaluación Postergada}
-		
-			Al ejecutar un programa Flink, el método \emph{main} es ejecutado pero la
-			carga de datos y las transformaciones no ocurren directamente. Cada operación
-			es creada y añadida a un plan de ejecución del programa. Las operaciones, son
-			ejecutadas cuando son exlicitamente disparada mediante el llamado del método
-			\emph{execute()} sobre el entorno de ejecución \cite{ApacheFlink10Docs}.
-	
-	
-	\subsection{Flink DataStreams}
-	
-	API Programming Guide (Source: https://ci.apache.org/projects/flink/flink-docs-release-1.0/apis/streaming/index.html)
-	
-	DataStream programs in Flink are regular programs that implement transformations
-	on data streams (e.g., filtering, updating state, defining windows,
-	aggregating). The data streams are initially created from various sources (e.g.,
-	message queues, socket streams, files). Results are returned via sinks, which
-	may for example write the data to files, or to standard output (for example the
-	command line terminal). Flink programs run in a variety of contexts, standalone,
-	or embedded in other programs. The execution can happen in a local JVM, or on
-	clusters of many machines.
-	
-	
-	\subsection{Material}
-	
-		La información de éste capítulo ha sido extraída mayormente desde la
-		documentación de Apache Flink 1.0 \cite{ApacheFlink10Docs}.

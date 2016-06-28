@@ -1,0 +1,24 @@
+WIP			Introduccion
+NS				Objetivos
+WIP				Marco Teorico
+DONE				Sistmas de Procesamiento de Datos en Tiempo Real
+DONE				Docker
+DONE					Docker Images
+DONE					Docker Containers
+DONE					Docker Compose
+NS					Zookeeper
+WIP					Kafka
+WIP					Storm
+NS			Desarrollo
+NS				Arquitectura del sistema
+NS				Imagenes de Docker
+NS					Zookeeper
+NS					Kafka
+NS					Storm
+NS				El software
+NS					Productor para Kafka
+NS					Topología para Storm
+NS			Resultados y Conclusiones
+NS				Resultados
+NS				Conclusiones
+NS				Trabajo Futuro
