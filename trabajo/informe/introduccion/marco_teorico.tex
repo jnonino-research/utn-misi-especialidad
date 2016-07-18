@@ -228,8 +228,110 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 \section{Apache Zookeeper}
 \label{section_apache_zookeeper}
 
+	Apache Zookeeper es un servicio de coordinación de alto rendimiento para
+	aplicaciones distribuidas. Expone servicios comunes, tales como nomenclatura,
+	manejo de las configuraciones, sincronización, etcétera. Entre otras funciones,
+	se utiliza para implementar consenso, manejar grupos, elección de nodo líder,
+	protocolos de presencia.
 	
+	Generalmente, los sistemas de coordinación son muy propensos a errores como
+	condiciones de carrera y puntos muertos (\emph{deadlocks}). Zookeeper fue creado
+	para que las aplicaciones distribuidas ya no necesiten implementar desde cero los
+	servicios de sincronización.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{./informe/introduccion/img/zookeeper/ZookeeperService}
+		\caption{Arquitectura de un servicio Zookeeper\cite{Zookeeper348}}
+	\end{figure}
+	
+	Deacuerdo a la documentación de Zookeeper, fué diseñado bajo estos cuatro
+	pilares\cite{Zookeeper348}:
+	\begin{itemize}
+	    \item \emph{simplicidad}: Zookeeper permite la sincronización entre procesos
+	    distribuidos a través de un espacio de nombres jerárquico compartido que se
+	    encuentra organizado de manera similar a un sistema de archivos. El espacio
+	    de nombres consiste en registros de datos (llamados \emph{znodes}) muy
+	    similares a archivos y directorios.
+	    \item \emph{replicación}: Como las aplicaciones distribuidas que coordina,
+	    Zookeeper también esta diseñado para ser ejecutado de manera distribuida en
+	    un conjunto de servidores. Cada uno de ellos mantiene en memoria una imagen
+	    de estado con los registros de las transacciones y además, guarda capturas en
+	    un almacenamiento permanente. Mientras la mayoría de los servidores siga
+	    funcionando, Zookeeper seguirá funcionando.
+	    
+	    Cada cliente, se conecta a un único servidor de Zookeeper y mantiene una
+	    conexión TCP a través de la cual envía solicitudes, obtiene las respuestas
+	    y obtiene mensajes de eventos. Si dicha conexión deja de funcionar, el
+	    cliente se conectará a un servidor distinto.
+	    \item \emph{orden}: Cada actualización en Zookeeper es marcada con un número
+	    que refleja el orden de cada una de las transacciones.
+	    \item \emph{rapidez}: Zookeeper es muy rápido para entornos con cargas de
+	    trabajo de muchas lecturas. Su rendimiento es mucho mejor donde las lecturas
+	    de datos son más comunes a las escrituras de datos, a una relación de 10 a 1.	    
+ 	\end{itemize}
+ 	
+ 	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{./informe/introduccion/img/zookeeper/ZookeeperPerformanceRW}
+		\caption{Rendimiento de Zookeeper mostrando escrituras
+		versus lecturas\cite{Zookeeper348}}
+	\end{figure}
+	
+	\subsection{El espacio de nombres y el modelo de datos}
 		
+		El espacio de nombres de Zookeeper es muy similar a un sistema de archivos. Cada
+		nombre es una secuencia de elementos de direcciones (\emph{paths}) separadas por
+		una barra (\emph{/}) Cada nodo es identificado por una dirección.
+				
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\linewidth]{./informe/introduccion/img/zookeeper/ZookeeperNamespace}
+			\caption{El espacio de nombres jerárquico de Zookeeper\cite{Zookeeper348}}
+		\end{figure}
+		
+		A diferencia de los sistemas de archivos, cada nodo en el espacio de nombres de
+		Zookeeper puede tener datos y subnodos, es como un sistemas de archivos que
+		permite a un archivo ser a la vez un directorio. Debido a los objetivos por los
+		cuales Zookeeper fue diseñado, los datos almacenados en cada nodo generalemente
+		son muy pequeños, en el orden de un byte a un kilobyte. Cada nodo de datos, en
+		la nomenclatura de Zookeeper es llamado \emph{znode}.
+
+		Los \emph{znodes} mantienen una estructura de datos que incluye numeros de
+		version para cada cambio en los datos y marcas de tiempo para permitir
+		validaciones de cache y actualizaciones coordinadas. Con cada cambio, el número
+		de versión aumenta.
+		
+		Los datos de cada \emph{znode} son escritos y leídos de manera atómica. Las
+		lecturas devuelven todos los datos asociados al \emph{znode} y las escrituras
+		reemplazan todos los datos. Cada nodo, también, posee una lista de control de
+		acceso (\emph{ACL, Access Control List}) que limita quienes pueden ejecutar cada
+		una de las acciones.
+		
+	\subsection{Garantías}
+	
+		Dado que el objetivo de Zookeeper es ser la base para la construcción de
+		servicios complejos, como un servicio de sincronización, provee un conjunto de
+		garantías:
+		\begin{itemize}
+		    \item \emph{Consistencia Secuencial}: Todas las actualizaciones que llegan
+		    desde los clientes, serán aplicadas en el orden en el que fueron enviadas.
+		    \item \emph{Atomicidad}: Las actualizaciones son exitosas o fallidas. No
+		    existen resultados parciales.
+		    \item \emph{Única Imagen del Sistema}: Un cliente tiene la misma viste del
+		    servicio Zookeeper sin importar a cual de los servidores se conecte.
+		    \item \emph{Confiabildad}: Una vez que una actualización es aplicada,
+		    persiste en el tiempo hasta que algún cliente sobreescribe el registro.
+		    \item \emph{Actualizaciones puntuales}: El sistema garantiza a los clientes
+		    que su vista del servicio estará actualizada dentro de un cierto espacio
+		    temporal.
+		\end{itemize}
+		
+	\subsection{Material}
+	
+		La información de ésta sección ha sido extraída mayormente desde la
+		documentación de Apache Zookeeper\cite{Zookeeper348}.
+	
 \section{Apache Kafka}
 \label{section_apache_kafka}
 
