@@ -19,21 +19,21 @@
 \section{Procesamiento de Datos en Tiempo Real}
 \label{section_real_time}
 
-	En los últimos tiempos, la demanda de procesamiento de flujos continuos de
-	datos (data streams) se ha incrementado considerablemente. Esto se debe a que
-	ya no es suficiente con procesar grandes volúmenes de datos. Los datos, además,
-	deben ser procesados rápidamente permitiendo a los sistemas reaccionar ante los
-	eventos lo antes posible. Ejemplos de sistemas que necesitan éste nivel de
-	procesamiento son los sistemas de detección de fraude, monitoreo de recursos,
-	comercio, etcétera.
+	En los últimos tiempos, la demanda de procesamiento de flujos continuos de datos
+	(data streams) se ha incrementado considerablemente. Esto se debe a que ya no es
+	suficiente con procesar grandes volúmenes de datos, además, deben ser procesados
+	rápidamente permitiendo a los sistemas reaccionar ante los eventos lo antes
+	posible. Ejemplos de sistemas que necesitan éste nivel de procesamiento son los
+	sistemas de detección de fraude, monitoreo de recursos, comercio, etcétera.
 
 	\subsection{Big Data}
 	
-		El término Big Data, muy utilizado en la actualidad, hace referencia a lo que
-		se conoce como las tres V, Volumen, Variedad y Velocidad. Con ello, se quiere
-		indicar que un sistema Big Data no solo implica trabajar con grandes volúmenes
-		de datos, sino que estos datos pueden ser muy variados y se deben procesar
-		rápidamente \cite{Wahner2014}.
+		El término Big Data, muy utilizado en la actualidad, hace referencia a lo que se
+		conoce como las \textbf{\emph{Tres V}}, \emph{Volumen}, \emph{Variedad} y
+		\emph{Velocidad}.
+		Con ello, se quiere indicar que un sistema Big Data no solo implica trabajar con
+		grandes volúmenes de datos, sino que estos datos pueden ser muy variados y se
+		deben procesar rápidamente \cite{Wahner2014}.
 	
 		\begin{figure}[H]
 			\centering
@@ -42,18 +42,16 @@
 
 	\subsection{Procesamiento de Flujos de Datos (Stream Processing)}
 		
-		Es un sistema diseñado para analizar y actuar en tiempo real un flujo continuo
-		de datos. En contraste a los modelos de procesamiento de datos tradicionales en
-		los cuales los datos son primero almacenados y luego procesados y analizados,
-		cuando se procesa un flujo de datos, los datos son procesados y analizados
-		mientras entran en el sistema. Esto se conoce como procesar datos en movimiento.
-		Esto permite conectar a los procesadores de datos a fuentes de datos externas
-		introduciendo a los mismos al flujo de procesamiento.
-			
+		En contraste a los modelos de procesamiento de datos tradicionales en los cuales
+		los datos son primero almacenados y luego procesados y analizados, cuando se
+		procesa un flujo de datos, los datos son procesados y analizados mientras entran
+		en el sistema. Esto se conoce como procesar datos en movimiento, conectando los
+		procesadores de datos con las fuentes que los producen.
+					
 		Una solución de procesamiento de datos en tiempo real debe ser capaz de:
 		\begin{itemize}
-		    \item Procesar cantidades enormes de datos permitiendo filtrado,
-		    agregación, predicción, alertas, reglas, etcétera.
+		    \item Procesar cantidades enormes de datos permitiendo filtrado, agregación,
+		    predicción, alertas, reglas, etcétera.
 			\item Respuesta en tiempo real a los mensajes/eventos recibdos.
 			\item Asegurar rendimiento y escalabilidad cuando el volumen de datos crece en
 			tamaño y/o complejidad.
@@ -69,29 +67,27 @@
 	Docker es un proyecto de código abierto que automatiza el despliegue de
 	aplicaciones dentro de contenedores de software, proporcionando una capa
 	adicional de abstracción y automatización de virtualización a nivel de sistema
-	operativo en Linux. Docker utiliza características de aislamiento de recursos
-	del kernel de Linux, tales como cgroups y espacios de nombres (namespaces) para
-	permitir que \emph{contenedores} independientes se ejecuten dentro de una sola
-	instancia de Linux, evitando la sobrecarga de iniciar y mantener máquinas
-	virtuales. \cite{WikipediaDocker}
+	operativo en Linux. Docker utiliza características de aislamiento de recursos del
+	kernel de Linux, tales como \emph{cgroups} y \emph{espacios de nombres
+	(namespaces)} para permitir que \emph{contenedores} independientes se ejecuten
+	dentro de una sola instancia de Linux, evitando la sobrecarga de iniciar y
+	mantener máquinas virtuales.\cite{WikipediaDocker}
 	
 	Docker implementa una API de alto nivel para proporcionar contenedores livianos
 	que ejecutan procesos de manera aislada.
 	Construido sobre las facilidades proporcionadas por el kernel de Linux (nombradas
-	anteriorment), un \emph{contenedor} Docker, a diferencia de una máquina virtual, no
-	requiere incluir un sistema operativo independiente. En su lugar, se basa en las
-	funcionalidades del kernel y utiliza el aislamiento de recursos y namespaces
+	anteriormente), un \emph{contenedor} Docker, a diferencia de una máquina virtual,
+	no requiere incluir un sistema operativo independiente. En su lugar, se basa en
+	las funcionalidades del kernel y utiliza el aislamiento de recursos y namespaces
 	separados para aislar de vista la aplicación del sistema operativo.\cite{WikipediaDocker}
 
-	El soporte del kernel de Linux para los espacios de nombres aísla de vista, en
-	su mayoría, una aplicación del entorno operativo, incluyendo árboles de proceso,
-	red, ID de usuario y sistemas de archivos montados, mientras que los cgroups del
-	kernel proporcionan aislamiento de recursos, incluyendo la CPU, la memoria, el
-	bloque de E/S y de la red. Desde la versión 0.9, Docker incluye la librería
-	libcontainer como su propia manera de utilizar directamente las facilidades de
-	virtualización que ofrece el kernel de Linux, además de utilizar las interfaces
-	abstraídas de virtualización mediante libvirt, LXC (Linux Containers) y
-	systemd-nspawn. \cite{WikipediaDocker}
+	El soporte del kernel de Linux para los \emph{espacios de nombres} aísla de vista
+	una aplicación del entorno operativo, incluyendo árboles de proceso, red, ID de
+	usuario y sistemas de archivos montados. A su vez, los \emph{cgroups} del kernel
+	proporcionan aislamiento de recursos, incluyendo la CPU, la memoria, el bloque de
+	E/S y de la red. Desde la versión 0.9, Docker incluye la librería
+	\emph{libcontainer} como su propia manera de utilizar directamente las
+	facilidades de virtualización que ofrece el kernel de Linux.\cite{WikipediaDocker}
 
 	\begin{figure}[H]
 		\centering
@@ -100,53 +96,52 @@
 		\cite{WhatIsDocker2016}}
 	\end{figure}
 
-	Mediante el uso de contenedores, los recursos pueden ser aislados, los servicios
-	restringidos, y se otorga a los procesos la capacidad de tener una visión casi
-	completamente privada del sistema operativo con su propio identificador de
-	espacio de proceso, la estructura del sistema de archivos, y las interfaces de
-	red. Contenedores múltiples comparten el mismo núcleo, pero cada contenedor
-	puede ser restringido a utilizar sólo una cantidad definida de recursos como
-	CPU, memoria y E/S. \cite{WikipediaDocker}
+	Mediante el uso de contenedores, los recursos pueden ser aislados y los servicios
+	restringidos. Además, se otorga a los procesos la capacidad de tener una visión
+	casi completamente privada del sistema operativo con su propio identificador de
+	espacio de proceso, estructura del sistema de archivos e interfaces de red.
+	Contenedores múltiples comparten el mismo núcleo, pero cada contenedor puede ser
+	restringido a utilizar sólo una cantidad definida de recursos como CPU, memoria y
+	E/S.\cite{WikipediaDocker}
 	
 	Usando Docker para crear y gestionar contenedores se puede simplificar la
 	creación de sistemas altamente distribuidos, permitiendo múltiples aplicaciones
 	funcionar de forma autónoma en una única máquina física o en varias máquinas
 	virtuales. Esto permite que el despliegue de nodos se realice a medida que se
-	dispone de recursos o cuando se necesiten, lo que se conoce como un estilo
-	de desplieque \emph{Plataforma como Servicio} (\emph{PaaS - Plataform as a
+	dispone de recursos o cuando se necesiten, lo que se conoce como un estilo de
+	desplieque \emph{Plataforma como Servicio} (\emph{PaaS - Plataform as a
 	Service}).\cite{WikipediaDocker}
 
 	\subsection{Imagenes y Contenedores\cite{GetStartedDocker2016}}
 	
-		Un \emph{contenedor} (\emph{container}) es una version de un sistema operativo
-		Linux, solo con los componentes más básicos. Una \emph{imagen} es software que se
-		carga dentro del contenedor al momento de ejecutar el comando \emph{run}.
+		Un \emph{contenedor (container)} es una version de un sistema operativo Linux,
+		solo con los componentes más básicos. Una \emph{imagen} es software que se carga
+		dentro del contenedor al momento de ejecutar el comando \emph{run}.
 	
 \lstset{language=bash}
 \begin{lstlisting}
 docker run hello-world
 \end{lstlisting}
 	
-		El comando \emph{run} recibe como parámetro requerido el nombre de la
-		\emph{imagen} que se desea cargar en un \emph{contenedor}, en éste caso
-		\emph{hello-world}.
+		El comando \emph{run} recibe como parámetro requerido el nombre de la imagen que
+		se desea cargar en un contenedor, en éste caso, \emph{hello-world}.
 		
 		Al correr dicho comando, Docker ejecuta las siguientes acciones:
 		\begin{itemize}
-		    \item Comprobar si existe en el sistema una \emph{imagen} con el nombre
+		    \item Comprobar si existe en el sistema una imagen con el nombre
 		    \emph{hello-world}.
-		    \item En caso de que no exista dicha \emph{imagen} en el sistema descargarla desde
-		    el repositorio de imágenes configurado, por defecto es \emph{Docker Hub},
-		    un repositorio propiedad de Docker donde existen miles de imagenes
-		    disponibles. Es posible tener repositorios privados utilizando lo que se
-		    conoce como \emph{Docker Registry}.
+		    \item En caso de que no exista dicha imagen en el sistema descargarla desde
+		    el repositorio de imágenes configurado, por defecto es \emph{Docker Hub}, un
+		    repositorio propiedad de Docker donde existen miles de imagenes disponibles.
+		    Es posible tener repositorios privados utilizando lo que se conoce como
+		    \emph{Docker Registry}.
 		    \item Cargar la \emph{imagen} en el \emph{contenedor} y ejecutarla.
 		\end{itemize}
 		
-		Por otro lado, una \emph{imagen} de Docker puede ejecutar un simple comando o
+		Por otro lado, una imagen de Docker puede ejecutar desde un simple comando hasta
 		cargar un complejo sistema de base de datos.
 		
-		Para construir una \emph{imagen} de Docker, es necesario crear un archivo llamado
+		Para construir una imagen de Docker, es necesario crear un archivo llamado
 		\emph{Dockerfile}.
 	
 \lstset{language=bash}
@@ -158,9 +153,9 @@ RUN apt-get -y update
 CMD["echo Hola"]
 \end{lstlisting}
 	
-		El Dockerfile anterior buscara una \emph{imagen} de Ubuntu con la etiqueta
-		(\emph{tag}) \emph{16.04}. Luego ejecutará un comando para actualizar los
-		paquetes del sistema operativo y finalmente mostrará el mensaje \emph{Hola}.
+		El Dockerfile anterior buscara una imagen de Ubuntu con la etiqueta (\emph{tag})
+		\emph{16.04}. Luego ejecutará un comando para actualizar los paquetes del
+		sistema operativo y finalmente mostrará el mensaje \emph{Hola}.
 	
 		El comando para construir una \emph{imagen} de Docker es:
 
@@ -170,8 +165,8 @@ docker build -t miimagen .
 \end{lstlisting}
 
 		Se ejecutará el comando \emph{build} para construir la imagen. El argumento
-		\emph{-t} indica que se le pondrá la etiqueta \emph{miimagen} a la \emph{imagen}
-		y punto al final indica el directorio de contexto de la \emph{imagen}, esto
+		\emph{-t} indica que se le pondrá la etiqueta \emph{miimagen} a la imagen y
+		punto al final indica el directorio de contexto de la \emph{imagen}, esto
 		permite agregarle archivos al momento de construirla. En éste caso, el contexto
 		será el directorio donde se encuentra el Dockerfile.
 	
@@ -185,18 +180,17 @@ docker run miimagen
 
 	\subsection{Crear nuevas etiquetas}
 	
-		Para ponerle una nueva etiqueta a una \emph{imagen}, primero debemos encontrar
-		el número de identificación de la \emph{imagen}. Ésto se hace corriendo el
-		comando:
+		Para ponerle una nueva etiqueta a una imagen, primero debemos encontrar el
+		número de identificación de la misma. Ésto se hace corriendo el comando:
 
 \lstset{language=bash}
 \begin{lstlisting}
 docker images
 \end{lstlisting}
 
-		El comando anterior, mostrará una lista de las imágenes existentes en el
-		sistema mostrando la última etiqueta de la misma, el número de identificación,
-		la fecha de creación y el tamaño de la imagen.
+		El comando anterior, mostrará una lista de las imágenes existentes en el sistema
+		mostrando la última etiqueta de la misma, el número de identificación, la fecha
+		de creación y el tamaño de la imagen.
 		
 		Luego, para aplicarle una nueva etiqueta, se ejecuta el comando:
 	
@@ -210,11 +204,11 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		Docker Compose es una herramienta que permite correr un sistema formado por
 		múltiples contenedores. Para ello, se debe crear un archivo \emph{.yml} en el
 		que se definan los servicios con los que va a contar la aplicación. Cada
-		servicio estará formado por un \emph{contenedor} corriendo una \emph{imagen} de Docker.
+		servicio estará formado por un \emph{contenedor} corriendo una \emph{imagen} de
+		Docker.
 		
 		Para cada servicio pueden definirse nombres, puertos expuestos, conexiones de
-		red, etcétera, luego, con los siguientes comandos se puede operar con el
-		sistema.
+		red, etcétera, luego, con los siguientes comandos se puede operar con el sistema.
 		
 		Para una lista completa de los comandos de Docker Compose, acceder a
 		\href{https://docs.docker.com/compose/reference/}{Docker Compose Command-Line
@@ -223,16 +217,17 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 	\subsection{Material}
 	
 		La información de ésta sección ha sido extraída mayormente desde la
-		documentación de Docker\cite{GetStartedDocker2016} y Docker Compose \cite{DockerComposeDocumentation}.		
+		documentación de Docker\cite{GetStartedDocker2016} y Docker
+		Compose\cite{DockerComposeDocumentation}.
 		
 \section{Apache Zookeeper}
 \label{section_apache_zookeeper}
 
 	Apache Zookeeper es un servicio de coordinación de alto rendimiento para
 	aplicaciones distribuidas. Expone servicios comunes, tales como nomenclatura,
-	manejo de las configuraciones, sincronización, etcétera. Entre otras funciones,
-	se utiliza para implementar consenso, manejar grupos, elección de nodo líder,
-	protocolos de presencia.
+	manejo de las configuraciones, sincronización, etcétera. 
+	Entre otras funciones, se utiliza para implementar consenso, manejar grupos,
+	elección de nodo líder y protocolos de presencia.
 	
 	Generalmente, los sistemas de coordinación son muy propensos a errores como
 	condiciones de carrera y puntos muertos (\emph{deadlocks}). Zookeeper fue creado
@@ -261,14 +256,14 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 	    funcionando, Zookeeper seguirá funcionando.
 	    
 	    Cada cliente, se conecta a un único servidor de Zookeeper y mantiene una
-	    conexión TCP a través de la cual envía solicitudes, obtiene las respuestas
-	    y obtiene mensajes de eventos. Si dicha conexión deja de funcionar, el
-	    cliente se conectará a un servidor distinto.
+	    conexión TCP a través de la cual envía solicitudes, obtiene las respuestas y
+	    obtiene mensajes de eventos. Si dicha conexión deja de funcionar, el cliente
+	    se conectará a un servidor distinto.
 	    \item \emph{orden}: Cada actualización en Zookeeper es marcada con un número
 	    que refleja el orden de cada una de las transacciones.
 	    \item \emph{rapidez}: Zookeeper es muy rápido para entornos con cargas de
 	    trabajo de muchas lecturas. Su rendimiento es mucho mejor donde las lecturas
-	    de datos son más comunes a las escrituras de datos, a una relación de 10 a 1.	    
+	    de datos son más comunes a las escrituras de datos, a una relación de 10 a 1.
  	\end{itemize}
  	
  	\begin{figure}[H]
@@ -282,7 +277,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		
 		El espacio de nombres de Zookeeper es muy similar a un sistema de archivos. Cada
 		nombre es una secuencia de elementos de direcciones (\emph{paths}) separadas por
-		una barra (\emph{/}) Cada nodo es identificado por una dirección.
+		una barra (\emph{/}) y cada nodo es identificado por una dirección.
 				
 		\begin{figure}[H]
 			\centering
@@ -292,7 +287,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		
 		A diferencia de los sistemas de archivos, cada nodo en el espacio de nombres de
 		Zookeeper puede tener datos y subnodos, es como un sistemas de archivos que
-		permite a un archivo ser a la vez un directorio. Debido a los objetivos por los
+		permite a un archivo ser a la vez un directorio. Debido a los objetivos por lo
 		cuales Zookeeper fue diseñado, los datos almacenados en cada nodo generalemente
 		son muy pequeños, en el orden de un byte a un kilobyte. Cada nodo de datos, en
 		la nomenclatura de Zookeeper es llamado \emph{znode}.
@@ -318,7 +313,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		    desde los clientes, serán aplicadas en el orden en el que fueron enviadas.
 		    \item \emph{Atomicidad}: Las actualizaciones son exitosas o fallidas. No
 		    existen resultados parciales.
-		    \item \emph{Única Imagen del Sistema}: Un cliente tiene la misma viste del
+		    \item \emph{Única Imagen del Sistema}: Un cliente tiene la misma vista del
 		    servicio Zookeeper sin importar a cual de los servidores se conecte.
 		    \item \emph{Confiabildad}: Una vez que una actualización es aplicada,
 		    persiste en el tiempo hasta que algún cliente sobreescribe el registro.
@@ -343,8 +338,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 	    \emph{topics.}
 		\item Los productores de mensajes se llaman \emph{producers}.
 		\item Los consumidores de mensajes se llaman \emph{consumers}.
-		\item Kafka corre en un 
-		cluster formado por uno o mas servidores. cada uno de
+		\item Kafka corre en un cluster formado por uno o mas servidores. cada uno de
 		ellos es llamado \emph{broker}.
 	\end{itemize}
 	
@@ -360,7 +354,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		mantiene registros particionados.
 		
 		Cada partición es una secuencia ordenada e inmutable de mensajes. El número de
-		orden de cada mensaje es llamado \emph{offset} e identifica univocamente a cada
+		orden de cada mensaje es llamado \emph{offset} e identifica unívocamente a cada
 		mensaje de la partición.
 		
 		Kafka mantiene los mensajes publicados por un período de tiempo configurable,
@@ -368,7 +362,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		consumidor se encarga de mantener el \emph{offset} y tiene libertad para ir
 		hacia atrás y hacia adelante en los mensajes publicados para procesarlos.
 		
-		El tener los mensajes de un \emph{topic} particionados permite separar el
+		Tener los mensajes de un \emph{topic} particionados permite separar el
 		\emph{topic} en varios servidores. Ésto permite manejar grandes volumenes de
 		datos y además otorogar un nivel superior de paralelismo.
 		
@@ -388,10 +382,10 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 	\subsection{Productores}
 		
 		Los productores en Kafka son programas encargados de publicar datos en los
-		\emph{topics}. El productor decide, para cada mensaje, el topic y la partición
-		en el cual publicarlo. Generalmente la partición es elegida siguiendo un
-		esquema \emph{round-robin} para lograr un óptimo balance de carga entre
-		particiones, pero se puede utilizar cualquier lógica.
+		\emph{topics}. El productor decide, para cada mensaje, el \emph{topic} y la
+		\emph{partición} en el cual publicarlo. Generalmente la partición es elegida
+		siguiendo un esquema \emph{round-robin} para lograr un óptimo balance de carga
+		entre particiones, pero se puede utilizar cualquier lógica.
 		
 	\subsection{Consumidores}
 	
@@ -403,8 +397,8 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		consumidores (\emph{consumer groups}).
 		
 		Cada consumidor debe ubicarse dentro de alguno de los grupos de consumidores y
-		cuando un mensajes es publicado en un \emph{topic}, el mensaje es transmitido a
-		un único consumidor de cada uno de los grupos de consumidores.
+		cuando un mensaje es publicado en un \emph{topic}, es transmitido a un único
+		consumidor de cada uno de los grupos de consumidores.
 		
 		\begin{figure}[H]
 			\centering
@@ -429,20 +423,18 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 \label{section_apache_storm}
 	
 	Apache Storm es una herramienta de procesamiento de datos en tiempo real de
-	código abierto y gratuita creada por Twitter y luego liberada en lo órbita de
-	los proyectos Apache.
+	código abierto y gratuita creada por Twitter y luego liberada en lo órbita de los
+	proyectos Apache.
 	
 	La finalidad de Storm es proveer un mecanismo confiable para procesamiento de
-	flujos de datos ilimitados, haciendo para flujos de datos (\emph{realtime
-	stream processing}) lo que Hadoop hace en procesamiento por lotes (\emph{batch
-	processing})\cite{ApacheStorm101}.
+	flujos de datos ilimitados, haciendo para flujos de datos (\emph{realtime stream
+	processing}) lo que Hadoop hace en procesamiento por lotes (\emph{batch processing})\cite{ApacheStorm101}.
 	
 	Deacuerdo a su documentación, es capaz de procesar un millón de tuplas de datos
 	por segundo por nodo. Provee características de escalabilidad, tolerancia a
 	fallos, garantías de que todos los datos serán procesados, etcétera\cite{ApacheStorm101}.
 	
-	Una \emph{topología} de Storm consume flujos de datos, los procesa y genera
-	nuevos flujos de datos.
+	
 	
 	\subsection{Conceptos Básicos}
 	
@@ -457,12 +449,12 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		\subsubsection{Topologies}
 		
 		Las \emph{topologías} son los contenedores de la lógica de una aplicación de
-		procesamiento de datos en tiempo real. Es el análogo a un trabajo de MapReduce
-		de
+		procesamiento de datos en tiempo real, consume flujos de datos, los procesa y genera
+		nuevos flujos de datos. Es el análogo a un trabajo de MapReduce de
 		Hadoop\footnote{https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html}.
 		La diferencia principal con éstos últimos es que un trabajo MapReduce de
 		Hadoop, eventualmente concluye mientras que las topologías pueden correr
-		indefinidamente.
+		indefinidamente. 
 		Una topología es un grafo formado por \emph{Spouts} y \emph{Bolts} conectados a
 		través de \emph{Stream Groupings}.
 		
@@ -491,7 +483,6 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 			Dentro de una topología, todo el procesamiento sobre los datos es realizado en
 			los bolts. Los bolts pueden ser programados para realizar cualquier tarea como
 			filtrado, agregación, uniones con bases de datos, funciones, etcétera.
-			
 			Los bolts reciben uno o varios streams de datos y pueden emitir nuevamente uno
 			o varios de ellos.
 	
@@ -504,9 +495,9 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 			Existen ocho \emph{stream groupings} predefinidos pero existe la posibilidad
 			de crear nuevos implementando la interfaz \emph{CustomStreamGrouping}.
 			\begin{itemize}
-			    \item \emph{Shuffle grouping}: Las tuplas son distribuidas
-			    aleatoriamente en las tareas de los bolts de manera tal que se
-			    garantice que todos los bolts reciben las misma cantidad de tuplas.
+			    \item \emph{Shuffle grouping}: Las tuplas son distribuidas aleatoriamente
+			    en las tareas de los bolts de manera tal que se garantice que todos los
+			    bolts reciben las misma cantidad de tuplas.
 			    
 			    \item \emph{Fields grouping}: El stream es particionado deacuerdo a los
 			    campos de datos que contenga la tupla. Por ejemplo, si la tupla contiene
