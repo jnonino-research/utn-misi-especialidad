@@ -240,7 +240,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		\caption{Arquitectura de un servicio Zookeeper\cite{Zookeeper348}}
 	\end{figure}
 	
-	Deacuerdo a la documentación de Zookeeper, fué diseñado bajo estos cuatro
+	de acuerdo a la documentación de Zookeeper, fué diseñado bajo estos cuatro
 	pilares\cite{Zookeeper348}:
 	\begin{itemize}
 	    \item \emph{simplicidad}: Zookeeper permite la sincronización entre procesos
@@ -430,11 +430,9 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 	flujos de datos ilimitados, haciendo para flujos de datos (\emph{realtime stream
 	processing}) lo que Hadoop hace en procesamiento por lotes (\emph{batch processing})\cite{ApacheStorm101}.
 	
-	Deacuerdo a su documentación, es capaz de procesar un millón de tuplas de datos
+	de acuerdo a su documentación, es capaz de procesar un millón de tuplas de datos
 	por segundo por nodo. Provee características de escalabilidad, tolerancia a
 	fallos, garantías de que todos los datos serán procesados, etcétera\cite{ApacheStorm101}.
-	
-	
 	
 	\subsection{Conceptos Básicos}
 	
@@ -448,15 +446,15 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		
 		\subsubsection{Topologies}
 		
-		Las \emph{topologías} son los contenedores de la lógica de una aplicación de
-		procesamiento de datos en tiempo real, consume flujos de datos, los procesa y genera
-		nuevos flujos de datos. Es el análogo a un trabajo de MapReduce de
-		Hadoop\footnote{https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html}.
-		La diferencia principal con éstos últimos es que un trabajo MapReduce de
-		Hadoop, eventualmente concluye mientras que las topologías pueden correr
-		indefinidamente. 
-		Una topología es un grafo formado por \emph{Spouts} y \emph{Bolts} conectados a
-		través de \emph{Stream Groupings}.
+			Las \emph{topologías} son los contenedores de la lógica de una aplicación de
+			procesamiento de datos en tiempo real. Consume flujos de datos, los procesa y
+			genera nuevos flujos de datos. Es el análogo a un trabajo de MapReduce de
+			Hadoop\footnote{https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html}.
+			La diferencia principal con éstos últimos es que un trabajo MapReduce de
+			Hadoop, eventualmente concluye mientras que las topologías pueden correr
+			indefinidamente. 
+			Una topología es un grafo formado por \emph{Spouts} y \emph{Bolts} conectados a
+			través de \emph{Stream Groupings}.
 		
 		\subsubsection{Streams}
 		
@@ -484,7 +482,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 			los bolts. Los bolts pueden ser programados para realizar cualquier tarea como
 			filtrado, agregación, uniones con bases de datos, funciones, etcétera.
 			Los bolts reciben uno o varios streams de datos y pueden emitir nuevamente uno
-			o varios de ellos.
+			o varios de ellos luego de procesados.
 	
 		\subsubsection{Stream Grouping}
 		
@@ -499,7 +497,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 			    en las tareas de los bolts de manera tal que se garantice que todos los
 			    bolts reciben las misma cantidad de tuplas.
 			    
-			    \item \emph{Fields grouping}: El stream es particionado deacuerdo a los
+			    \item \emph{Fields grouping}: El stream es particionado de acuerdo a los
 			    campos de datos que contenga la tupla. Por ejemplo, si la tupla contiene
 			    un campo llamado \emph{usuario} y se agrupa el stream por el campo
 			    \emph{usuario}, todos aquellas tuplas que tengan el mismo valor en dicho
