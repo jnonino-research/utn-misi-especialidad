@@ -65,8 +65,8 @@ en tiempo real que se quiere demostrar. Las imágenes desarrolladas son:
 	actualización del sistema operativo durante la construcción de cada una de las
 	imágenes.
 	
-	La construcción de ésta imagen, se realiza mediante el comando situado
-	previamente en la carpeta \emph{ubuntu-base} del repositorio.
+	La construcción de ésta imagen, se realiza situado en la carpeta
+	\emph{ubuntu-base} del repositorio, mediante el siguiente comando.
 	
 \lstset{language=bash}
 \begin{lstlisting}
@@ -88,6 +88,14 @@ docker build -t jnonino/ubuntu-base:16.04 .
 					 label=code_zookeeper_start_sh
 					]{./docker_images/zookeeper/start.sh}
 
+	La construcción de ésta imagen, se realiza situado en la carpeta
+	\emph{zookeeper} del repositorio, mediante el siguiente comando.
+	
+\lstset{language=bash}
+\begin{lstlisting}
+docker build -t jnonino/zookeeper .
+\end{lstlisting}
+
 \section{Clúster Apache Kafka}
 \label{docker-image-nodo-kafka}
 
@@ -100,6 +108,14 @@ docker build -t jnonino/ubuntu-base:16.04 .
 					 caption={Script de inicio para un nodo de Apache Kafka},
 					 label=code_kafka_start_sh
 					]{./docker_images/kafka/start.sh}
+
+	La construcción de ésta imagen, se realiza situado en la carpeta \emph{kafka} del
+	repositorio, mediante el siguiente comando.
+	
+\lstset{language=bash}
+\begin{lstlisting}
+docker build -t jnonino/kafka .
+\end{lstlisting}
 
 \section{Clúster Apache Storm}
 \label{docker-image}
