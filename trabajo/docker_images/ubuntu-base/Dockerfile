@@ -1,5 +1,5 @@
-# Basar esta imagen en Ubuntu 14.04
-FROM ubuntu:trusty
+# Basar esta imagen en Ubuntu 16.04
+FROM ubuntu:xenial
 MAINTAINER Julian Nonino <noninojulian@outlook.com>
 
 # Actualizar el SO

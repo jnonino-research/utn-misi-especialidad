@@ -1,5 +1,5 @@
-# Basar esta imagen en Ubuntu 14.04 actualizada
-FROM jnonino/ubuntu-base:14.04
+# Imagen basada en una imagen de Ubuntu 16.04 actualizada
+FROM jnonino/ubuntu-base:16.04
 MAINTAINER Julian Nonino <noninojulian@outlook.com>
 
 # Actualizar el SO
@@ -9,9 +9,6 @@ MAINTAINER Julian Nonino <noninojulian@outlook.com>
 RUN apt-get install -y zookeeper && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     sed -i 's/ROLLINGFILE/CONSOLE/' /etc/zookeeper/conf/environment
-
-# Volumen de datos
-VOLUME /var/lib/zookeeper
 
 # Exponer puerto del cliente de Zookeeper
 # Exponer el puerto de emparejamiento de Zookeeper
