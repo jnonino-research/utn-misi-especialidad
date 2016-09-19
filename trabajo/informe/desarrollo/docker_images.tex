@@ -7,11 +7,99 @@
 %																				%
 %		Autor:	Julián Nonino													%
 %																				%
-%	Capitulo sobre las Imágenes de Docker Creadas								%	
+%	Capitulo sobre las imágenes de Docker Creadas								%	
 %																				%
 %	Año: 2016																	%
 %																				%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Imágenes de Docker}
+\lstset
+{	basicstyle=\tiny,       		% the size of the fonts that are used for the code
+	numbers=left,                   % where to put the line-numbers
+	numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+	stepnumber=1,                   % the step between two line-numbers. If it's 1, each line will be numbered
+	numbersep=5pt,                  % how far the line-numbers are from the code
+	showspaces=false,               % show spaces adding particular underscores
+	showstringspaces=false,         % underline spaces within strings
+	showtabs=false,                 % show tabs within strings adding particular underscores
+	frame=none,                 	% adds a frame around the code
+	rulecolor=\color{white},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+	tabsize=2,                      % sets default tabsize to 2 spaces
+	captionpos=b,                   % sets the caption-position to bottom
+	breaklines=true,                % sets automatic line breaking
+	breakatwhitespace=true,        	% sets if automatic breaks should only happen at
+	keywordstyle=\color{blue},     	% keyword style
+  	commentstyle=\color{dkgreen}, 	% comment style
+  	stringstyle=\color{gray},      	% string literal style
+  	escapeinside={\%*}{*)},         % if you want to add LaTeX within your code
+  	morekeywords={*,apt-get,...},   % if you want to add more keywords to the set
+  	deletekeywords={local,...}      % if you want to delete keywords from the given language
+}
+
+\chapter{imágenes de Docker}
 \label{chapter_docker_images}
+
+El sistema desarrollado se compone de una serie de imágenes de Docker que al
+ejecutarse como Docker Containers, formarán el sistema de procesamiento de datos
+en tiempo real que se quiere demostrar. Las imágenes desarrolladas son:
+
+\begin{itemize}
+    \item Ubuntu Base \ref{docker-image-ubuntu-base}
+    \item Nodo de Zookeeper \ref{docker-image-nodo-zookeeper}
+    \item Nodo de Kafka \ref{docker-image-nodo-kafka}
+\end{itemize}
+
+\section{Ubuntu Base}
+\label{docker-image-ubuntu-base}
+
+	Es la base del sistema, todos los nodos de los diferentes componentes correrán en
+	un sistema operativo Ubuntu 16.04 Xenial.
+	
+	\lstinputlisting[language=Bash,
+					 caption={Dockerfile para la imagen base Ubuntu 16.04 Xenial actualizado},
+					 label=code_ubuntu_base_dockerfile
+					]{./docker_images/ubuntu-base/Dockerfile.}
+					
+	Si bien cada una de las siguientes imágenes podría haber comenzado con el código
+	anterior, se considera apropiada la separación para evitar el proceso de
+	actualización del sistema operativo durante la construcción de cada una de las
+	imágenes.
+	
+	La construcción de ésta imagen, se realiza mediante el comando situado
+	previamente en la carpeta \emph{ubuntu-base} del repositorio.
+	
+\lstset{language=bash}
+\begin{lstlisting}
+docker build -t jnonino/ubuntu-base:16.04 .
+\end{lstlisting}
+	
+\section{Clúster Apache Zookeeper}
+\label{docker-image-nodo-zookeeper}
+
+	
+
+	\lstinputlisting[language=Bash,
+					 caption={Dockerfile para un nodo de Apache Zookeeper},
+					 label=code_zookeeper_dockerfile
+					]{./docker_images/zookeeper/Dockerfile.}
+	
+	\lstinputlisting[language=Bash,
+					 caption={Script de inicio para un nodo de Apache Zookeeper},
+					 label=code_zookeeper_start_sh
+					]{./docker_images/zookeeper/start.sh}
+
+\section{Clúster Apache Kafka}
+\label{docker-image-nodo-kafka}
+
+	\lstinputlisting[language=Bash,
+					 caption={Dockerfile para un nodo de Apache Kafka},
+					 label=code_kafka_dockerfile
+					]{./docker_images/kafka/Dockerfile.}
+	
+	\lstinputlisting[language=Bash,
+					 caption={Script de inicio para un nodo de Apache Kafka},
+					 label=code_kafka_start_sh
+					]{./docker_images/kafka/start.sh}
+
+\section{Clúster Apache Storm}
+\label{docker-image}

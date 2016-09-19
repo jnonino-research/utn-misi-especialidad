@@ -22,7 +22,7 @@
 	% Figuras
 		\usepackage{graphicx}
 		\usepackage{subfigure}
-		\usepackage{float} % Para posicionar imagenes donde uno quiera. Solo hay que poner la opcion [H]
+		\usepackage{float} % Para posicionar imágenes donde uno quiera. Solo hay que poner la opcion [H]
 	% Apendice
 		\usepackage{appendix}
 	%Tablas	
@@ -43,6 +43,16 @@
 			\definecolor{violeta}{RGB}{127,0,85}
 	% Insertar código
 		\usepackage{listings}
+		\lstdefinestyle{bash}{
+   			language=Bash,
+   			showspaces=false,
+   			showstringspaces=false,
+   			basicstyle=\ttfamily,
+   			columns=flexible,
+   			stringstyle=\color{javastring},
+   			keywordstyle=\color{violeta}\ttfamily\textbf,
+   			commentstyle=\color{dkgreen}\ttfamily\textit
+ 		}
 	% URLs
 		\usepackage{url}
 	% Referencias
@@ -62,6 +72,7 @@
 \begin{document}
  
 	% Reeescritura de comandos
+		\renewcommand{\lstlistingname}{Código}
 		\renewcommand{\appendixname}{Apéndice}
 		\renewcommand{\appendixtocname}{Apéndice}
 		\renewcommand{\tablename}{\textbf{Tabla}} 	% Para poner la palabra en mayusucula
@@ -99,7 +110,7 @@
  			\part{Desarrollo}
  				% Diseño de la Arquitectura del Sistema
  					\input{./informe/desarrollo/arquitectura}
- 				% Imagenes de Docker
+ 				% imágenes de Docker
  					\input{./informe/desarrollo/docker_images}
  		% Resultados y Conclusiones			
  			\part{Resultados y Conclusiones}
