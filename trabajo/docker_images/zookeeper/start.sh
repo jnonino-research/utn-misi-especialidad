@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ -z "${ZK_ID}" || -z "${ZK_SERVERS}" ]]; then
-	exit 1
+    exit 1
 fi
 
 echo "${ZK_SERVERS}" | tr ' ' '\n' | tee -a /etc/zookeeper/conf/zoo.cfg
