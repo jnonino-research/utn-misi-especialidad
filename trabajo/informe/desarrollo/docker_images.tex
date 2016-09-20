@@ -53,10 +53,10 @@ en tiempo real que se quiere demostrar. Las imágenes desarrolladas son:
 \label{docker-image-ubuntu-base}
 
 	Es la base del sistema, todos los nodos de los diferentes componentes correrán en
-	un sistema operativo Ubuntu 16.04 Xenial.
+	un sistema operativo Ubuntu 14.04 Trusty.
 	
 	\lstinputlisting[language=Bash,
-					 caption={Dockerfile para la imagen base Ubuntu 16.04 Xenial actualizado},
+					 caption={Dockerfile para la imagen base Ubuntu 14.04 Trusty actualizado},
 					 label=code_ubuntu_base_dockerfile
 					]{./docker_images/ubuntu-base/Dockerfile.}
 					
@@ -70,7 +70,7 @@ en tiempo real que se quiere demostrar. Las imágenes desarrolladas son:
 	
 \lstset{language=bash}
 \begin{lstlisting}
-docker build -t jnonino/ubuntu-base:16.04 .
+docker build -t jnonino/ubuntu-base:14.04 .
 \end{lstlisting}
 	
 \section{Clúster Apache Zookeeper}
@@ -94,6 +94,34 @@ docker build -t jnonino/ubuntu-base:16.04 .
 \lstset{language=bash}
 \begin{lstlisting}
 docker build -t jnonino/zookeeper .
+\end{lstlisting}
+
+	Luego de construir la imagen de Zookeeper, el clúster de tres nodos puede ser
+	probado mediante Docker Compose utilizando el siguiente comando:
+
+\lstset{language=bash}
+\begin{lstlisting}
+docker-compose -f test_zookeeper.yml up -d
+\end{lstlisting}
+	
+	El comando anterior	inicia tres nodos de Zookeeper basados en la imagen
+	construida anteriormente, el valor \emph{-d} al final indica que se desea que
+	los containers corran en segundo plano.
+	Para comprobar que los tres nodos están corriendo correctamente, ejecutar el
+	siguiente comando:
+
+\lstset{language=bash}
+\begin{lstlisting}
+for i in {2181..2183}; do 
+	echo mntr | nc 192.168.0.100 $i | grep zk_followers ;
+done
+\end{lstlisting}	
+
+El resultado que se debería obtener es:
+
+\lstset{language=bash}
+\begin{lstlisting}
+zk_followers	2
 \end{lstlisting}
 
 \section{Clúster Apache Kafka}
