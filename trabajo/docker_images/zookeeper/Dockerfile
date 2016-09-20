@@ -1,5 +1,5 @@
-# Imagen basada en una imagen de Ubuntu 16.04 actualizada
-FROM jnonino/ubuntu-base:16.04
+# Imagen basada en una imagen de Ubuntu 14.04 actualizada
+FROM jnonino/ubuntu-base:14.04
 MAINTAINER Julian Nonino <noninojulian@outlook.com>
 
 # Instalar Zookeeper y limpiar la imagen luego de la instalacion
@@ -12,6 +12,8 @@ RUN apt-get install -y zookeeper && \
 # Exponer el puerto de emparejamiento de Zookeeper (2888)
 # Exponer el puerto para el lider de Zookeeper (3888)
 EXPOSE 2181 2888 3888
+
+VOLUME /var/lib/zookeeper
 
 # Copiar el script de inicio de Zookeeper
 # El script de inicio de Zookeeper va a estar en un archivo separado para 
