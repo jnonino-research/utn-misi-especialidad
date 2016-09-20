@@ -72,7 +72,7 @@ en tiempo real que se quiere demostrar. Las imágenes desarrolladas son:
 \begin{lstlisting}
 docker build -t jnonino/ubuntu-base:14.04 .
 \end{lstlisting}
-	
+
 \section{Clúster Apache Zookeeper}
 \label{docker-image-nodo-zookeeper}
 
@@ -167,10 +167,21 @@ zk_followers	2
 \section{Clúster Apache Kafka}
 \label{docker-image-nodo-kafka}
 
+	La siguiente imagen a construir es la de los nodos de Kafka, nuevamente, ésta
+	imagen es basada en la imagen Ubuntu Base 14.04.
+
 	\lstinputlisting[language=Bash,
 					 caption={Dockerfile para un nodo de Apache Kafka},
 					 label=code_kafka_dockerfile
 					]{./docker_images/kafka/Dockerfile.}
+	
+	En éste caso, se proceden a instalar herramientas como \emph{wget}, \emph{tar} y
+	\emph{Java 7 JRE} necesarias para que corra Apache Kafka. Debido a que Kafka no
+	puede ser instalado mediante \emph{apt-get}, es necesario descargar el archivo
+	\emph{.tar}, descomprimirlo y ejecutarlo.
+	
+	Luego de configurar el nodo, es posible lanzar Kafka mediante un script utilizado
+	para configurar variables antes de la ejecución.
 	
 	\lstinputlisting[language=Bash,
 					 caption={Script de inicio para un nodo de Apache Kafka},
@@ -184,6 +195,67 @@ zk_followers	2
 \begin{lstlisting}
 docker build -t jnonino/kafka .
 \end{lstlisting}
+
+	Luego de construir la imagen, el clúster de tres nodos puede ser lanzado mediante
+	Docker Compose utilizando el siguiente comando: 
+
+\lstset{language=Bash}
+\begin{lstlisting}
+docker-compose -f start_kafka.yml up -d
+\end{lstlisting}
+	
+	El comando anterior	inicia tres nodos de Kafka basados en la imagen
+	construida anteriormente, el valor \emph{-d} al final indica que se desea que
+	los containers corran en segundo plano.
+	
+	\lstinputlisting[language=Bash,
+					 caption={Script de inicio de Docker Compose para levantar un clúster de
+					 3 nodos de  Apache Kafka},
+					 label=code_zookeeper_compose
+					 ]{./docker_images/kafka/start_kafka.yml}
+	
+	Notar que se utiliza la misma dirección IP para los tres nodos, ésto se debe a
+	que para la demostración que se hace en éste trabajo, todos los servicios
+	correran en un mismo servidor. Lógicamente, en un sistema en producción,
+	atendiendo datos de clientes, dichos servicios deberían correr en instancias
+	diferenciadas para garantizar la alta disponibilidad que Apache Kafka promete
+	al utilizar más de un nodo.
+	
+	Para comprobar que los tres nodos están corriendo correctamente, es necesario
+	descargar Kafka para interactuar con el servidor corriendo\footnote{Descargar
+	Apache Kafka desde https://www.apache.org Version 0.9.0.1 con Scala 2.11}.
+
+	Correr los siguientes comandos para crear un tópico de prueba y obtener
+	información del mismo:
+	
+\lstset{language=Bash}
+\begin{lstlisting}
+./bin/kafka-topics.sh --create --topic test --partitions 3 --zookeeper
+192.168.0.104 --replication-factor 2
+./bin/kafka-topics.sh --describe --topic test --zookeeper 192.168.0.104
+\end{lstlisting}	
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{./informe/desarrollo/img/kafka_creacion_topic}
+	\end{figure}
+
+	Para enviar datos al servidor de Kafka, se debe generar una lista de los nodos de
+	Kafka (\emph{brokers}) para posteriormente enviarle mensajes y finalmente, con
+	otra aplicación provista por Kafka, leerlos.
+
+\lstset{language=Bash}
+\begin{lstlisting}
+BROKER_LIST=192.168.0.104:9092,192.168.0.104:9093,192.168.0.104:9094
+/bin/kafka-console-producer.sh --topic test --broker-list="$BROKER_LIST"
+./bin/kafka-console-consumer.sh --zookeeper 192.168.0.104 --topic test
+--from-beginning
+\end{lstlisting}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{./informe/desarrollo/img/kafka_w_r_topic}
+	\end{figure}
 
 \section{Clúster Apache Storm}
 \label{docker-image}
