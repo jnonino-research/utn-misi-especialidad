@@ -36,7 +36,7 @@
   	deletekeywords={local,...}      % if you want to delete keywords from the given language
 }
 
-\chapter{imágenes de Docker}
+\chapter{Imágenes de Docker}
 \label{chapter_docker_images}
 
 El sistema desarrollado se compone de una serie de imágenes de Docker que al
@@ -68,7 +68,7 @@ en tiempo real que se quiere demostrar. Las imágenes desarrolladas son:
 	La construcción de ésta imagen, se realiza situado en la carpeta
 	\emph{ubuntu-base} del repositorio, mediante el siguiente comando.
 	
-\lstset{language=bash}
+\lstset{language=Bash}
 \begin{lstlisting}
 docker build -t jnonino/ubuntu-base:14.04 .
 \end{lstlisting}
@@ -76,50 +76,90 @@ docker build -t jnonino/ubuntu-base:14.04 .
 \section{Clúster Apache Zookeeper}
 \label{docker-image-nodo-zookeeper}
 
-	
+	Desde la imagen de Docker generada en la sección \ref{docker-image-ubuntu-base},
+	se parte para la creación de la imágen de Apache Zookeeper.
 
 	\lstinputlisting[language=Bash,
 					 caption={Dockerfile para un nodo de Apache Zookeeper},
 					 label=code_zookeeper_dockerfile
 					]{./docker_images/zookeeper/Dockerfile.}
 	
+	Notar que lo primero que se realiza es la instalación de Apache Zookeeper a
+	través de la herramienta \emph{apt-get} de Ubuntu y luego se limpian todos los
+	restos que hayan quedado de la instalación para reducir el tamaño de la imagen.
+	Posteriormente, se exponen los puertos necesarios para la ejecución.
+	
+	Con eso ya se podría iniciar un único nodo de Apache Zookeeper agregando a la
+	imagen el siguiente comando.
+	
+\lstset{language=Bash}
+\begin{lstlisting}
+CMD ["/usr/share/zookeeper/bin/zkServer.sh", "start-foreground"]
+\end{lstlisting}
+
+	Como se desea correr un clúster de Apache Zookeeper, se deben hacer ciertas
+	configuraciones para que cada nodo pueda comunicarse con los demás. Por ésta
+	razón se implementa el siguiente script.
+	
 	\lstinputlisting[language=Bash,
 					 caption={Script de inicio para un nodo de Apache Zookeeper},
 					 label=code_zookeeper_start_sh
 					]{./docker_images/zookeeper/start.sh}
 
+	Lo que hace el script \ref{code_zookeeper_start_sh} es recibir como parámetros
+	una identificación para el nodo y una lista de todos los nodos y configura Apache
+	Zookeeper con esos datos antes de iniciar el servicio. Se hace de ésta manera
+	debido al alcance de ésta demostración, en producción debería utilizarse algún
+	sistema de auto descubrimiento de servicios para que los nodos se encuentren
+	automáticamente al levantarse.
+
 	La construcción de ésta imagen, se realiza situado en la carpeta
 	\emph{zookeeper} del repositorio, mediante el siguiente comando.
 	
-\lstset{language=bash}
+\lstset{language=Bash}
 \begin{lstlisting}
 docker build -t jnonino/zookeeper .
 \end{lstlisting}
 
 	Luego de construir la imagen de Zookeeper, el clúster de tres nodos puede ser
-	probado mediante Docker Compose utilizando el siguiente comando:
+	lanzado mediante Docker Compose utilizando el siguiente comando:
 
-\lstset{language=bash}
+\lstset{language=Bash}
 \begin{lstlisting}
-docker-compose -f test_zookeeper.yml up -d
+docker-compose -f start_zookeeper.yml up -d
 \end{lstlisting}
 	
 	El comando anterior	inicia tres nodos de Zookeeper basados en la imagen
 	construida anteriormente, el valor \emph{-d} al final indica que se desea que
 	los containers corran en segundo plano.
+	
+	\lstinputlisting[language=Bash,
+					 caption={Script de inicio de Docker Compose para levantar un clúster de
+					 3 nodos de  Apache Zookeeper},
+					 label=code_zookeeper_compose
+					 ]{./docker_images/zookeeper/start_zookeeper.yml}
+	
+	Notar que se utiliza la misma dirección IP para los tres nodos, ésto se debe a
+	que para la demostración que se hace en éste trabajo, todos los servicios
+	correran en un mismo servidor. Lógicamente, en un sistema en producción,
+	atendiendo datos de clientes, dichos servicios deberían correr en instancias
+	diferenciadas para garantizar la alta disponibilidad que Apache Zookeeper promete
+	al utilizar más de un nodo.
+	
 	Para comprobar que los tres nodos están corriendo correctamente, ejecutar el
 	siguiente comando:
 
-\lstset{language=bash}
+\lstset{language=Bash}
 \begin{lstlisting}
 for i in {2181..2183}; do 
-	echo mntr | nc 192.168.0.100 $i | grep zk_followers ;
+	echo mntr | nc <IP_DEL_HOST> $i | grep zk_followers ;
 done
 \end{lstlisting}	
 
-El resultado que se debería obtener es:
+	Se debe obtener un resultado como el siguiente mostrando que Zookeeper está
+	corriendo y que hay dos nodos además del nodo líder.
 
-\lstset{language=bash}
+\lstset{language=Bash}
 \begin{lstlisting}
 zk_followers	2
 \end{lstlisting}
@@ -140,7 +180,7 @@ zk_followers	2
 	La construcción de ésta imagen, se realiza situado en la carpeta \emph{kafka} del
 	repositorio, mediante el siguiente comando.
 	
-\lstset{language=bash}
+\lstset{language=Bash}
 \begin{lstlisting}
 docker build -t jnonino/kafka .
 \end{lstlisting}
