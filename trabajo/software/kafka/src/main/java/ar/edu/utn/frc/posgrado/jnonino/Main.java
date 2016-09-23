@@ -23,19 +23,19 @@ public class Main {
 
     public static void main(String [ ] args) {
 
-        String kafkaServerIP = null;
+        String kafkaBrokerList = null;
 
         boolean runProducer = false;
         boolean runConsumer = false;
         long producerRateTime = 1000;
 
         if (args.length == 4) {
-            kafkaServerIP = args[0];
+            kafkaBrokerList = args[0];
             String enableConsumer = args[1];
             String enableProducer = args[2];
             producerRateTime = Long.parseLong(args[3]);
 
-            logger.info("Kafka Server Address: " + kafkaServerIP);
+            logger.info("Kafka Broker List: " + kafkaBrokerList);
 
             if (enableConsumer.equals("yes")) {
                 runConsumer = true;
@@ -60,7 +60,7 @@ public class Main {
             }
         } else {
             logger.error("Should run with three arguments");
-            String usage = "Usage: java -jar kafka-1.0-SNAPSHOT-jar-with-dependencies.jar <KAFKA_SERVER_IP> <ENABLE_TEST_CONSUMER> <ENABLE_PRODUCER> <MESSAGE_PRODUCTION_RATE>";
+            String usage = "Usage: java -jar kafka-<VERSION>-jar-with-dependencies.jar <KAFKA_BROKER_LIST> <ENABLE_TEST_CONSUMER> <ENABLE_PRODUCER> <MESSAGE_PRODUCTION_RATE>";
             logger.error(usage);
             logger.error("<ENABLE_TEST_CONSUMER>: <yes|no>");
             logger.error("<ENABLE_PRODUCER>: <yes|no>");
@@ -72,7 +72,7 @@ public class Main {
             KafkaConsumer<Integer, String> consumer;
 
             Properties properties = new Properties();
-            properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaServerIP + ":9092");
+            properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBrokerList);
             properties.put(ConsumerConfig.GROUP_ID_CONFIG, "test");
             properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
             properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class.getName());
@@ -93,7 +93,7 @@ public class Main {
             KafkaProducer<Integer, String> producer;
 
             Properties properties = new Properties();
-            properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaServerIP + ":9092");
+            properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBrokerList);
             properties.put(ProducerConfig.ACKS_CONFIG, "all");
             properties.put(ProducerConfig.RETRIES_CONFIG, 2);
             properties.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
