@@ -1,10 +1,13 @@
-# Imagen basada en una imagen de Ubuntu 14.04 actualizada
-FROM jnonino/ubuntu-base:14.04
+# Imagen basada en una imagen de Ubuntu 14.04
+FROM ubuntu:trusty
 MAINTAINER Julian Nonino <noninojulian@outlook.com>
 
 # Instalar Zookeeper y limpiar la imagen luego de la instalacion
 # Hacer que la consola sea el destino por defecto del log de Zookeeper
-RUN apt-get install -y zookeeper && \
+RUN apt-get update && \
+    apt-get dist-upgrade -y && \
+    apt-get upgrade -y && \
+    apt-get install -y zookeeper && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Exponer puerto del cliente de Zookeeper (2181)

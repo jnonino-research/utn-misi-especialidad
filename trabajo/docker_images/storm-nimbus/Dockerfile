@@ -1,4 +1,4 @@
-FROM jnonino/storm-base:0.9.7
+FROM jnonino/storm-base
 MAINTAINER Julian Nonino <noninojulian@outlook.com>
 
 RUN /usr/bin/config-supervisord.sh nimbus && \
