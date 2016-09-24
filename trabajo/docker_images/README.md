@@ -1,23 +1,24 @@
-#### Construir la imagen de Docker de Ubuntu 14.04 actualizada
 
-docker build -t jnonino/ubuntu-base ubuntu-base
-
-#### Construir la imagen de Docker de Zookeeper
+#### Construir la imagen de Docker de Apache Zookeeper
 
 docker build -t jnonino/zookeeper zookeeper
 
-#### Construir la imagen de kafka
+#### Construir la imagen de Apache Kafka
 
 docker build -t jnonino/kafka kafka
 
-#### Construir la imagen base de Storm
+#### Construir la imagen base de Apache Storm
 
-docker build -t jnonino/storm-base storm-base
+docker build -t jnonino/storm-base storm/storm-base
+docker build -t jnonino/storm-nimbus storm/storm-nimbus
+docker build -t jnonino/storm-supervisor storm/storm-supervisor
+docker build -t jnonino/storm-ui storm/storm-ui
 
 #### Para inciar el cluster
 
-docker-compose -f cluster.yml up
-docker-compose -f clusterV2.yml up
+docker-compose -f zookeeper/start_zookeeper.yml up -d
+docker-compose -f kafka/start_kafka.yml up -d
+docker-compose -f storm/start_storm.yml up -d
 
 #### Verificar que el cluster de Zookeeper esta funcionando
 Ejecutar:
