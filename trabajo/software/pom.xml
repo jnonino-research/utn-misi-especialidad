@@ -11,8 +11,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>build-tools</module>
-        <module>commons</module>
         <module>kafka</module>
         <module>storm</module>
     </modules>
@@ -25,18 +23,11 @@
         <slf4j.version>1.6.2</slf4j.version>
         <gson.version>2.4</gson.version>
         <kafka.version>0.9.0.1</kafka.version>
-        <storm.version>0.9.4</storm.version>
+        <storm.version>0.9.7</storm.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!--Own Modules-->
-            <dependency>
-                <groupId>ar.edu.utn.frc.posgrado.jnonino</groupId>
-                <artifactId>commons</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <!--Log4J-->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>

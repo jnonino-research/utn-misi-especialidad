@@ -14,11 +14,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>ar.edu.utn.frc.posgrado.jnonino</groupId>
-            <artifactId>commons</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
         </dependency>
