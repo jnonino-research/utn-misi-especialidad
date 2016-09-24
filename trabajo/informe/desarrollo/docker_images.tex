@@ -44,49 +44,25 @@ ejecutarse como Docker Containers, formarán el sistema de procesamiento de datos
 en tiempo real que se quiere demostrar. Las imágenes desarrolladas son:
 
 \begin{itemize}
-    \item Ubuntu Base \ref{docker-image-ubuntu-base}
     \item Nodo de Zookeeper \ref{docker-image-nodo-zookeeper}
     \item Nodo de Kafka \ref{docker-image-nodo-kafka}
 \end{itemize}
 
-\section{Ubuntu Base}
-\label{docker-image-ubuntu-base}
-
-	Es la base del sistema, todos los nodos de los diferentes componentes correrán en
-	un sistema operativo Ubuntu 14.04 Trusty.
-	
-	\lstinputlisting[language=Bash,
-					 caption={Dockerfile para la imagen base Ubuntu 14.04 Trusty actualizado},
-					 label=code_ubuntu_base_dockerfile
-					]{./docker_images/ubuntu-base/Dockerfile.}
-					
-	Si bien cada una de las siguientes imágenes podría haber comenzado con el código
-	anterior, se considera apropiada la separación para evitar el proceso de
-	actualización del sistema operativo durante la construcción de cada una de las
-	imágenes.
-	
-	La construcción de ésta imagen, se realiza situado en la carpeta
-	\emph{ubuntu-base} del repositorio, mediante el siguiente comando.
-	
-\lstset{language=Bash}
-\begin{lstlisting}
-docker build -t jnonino/ubuntu-base:14.04 .
-\end{lstlisting}
-
-\section{Clúster Apache Zookeeper}
+\section{Nodo Apache Zookeeper}
 \label{docker-image-nodo-zookeeper}
 
-	Desde la imagen de Docker generada en la sección \ref{docker-image-ubuntu-base},
-	se parte para la creación de la imágen de Apache Zookeeper.
+	Basado en una imagen de Ubuntu 14.04 Trusty, se desarrolla la imagen de
+	Apache Zookeeper.
 
 	\lstinputlisting[language=Bash,
 					 caption={Dockerfile para un nodo de Apache Zookeeper},
 					 label=code_zookeeper_dockerfile
 					]{./docker_images/zookeeper/Dockerfile.}
 	
-	Notar que lo primero que se realiza es la instalación de Apache Zookeeper a
-	través de la herramienta \emph{apt-get} de Ubuntu y luego se limpian todos los
-	restos que hayan quedado de la instalación para reducir el tamaño de la imagen.
+	Para comenzar, se realiza una actualización del sistema operativo y luego se
+	procede con la instalación de Apache Zookeeper a través de la
+	herramienta \emph{apt-get} de Ubuntu. Luego, se limpian todos los restos que
+	hayan quedado de la instalación para reducir el tamaño de la imagen.
 	Posteriormente, se exponen los puertos necesarios para la ejecución.
 	
 	Con eso ya se podría iniciar un único nodo de Apache Zookeeper agregando a la
@@ -135,7 +111,7 @@ docker-compose -f start_zookeeper.yml up -d
 	
 	\lstinputlisting[language=Bash,
 					 caption={Script de inicio de Docker Compose para levantar un clúster de
-					 3 nodos de  Apache Zookeeper},
+					 3 nodos de Apache Zookeeper},
 					 label=code_zookeeper_compose
 					 ]{./docker_images/zookeeper/start_zookeeper.yml}
 	
@@ -164,11 +140,12 @@ done
 zk_followers	2
 \end{lstlisting}
 
-\section{Clúster Apache Kafka}
+\section{Nodo de Apache Kafka}
 \label{docker-image-nodo-kafka}
 
-	La siguiente imagen a construir es la de los nodos de Kafka, nuevamente, ésta
-	imagen es basada en la imagen Ubuntu Base 14.04.
+	De la misma manera que los nodos de Apache Zookeeper, ésta imagen es basada en la
+	imagen Ubuntu 14.04 Trusty. Y, como primera medida, se procede a la actualización
+	del sistema operativo.
 
 	\lstinputlisting[language=Bash,
 					 caption={Dockerfile para un nodo de Apache Kafka},
@@ -210,7 +187,7 @@ docker-compose -f start_kafka.yml up -d
 	
 	\lstinputlisting[language=Bash,
 					 caption={Script de inicio de Docker Compose para levantar un clúster de
-					 3 nodos de  Apache Kafka},
+					 3 nodos de Apache Kafka},
 					 label=code_zookeeper_compose
 					 ]{./docker_images/kafka/start_kafka.yml}
 	
@@ -257,5 +234,96 @@ BROKER_LIST=192.168.0.104:9092,192.168.0.104:9093,192.168.0.104:9094
 		\includegraphics[width=1\linewidth]{./informe/desarrollo/img/kafka_w_r_topic}
 	\end{figure}
 
-\section{Clúster Apache Storm}
-\label{docker-image}
+\section{Apache Storm}
+\label{docker-images-storm}
+
+	También basada en una imagen de docker de Ubuntu 14.04 Trusty se crea la imagen
+	base para todos los servicios de Storm. 
+	Cada nodo de Storm debe correr dos aplicaciones \emph{storm-supervisor} y
+	\emph{storm-logviewer}. Para correr ambos procesos en un container de Docker, se
+	utiliza un sistema de control de procesos hecho en Python llamado
+	\emph{supervisord}
+	
+	Es necesario correr tres servicios, \emph{Storm Nimbus}, \emph{Storm
+	UI} y al menos un nodo \emph{Storm Supervisor}. Dado que los tres compartes
+	muchas configuraciones, se crea una imagen base de Apache Storm de la cual
+	derivarán los tres servicios necesarios.
+	
+	\lstinputlisting[language=Bash,
+					 caption={Dockerfile para la imagen base de Storm},
+					 label=code_storm_base_dockerfile
+					]{./docker_images/storm/storm-base/Dockerfile.}
+
+	Se comienza actualizando el sistema operativo, luego se instalan todas las
+	herramientas necesarias como \emph{tar}, \emph{wget} y \emph{supervisord}. Como
+	no es posible la instalación de Apache Storm desde la herramienta \emph{apt-get},
+	se debe realizar un procedimiento similar al seguido con Apache Kafka.
+	Por último, se copian varios archivos de configuración que son necesarios para la
+	ejecución de supervisord y Apache Storm.
+
+	\lstinputlisting[language=Bash,
+					 caption={Archivo de configuración de Apache Storm storm.yaml},
+					 label=code_storm_yaml
+					]{./docker_images/storm/storm-base/storm.yaml}
+
+	\lstinputlisting[language=Bash,
+					 caption={Archivo de configuración de Apache Storm cluster.xml},
+					 label=code_cluster_xml
+					]{./docker_images/storm/storm-base/cluster.xml}
+	
+	\lstinputlisting[language=Bash,
+					 caption={Archivo de configuración de SupervisorD config-supervisord.sh},
+					 label=code_config_supervisord_sh
+					]{./docker_images/storm/storm-base/config-supervisord.sh}
+	
+	\lstinputlisting[language=Bash,
+					 caption={Script de inicio de Storm},
+					 label=code_start_supervisor_sh
+					]{./docker_images/storm/storm-base/start-supervisor.sh}
+	
+	\subsection{Storm Nimbus}
+	
+		\lstinputlisting[language=Bash,
+					 caption={Dockerfile para la imagen de Storm Nimbus},
+					 label=code_storm_nimbus_dockerfile
+					]{./docker_images/storm/storm-nimbus/Dockerfile.}
+	
+	\subsection{Storm Supervisor}
+	
+		\lstinputlisting[language=Bash,
+					 caption={Dockerfile para la imagen de Storm Supervisor},
+					 label=code_storm_supervisor_dockerfile
+					]{./docker_images/storm/storm-supervisor/Dockerfile.}
+					
+	\subsection{Storm UI}
+	
+		\lstinputlisting[language=Bash,
+					 caption={Dockerfile para la imagen de Storm UI},
+					 label=code_storm_ui_dockerfile
+					]{./docker_images/storm/storm-ui/Dockerfile.}				
+	
+	\subsection{Iniciar Apache Storm}
+	
+			Finaliza la construcción de todas las imágenes anteriores, es posible
+			poner a correr un servidor de Apache Storm utilizando el siguiente comando:
+
+\lstset{language=Bash}
+\begin{lstlisting}
+docker-compose -f start_storm.yml up -d
+\end{lstlisting}
+	
+	El comando anterior	inicia los tres servicios de Storm necesarios, Storm
+	Nimbus, Storm Supervisor y Storm UI, el valor \emph{-d} al final indica que se
+	desea que los containers corran en segundo plano.
+	
+	\lstinputlisting[language=Bash,
+					 caption={Script de inicio de Docker Compose para levantar Apache Storm},
+					 label=code_storm_compose
+					 ]{./docker_images/storm/start_storm.yml}
+	
+	Luego, es posible comprobar el estado de Storm accediendo a la interfaz web
+	``http://<DOCKER_HOST_IP>:8080''.
+	
+	
+
+
