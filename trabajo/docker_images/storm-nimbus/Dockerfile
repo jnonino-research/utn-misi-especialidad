@@ -1,8 +1,7 @@
-FROM jnonino/storm-base:0.9.6
+FROM jnonino/storm-base:0.9.7
 MAINTAINER Julian Nonino <noninojulian@outlook.com>
 
-RUN chmod +x /usr/bin/config-supervisord.sh && \
-    /usr/bin/config-supervisord.sh nimbus && \
+RUN /usr/bin/config-supervisord.sh nimbus && \
     /usr/bin/config-supervisord.sh drpc
 
 # Exponer nimbus.thrift.port
