@@ -59,8 +59,8 @@ public class Main {
                 System.exit(1);
             }
         } else {
-            logger.error("Should run with three arguments");
-            String usage = "Usage: java -jar kafka-<VERSION>-jar-with-dependencies.jar <KAFKA_BROKER_LIST> <ENABLE_TEST_CONSUMER> <ENABLE_PRODUCER> <MESSAGE_PRODUCTION_RATE>";
+            logger.error("Should run with four arguments");
+            String usage = "Uso: java -jar kafka-<VERSION>-jar-with-dependencies.jar <KAFKA_BROKER_LIST> <ENABLE_TEST_CONSUMER> <ENABLE_PRODUCER> <MESSAGE_PRODUCTION_RATE>";
             logger.error(usage);
             logger.error("<ENABLE_TEST_CONSUMER>: <yes|no>");
             logger.error("<ENABLE_PRODUCER>: <yes|no>");
