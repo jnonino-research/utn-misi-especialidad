@@ -37,19 +37,13 @@ public class Main {
         String kafkaBrokerList = null;
         String topicToRead = null;
 
-        if (args.length == 4) {
+        if (args.length == 2) {
             kafkaBrokerList = args[0];
             topicToRead = args[1];
-
-
-
         } else {
-            logger.error("Should run with four arguments");
+            logger.error("Should run with two arguments");
             String usage = "Usage: storm jar storm-<VERSION>-jar-with-dependencies.jar <KAFKA_BROKER_LIST> <TOPIC_TO_READ>";
             logger.error(usage);
-            logger.error("<ENABLE_TEST_CONSUMER>: <yes|no>");
-            logger.error("<ENABLE_PRODUCER>: <yes|no>");
-            logger.error("<MESSAGE_PRODUCTION_RATE>: <long value>");
             System.exit(1);
         }
 
