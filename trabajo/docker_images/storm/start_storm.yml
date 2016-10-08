@@ -4,8 +4,8 @@ services:
   storm-nimbus:
     image: jnonino/storm-nimbus
     environment:
-      NIMBUS_HOST: 192.168.1.35
-      ZK: 192.168.1.35
+      NIMBUS_HOST: "192.168.0.103"
+      ZK: "192.168.0.103"
     ports:
       - "3772:3772"
       - "3773:3773"
@@ -13,17 +13,17 @@ services:
   storm-ui:
     image: jnonino/storm-ui
     environment:
-      HOST_NAME: 192.168.1.35
-      NIMBUS_HOST: 192.168.1.35
-      ZK: "192.168.1.35:2181,192.168.1.35:2182,192.168.1.35:2183"
+      HOST_NAME: "192.168.0.103"
+      NIMBUS_HOST: "192.168.0.103"
+      ZK: "192.168.0.103:2181,192.168.0.103:2182,192.168.0.103:2183"
     ports:
       - "8080:8080"
   storm-supervisor:
     image: jnonino/storm-supervisor
     environment:
-      HOST_NAME: 192.168.1.35
-      NIMBUS_HOST: 192.168.1.35
-      ZK: 192.168.1.35
+      HOST_NAME: "192.168.0.103"
+      NIMBUS_HOST: "192.168.0.103"
+      ZK: "192.168.0.103"
     ports:
       - "6700:6700"
       - "6701:6701"
