@@ -1,15 +1,12 @@
-# Imagen basada en una imagen de Ubuntu 14.04
-FROM ubuntu:trusty
+# Imagen basada en una imagen de Ubuntu 14.04 actualizada
+FROM jnonino/ubuntu-base
 MAINTAINER Julian Nonino <noninojulian@outlook.com>
 
 ENV STORM_VERSION 0.9.7
 
-# Instalar Java 7, tar, wget y dependencias de Python para Storm y SupervisorD
+# Instalar dependencias de Python para Storm y SupervisorD
 # Limpiar la imagen luego de las instalaciones y obtener Storm
-RUN apt-get update && \
-    apt-get dist-upgrade -y && \
-    apt-get upgrade -y && \
-    apt-get install -y tar wget openjdk-7-jre-headless python-setuptools python-virtualenv supervisor --fix-missing && \
+RUN apt-get install -y python-setuptools python-virtualenv supervisor --fix-missing && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     wget -q -O - http://apache.mirror.digionline.de/storm/apache-storm-$STORM_VERSION/apache-storm-$STORM_VERSION.tar.gz | tar -xzf - -C /opt
 
