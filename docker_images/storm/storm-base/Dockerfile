@@ -1,4 +1,4 @@
-# Imagen basada en una imagen de Ubuntu 14.04 actualizada
+# Imagen basada en una imagen de Ubuntu 14.04
 FROM ubuntu:trusty
 MAINTAINER Julian Nonino <noninojulian@outlook.com>
 
@@ -11,7 +11,6 @@ RUN apt-get update -y && \
     apt-get install -y python-setuptools python-virtualenv supervisor --fix-missing && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     wget -q -O - http://apache.mirror.digionline.de/storm/apache-storm-$STORM_VERSION/apache-storm-$STORM_VERSION.tar.gz | tar -xzf - -C /opt && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENV STORM_HOME /opt/apache-storm-$STORM_VERSION
 

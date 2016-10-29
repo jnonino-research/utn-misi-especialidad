@@ -1,4 +1,4 @@
-# Imagen basada en una imagen de Ubuntu 14.04 actualizada
+# Imagen basada en una imagen de Ubuntu 14.04
 FROM ubuntu:trusty
 MAINTAINER Julian Nonino <noninojulian@outlook.com>
 
