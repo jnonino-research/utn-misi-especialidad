@@ -10,7 +10,7 @@ RUN apt-get update -y && \
     apt-get install -y tar wget openjdk-7-jre-headless && \
     apt-get install -y python-setuptools python-virtualenv supervisor --fix-missing && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    wget -q -O - http://apache.mirror.digionline.de/storm/apache-storm-$STORM_VERSION/apache-storm-$STORM_VERSION.tar.gz | tar -xzf - -C /opt && \
+    wget -q -O - http://apache.mirror.digionline.de/storm/apache-storm-$STORM_VERSION/apache-storm-$STORM_VERSION.tar.gz | tar -xzf - -C /opt
 
 ENV STORM_HOME /opt/apache-storm-$STORM_VERSION
 
