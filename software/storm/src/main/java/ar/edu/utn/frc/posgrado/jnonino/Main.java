@@ -27,29 +27,15 @@ public class Main {
     private static final String clusterModeOption = "cluster";
 
     public static void main(String[] args) {
-
-//        Properties props = new Properties();
-//        String propsFileName = "config.properties";
-//        InputStream inStream = Main.class.getClassLoader().getResourceAsStream(propsFileName);
-//        try {
-//            props.load(inStream);
-//        } catch (IOException e) {
-//            logger.error("No se han cargado las propiedades del sistema");
-//            e.printStackTrace();
-//        }
-
         String mode = null;
         String kafkaBrokerList = null;
-        String topicToRead = null;
 
         if (args.length == 2) {
             mode = args[0];
             kafkaBrokerList = args[1];
-            topicToRead = args[2];
         } else {
             logger.error("Should run with two arguments");
-            String usage = "Usage: storm jar storm-<VERSION>-jar-with-dependencies.jar <MODE> <KAFKA_BROKER_LIST> <TOPIC_TO_READ>";
-            logger.error(usage);
+            logger.error("Usage: storm jar storm-<VERSION>-jar-with-dependencies.jar <MODE> <KAFKA_BROKER_LIST>");
             logger.error("<MODE>: valid choices are: " + localModeOption + " or " + clusterModeOption);
             System.exit(1);
         }
@@ -62,6 +48,7 @@ public class Main {
         }
         StaticHosts hosts = new StaticHosts(partitionInfo);
 
+        String topicToRead = "metrics";
         SpoutConfig spoutConfig = new SpoutConfig(hosts, topicToRead, "/" + topicToRead, UUID.randomUUID().toString());
         spoutConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
         KafkaSpout kafkaSpout = new KafkaSpout(spoutConfig);
