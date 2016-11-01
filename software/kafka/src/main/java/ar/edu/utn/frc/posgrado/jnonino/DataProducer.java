@@ -37,6 +37,7 @@ public class DataProducer extends Thread {
                 }
                 count += 1;
                 ProducerRecord<Integer, String> record = new ProducerRecord<>("metrics", count, line);
+                logger.info("Sending message: " + line);
                 this.producer.send(record);
             }
             bufferedReader.close();

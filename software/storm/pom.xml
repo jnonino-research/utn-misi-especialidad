@@ -12,10 +12,6 @@
 
     <artifactId>storm</artifactId>
 
-    <properties>
-        <MAIN.CLASS.PATH>ar.edu.utn.frc.posgrado.jnonino.Main</MAIN.CLASS.PATH>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -87,7 +83,7 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addClasspath>true</addClasspath>
-                            <mainClass>${MAIN.CLASS.PATH}</mainClass>
+                            <mainClass>ar.edu.utn.frc.posgrado.jnonino.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

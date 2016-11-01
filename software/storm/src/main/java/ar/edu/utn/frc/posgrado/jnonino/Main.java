@@ -1,6 +1,7 @@
 package ar.edu.utn.frc.posgrado.jnonino;
 
 import backtype.storm.Config;
+import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
 import backtype.storm.generated.AlreadyAliveException;
 import backtype.storm.generated.InvalidTopologyException;
@@ -22,7 +23,10 @@ public class Main {
 
     private static final Logger logger = LogManager.getLogger(Main.class);
 
-    public static void main(String [] args) {
+    private static final String localModeOption = "local";
+    private static final String clusterModeOption = "cluster";
+
+    public static void main(String[] args) {
 
 //        Properties props = new Properties();
 //        String propsFileName = "config.properties";
@@ -34,22 +38,25 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
+        String mode = null;
         String kafkaBrokerList = null;
         String topicToRead = null;
 
         if (args.length == 2) {
-            kafkaBrokerList = args[0];
-            topicToRead = args[1];
+            mode = args[0];
+            kafkaBrokerList = args[1];
+            topicToRead = args[2];
         } else {
             logger.error("Should run with two arguments");
-            String usage = "Usage: storm jar storm-<VERSION>-jar-with-dependencies.jar <KAFKA_BROKER_LIST> <TOPIC_TO_READ>";
+            String usage = "Usage: storm jar storm-<VERSION>-jar-with-dependencies.jar <MODE> <KAFKA_BROKER_LIST> <TOPIC_TO_READ>";
             logger.error(usage);
+            logger.error("<MODE>: valid choices are: " + localModeOption + " or " + clusterModeOption);
             System.exit(1);
         }
 
         GlobalPartitionInformation partitionInfo = new GlobalPartitionInformation();
         List<String> brokers = Arrays.asList(kafkaBrokerList.split(","));
-        for(int index=0 ; index<brokers.size() ; index++) {
+        for (int index = 0; index < brokers.size(); index++) {
             Broker broker = new Broker(brokers.get(index));
             partitionInfo.addPartition(index, broker);
         }
@@ -85,14 +92,24 @@ public class Main {
         // This value defaults to 30 seconds, which is sufficient for most topologies.
         conf.setMessageTimeoutSecs(60);
 
-        try {
-            StormSubmitter.submitTopology("especialidad", conf, builder.createTopology());
-        } catch (AlreadyAliveException e) {
-            logger.error("Topology already running");
-            e.printStackTrace();
-        } catch (InvalidTopologyException e) {
-            logger.error("Invalid Topology");
-            e.printStackTrace();
+        if (mode.equalsIgnoreCase(localModeOption)) {
+            logger.info("Deploying topology in local mode");
+            conf.setDebug(true);
+            LocalCluster cluster = new LocalCluster();
+            cluster.submitTopology("test", conf, builder.createTopology());
+        } else if (mode.equalsIgnoreCase(clusterModeOption)) {
+            logger.info("Deploying topology in cluster mode");
+            try {
+                StormSubmitter.submitTopology("especialidad", conf, builder.createTopology());
+            } catch (AlreadyAliveException e) {
+                logger.error("Topology already running");
+                e.printStackTrace();
+            } catch (InvalidTopologyException e) {
+                logger.error("Invalid Topology");
+                e.printStackTrace();
+            }
+        } else {
+            logger.error("The selected deploy mode is not valid");
         }
     }
 }
