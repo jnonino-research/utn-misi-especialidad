@@ -27,9 +27,8 @@ public class DataProcessBolt extends BaseRichBolt {
     @Override
     public void execute(Tuple tupleInput) {
         String message = tupleInput.getString(0);
-        logger.info("LOGGER-Procesando el mensaje: " + message);
-        System.out.println("SYSTEM OUT-Procesando el mensaje: " + message);
         MetricRecord metric = new MetricRecord(message);
+        logger.info("Procesando el mensaje: " + metric.toString());
         this.collector.ack(tupleInput);
     }
 

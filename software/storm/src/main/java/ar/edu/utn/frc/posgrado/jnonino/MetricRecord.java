@@ -41,22 +41,6 @@ public class MetricRecord {
         return !invalidMetric;
     }
 
-    @Override
-    public String toString() {
-        String object = "";
-        object += this.getCountry() + ",";
-        object += this.getState() + ",";
-        object += this.getCity() + ",";
-        object += this.getTimestamp() + ",";
-        object += this.getTemperature() + ",";
-        object += this.getHumidity() + ",";
-        object += this.getPressure() + ",";
-        object += this.getWindSpeed() + ",";
-        object += this.getWindDirection() + ",";
-        object += this.getOwner();
-        return object;
-    }
-
     public String getCountry() {
         return country;
     }
@@ -95,5 +79,10 @@ public class MetricRecord {
 
     public String getOwner() {
         return owner;
+    }
+
+    @Override
+    public String toString() {
+        return this.country + "-" + this.city + "-" + this.timestamp;
     }
 }
