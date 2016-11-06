@@ -4,7 +4,7 @@ services:
   zookeeper1:
     image: jnonino/zookeeper
     environment:
-      ZK_SERVERS: "server.1=192.168.0.106:2888:3888 server.2=192.168.0.106:2889:3889 server.3=192.168.0.106:2890:3890"
+      ZK_SERVERS: "server.1=192.168.1.92:2888:3888 server.2=192.168.1.92:2889:3889 server.3=192.168.1.92:2890:3890"
       ZK_ID: 1
     ports:
       - "2181:2181"
@@ -13,7 +13,7 @@ services:
   zookeeper2:
     image: jnonino/zookeeper
     environment:
-      ZK_SERVERS: "server.1=192.168.0.106:2888:3888 server.2=192.168.0.106:2889:3889 server.3=192.168.0.106:2890:3890"
+      ZK_SERVERS: "server.1=192.168.1.92:2888:3888 server.2=192.168.1.92:2889:3889 server.3=192.168.1.92:2890:3890"
       ZK_ID: 2
     ports:
       - "2182:2181"
@@ -22,7 +22,7 @@ services:
   zookeeper3:
     image: jnonino/zookeeper
     environment:
-      ZK_SERVERS: "server.1=192.168.0.106:2888:3888 server.2=192.168.0.106:2889:3889 server.3=192.168.0.106:2890:3890"
+      ZK_SERVERS: "server.1=192.168.1.92:2888:3888 server.2=192.168.1.92:2889:3889 server.3=192.168.1.92:2890:3890"
       ZK_ID: 3
     ports:
       - "2183:2181"
