@@ -43,10 +43,10 @@
 	\subsection{Procesamiento de Flujos de Datos (Stream Processing)}
 		
 		En contraste a los modelos de procesamiento de datos tradicionales en los cuales
-		los datos son primero almacenados y luego procesados y analizados, cuando se
-		procesa un flujo de datos, los datos son procesados y analizados mientras entran
-		en el sistema. Esto se conoce como procesar datos en movimiento, conectando los
-		procesadores de datos con las fuentes que los producen.
+		los datos son primero almacenados, cuando se trabaja un flujo de datos, los
+		datos son procesados y analizados mientras entran en el sistema. Esto se
+		conoce como procesar datos en movimiento, conectando los procesadores de datos
+		con las fuentes que los producen.
 					
 		Una solución de procesamiento de datos en tiempo real debe ser capaz de:
 		\begin{itemize}
@@ -112,7 +112,7 @@
 	desplieque \emph{Plataforma como Servicio} (\emph{PaaS - Plataform as a
 	Service}).\cite{WikipediaDocker}
 
-	\subsection{imágenes y Contenedores\cite{GetStartedDocker2016}}
+	\subsection{Imágenes y Contenedores\cite{GetStartedDocker2016}}
 	
 		Un \emph{contenedor (container)} es una version de un sistema operativo Linux,
 		solo con los componentes más básicos. Una \emph{imagen} es software que se carga
@@ -240,7 +240,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		\caption{Arquitectura de un servicio Zookeeper\cite{Zookeeper348}}
 	\end{figure}
 	
-	de acuerdo a la documentación de Zookeeper, fué diseñado bajo estos cuatro
+	De acuerdo a la documentación de Zookeeper, fué diseñado bajo estos cuatro
 	pilares\cite{Zookeeper348}:
 	\begin{itemize}
 	    \item \emph{simplicidad}: Zookeeper permite la sincronización entre procesos
@@ -268,7 +268,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
  	
  	\begin{figure}[H]
 		\centering
-		\includegraphics[width=1\linewidth]{./informe/introduccion/img/zookeeper/ZookeeperPerformanceRW}
+		\includegraphics[width=.8\linewidth]{./informe/introduccion/img/zookeeper/ZookeeperPerformanceRW}
 		\caption{Rendimiento de Zookeeper mostrando escrituras
 		versus lecturas\cite{Zookeeper348}}
 	\end{figure}
@@ -286,9 +286,9 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		\end{figure}
 		
 		A diferencia de los sistemas de archivos, cada nodo en el espacio de nombres de
-		Zookeeper puede tener datos y subnodos, es como un sistemas de archivos que
-		permite a un archivo ser a la vez un directorio. Debido a los objetivos por lo
-		cuales Zookeeper fue diseñado, los datos almacenados en cada nodo generalemente
+		Zookeeper puede tener datos y subnodos, es como si un sistema de archivos
+		permitiera a un archivo ser a la vez un directorio. Debido a los objetivos por
+		lo cuales Zookeeper fue diseñado, los datos almacenados en cada nodo generalemente
 		son muy pequeños, en el orden de un byte a un kilobyte. Cada nodo de datos, en
 		la nomenclatura de Zookeeper es llamado \emph{znode}.
 
@@ -338,7 +338,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 	    \emph{topics.}
 		\item Los productores de mensajes se llaman \emph{producers}.
 		\item Los consumidores de mensajes se llaman \emph{consumers}.
-		\item Kafka corre en un cluster formado por uno o mas servidores. cada uno de
+		\item Kafka corre en un cluster formado por uno o mas servidores. Cada uno de
 		ellos es llamado \emph{broker}.
 	\end{itemize}
 	
@@ -376,7 +376,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		uno de los servidores y por cero o más seguidores (\emph{followers}) que
 		replican al líder todo el tiempo en servidores distintos. Si el líder falla,
 		alguno de los seguidores se convertirá en el nuevo líder garantizando que el
-		sistema siga operando. la configuración ideal es que cada servidor sea líder de
+		sistema siga operando. La configuración ideal es que cada servidor sea líder de
 		alguna partición y seguidor de las otras.
 		
 	\subsection{Productores}
@@ -393,8 +393,8 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		\emph{cola de mensajes} o \emph{publicación-subscripción}. En el primero, los
 		mensajes son encolados y cada mensaje es dirigido hacia alguno de los
 		consumidores. En el segundo, cada mensaje es transmitido a todos los
-		consumidores. kafka maneja ambos mundos con lo que se conoce como grupos de
-		consumidores (\emph{consumer groups}).
+		consumidores. Apache Kafka maneja ambos mundos con lo que se conoce como
+		grupos de consumidores (\emph{consumer groups}).
 		
 		Cada consumidor debe ubicarse dentro de alguno de los grupos de consumidores y
 		cuando un mensaje es publicado en un \emph{topic}, es transmitido a un único
@@ -423,15 +423,15 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 \label{section_apache_storm}
 	
 	Apache Storm es una herramienta de procesamiento de datos en tiempo real de
-	código abierto y gratuita creada por Twitter y luego liberada en lo órbita de los
-	proyectos Apache.
+	código abierto y gratuita creada por Twitter y luego liberada bajo la órbita de
+	los proyectos Apache.
 	
 	La finalidad de Storm es proveer un mecanismo confiable para procesamiento de
 	flujos de datos ilimitados, haciendo para flujos de datos (\emph{realtime stream
 	processing}) lo que Hadoop hace en procesamiento por lotes (\emph{batch processing})\cite{ApacheStorm097}.
 	
-	de acuerdo a su documentación, es capaz de procesar un millón de tuplas de datos
-	por segundo por nodo. Provee características de escalabilidad, tolerancia a
+	De acuerdo a su documentación, Storm es capaz de procesar un millón de tuplas
+	de datos por segundo por nodo. Provee características de escalabilidad, tolerancia a
 	fallos, garantías de que todos los datos serán procesados, etcétera\cite{ApacheStorm097}.
 	
 	\subsection{Conceptos Básicos}
@@ -445,19 +445,19 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		\end{figure}
 		
 		\subsubsection{Topologies}
-		
+		\label{storm_topologies}
 			Las \emph{topologías} son los contenedores de la lógica de una aplicación de
-			procesamiento de datos en tiempo real. Consume flujos de datos, los procesa y
-			genera nuevos flujos de datos. Es el análogo a un trabajo de MapReduce de
-			Hadoop\footnote{https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html}.
+			procesamiento de datos en tiempo real en Storm. Consumen flujos de datos, los
+			procesan y generan nuevos flujos de datos. Es el análogo a un trabajo de
+			MapReduce de Hadoop\footnote{https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html}.
 			La diferencia principal con éstos últimos es que un trabajo MapReduce de
 			Hadoop, eventualmente concluye mientras que las topologías pueden correr
 			indefinidamente. 
 			Una topología es un grafo formado por \emph{Spouts} y \emph{Bolts} conectados a
-			través de \emph{Stream Groupings}.
+			través de \emph{Stream Groupings}\ref{storm_stream_grouping}.
 		
 		\subsubsection{Streams}
-		
+		\label{storm_streams}
 			Los streams son una secuencia ilimitada de tuplas de datos que son creadas y
 			procesadas de manera distribuida. Los streams se definen creando un esquema
 			que contenga todos los campos de datos de cada tupla que forma parte del
@@ -465,7 +465,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 			cadenas de caracteres (\emph{strings}), valores booleanos, etcétera.
 		
 		\subsubsection{Spouts}
-		
+		\label{storm_spouts}
 			Los spouts son la fuente de streams para la topología. Generalemente leen
 			tuplas de datos desde una fuente externa y las emiten dentro de la topología
 			para que sea procesada. Los spouts pueden ser:
@@ -477,7 +477,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 			\end{itemize}
 		
 		\subsubsection{Bolts}
-	
+		\label{storm_bolts}
 			Dentro de una topología, todo el procesamiento sobre los datos es realizado en
 			los bolts. Los bolts pueden ser programados para realizar cualquier tarea como
 			filtrado, agregación, uniones con bases de datos, funciones, etcétera.
@@ -485,7 +485,7 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 			o varios de ellos luego de procesados.
 	
 		\subsubsection{Stream Grouping}
-		
+		\label{storm_stream_grouping}
 			Al definir una topología, es necesaria especificar que streams debe recibir
 			como entrada cada uno de los bolts. Los \emph{stream groupings} definen como
 			los streams deben ser particionados en las tareas de cada bolt.
@@ -528,15 +528,15 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 			\end{itemize}
 	
 		\subsubsection{Tasks}
-		
+		\label{storm_tasks}
 			Cada spout o bolt ejecuta sus tareas en el cluster de Storm. Cada tarea
 			corresponde con un hilo de ejecución (\emph{thread}) y los \emph{Stream
 			groupings} definen como las tuplas viajan entre las tareas.
 			
 		\subsubsection{Workers}
-		
+		\label{storm_workers}
 			Las topologías corren sobre uno o más procesos \emph{worker}. Cada uno de
-			estos procesos es una JVM física que ejecuta un subconjunto de las tareas de
+			estos procesos es una JVM que ejecuta un subconjunto de las tareas de
 			la topología.
 		
 	\subsection{Material}
