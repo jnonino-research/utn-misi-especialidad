@@ -1,9 +1,8 @@
-package ar.edu.utn.frc.posgrado.jnonino;
+package ar.edu.utn.frc.posgrado.jnonino.storm;
 
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
-import backtype.storm.config$clojure_config_name;
 import backtype.storm.generated.AlreadyAliveException;
 import backtype.storm.generated.InvalidTopologyException;
 import backtype.storm.spout.SchemeAsMultiScheme;
@@ -11,10 +10,7 @@ import backtype.storm.topology.TopologyBuilder;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import storm.kafka.*;
-import storm.kafka.trident.GlobalPartitionInformation;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 /**

@@ -1,4 +1,4 @@
-package ar.edu.utn.frc.posgrado.jnonino;
+package ar.edu.utn.frc.posgrado.jnonino.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;

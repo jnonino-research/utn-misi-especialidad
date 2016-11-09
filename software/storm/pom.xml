@@ -83,7 +83,7 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addClasspath>true</addClasspath>
-                            <mainClass>ar.edu.utn.frc.posgrado.jnonino.Main</mainClass>
+                            <mainClass>ar.edu.utn.frc.posgrado.jnonino.storm.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

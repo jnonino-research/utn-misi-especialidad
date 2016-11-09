@@ -21,9 +21,9 @@ Indicarle a Storm la dirección del cluster.
 
 Cargar la topología con el siguiente comando:
 
-    storm jar <PATH_TOPOLOGIA> ar.edu.utn.frc.posgrado.jnonino.Main <LISTA_BROKERS_KAFKA> <TOPICO_A_LEER>
+    storm jar <PATH_TOPOLOGIA> ar.edu.utn.frc.posgrado.jnonino.storm.Main <LISTA_BROKERS_KAFKA> <TOPICO_A_LEER>
 
-    apache-storm-0.9.7/bin/storm jar especialidad-utn/trabajo/software/storm/target/storm-1.0-SNAPSHOT-jar-with-dependencies.jar ar.edu.utn.frc.posgrado.jnonino.Main  192.168.0.103:9092,192.168.0.103:9093,192.168.0.103:9094 metrics
+    apache-storm-0.9.7/bin/storm jar especialidad-utn/trabajo/software/storm/target/storm-1.0-SNAPSHOT-jar-with-dependencies.jar ar.edu.utn.frc.posgrado.jnonino.storm.Main  192.168.0.103:9092,192.168.0.103:9093,192.168.0.103:9094 metrics
     
 
 

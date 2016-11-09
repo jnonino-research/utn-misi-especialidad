@@ -1,4 +1,4 @@
-package ar.edu.utn.frc.posgrado.jnonino;
+package ar.edu.utn.frc.posgrado.jnonino.kafka;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
