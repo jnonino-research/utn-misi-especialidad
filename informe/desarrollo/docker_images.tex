@@ -44,8 +44,15 @@ ejecutarse como Docker Containers, formarán el sistema de procesamiento de datos
 en tiempo real que se quiere demostrar. Las imágenes desarrolladas son:
 
 \begin{itemize}
-    \item Nodo de Zookeeper \ref{docker-image-nodo-zookeeper}
-    \item Nodo de Kafka \ref{docker-image-nodo-kafka}
+    \item Nodo de Apache Zookeeper (\ref{docker-image-nodo-zookeeper}).
+    \item Nodo de Apache Kafka (\ref{docker-image-nodo-kafka}).
+    \item Imagenes de Apache Storm (\ref{docker-images-storm}).
+    	\begin{itemize}
+    	  \item Nodo de Apache Storm Nimbus (\ref{docker-images-storm-nimbus}).
+    	  \item Nodo de Apache Storm
+    	  Supervisor (\ref{docker-images-storm-supervisor}).
+    	  \item Nodo de Apache Storm UI (\ref{docker-images-storm-ui}).
+		\end{itemize}
 \end{itemize}
 
 \section{Nodo Apache Zookeeper}
@@ -282,21 +289,21 @@ BROKER_LIST=192.168.0.104:9092,192.168.0.104:9093,192.168.0.104:9094
 					]{./docker_images/storm/storm-base/start-supervisor.sh}
 	
 	\subsection{Storm Nimbus}
-	
+	\label{docker-images-storm-nimbus}
 		\lstinputlisting[language=Bash,
 					 caption={Dockerfile para la imagen de Storm Nimbus},
 					 label=code_storm_nimbus_dockerfile
 					]{./docker_images/storm/storm-nimbus/Dockerfile.}
 	
 	\subsection{Storm Supervisor}
-	
+	\label{docker-images-storm-supervisor}
 		\lstinputlisting[language=Bash,
 					 caption={Dockerfile para la imagen de Storm Supervisor},
 					 label=code_storm_supervisor_dockerfile
 					]{./docker_images/storm/storm-supervisor/Dockerfile.}
 					
 	\subsection{Storm UI}
-	
+	\label{docker-images-storm-ui}
 		\lstinputlisting[language=Bash,
 					 caption={Dockerfile para la imagen de Storm UI},
 					 label=code_storm_ui_dockerfile
