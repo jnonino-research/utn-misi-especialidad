@@ -88,7 +88,7 @@ CMD ["/usr/share/zookeeper/bin/zkServer.sh", "start-foreground"]
 
 	Como se desea correr un clúster de Apache Zookeeper, se deben hacer ciertas
 	configuraciones para que cada nodo pueda comunicarse con los demás. Por ésta
-	razón se implementa el siguiente script.
+	razón se implementa el siguiente script de inicio.
 	
 	\lstinputlisting[language=Bash,
 					 caption={Script de inicio para un nodo de Apache Zookeeper},
@@ -109,7 +109,7 @@ CMD ["/usr/share/zookeeper/bin/zkServer.sh", "start-foreground"]
 \begin{lstlisting}
 docker build -t jnonino/zookeeper .
 \end{lstlisting}
-
+	\newpage
 	Luego de construir la imagen de Zookeeper, el clúster de tres nodos puede ser
 	lanzado mediante Docker Compose utilizando el siguiente comando:
 
@@ -221,8 +221,8 @@ docker-compose -f start_kafka.yml up -d
 \lstset{language=Bash}
 \begin{lstlisting}
 ./bin/kafka-topics.sh --create --topic test --partitions 3 --zookeeper
-192.168.0.104 --replication-factor 2
-./bin/kafka-topics.sh --describe --topic test --zookeeper 192.168.0.104
+<IP_ZOOKEEPER> --replication-factor 2
+./bin/kafka-topics.sh --describe --topic test --zookeeper <IP_ZOOKEEPER>
 \end{lstlisting}	
 
 	\begin{figure}[H]
@@ -236,9 +236,9 @@ docker-compose -f start_kafka.yml up -d
 
 \lstset{language=Bash}
 \begin{lstlisting}
-BROKER_LIST=192.168.0.104:9092,192.168.0.104:9093,192.168.0.104:9094
+BROKER_LIST=<IP_NODO_KAFKA>:9092,<IP_NODO_KAFKA>:9093,<IP_NODO_KAFKA>:9094
 /bin/kafka-console-producer.sh --topic test --broker-list="$BROKER_LIST"
-./bin/kafka-console-consumer.sh --zookeeper 192.168.0.104 --topic test
+./bin/kafka-console-consumer.sh --zookeeper <IP_ZOOKEEPER> --topic test
 --from-beginning
 \end{lstlisting}
 
@@ -250,12 +250,23 @@ BROKER_LIST=192.168.0.104:9092,192.168.0.104:9093,192.168.0.104:9094
 \section{Apache Storm}
 \label{docker-images-storm}
 
+	Un clúster de Apache Storm necesita contar con varios tipos de nodos para su
+	operación. En las siguientes secciones se mostrarán las imágenes de Docker
+	creadas para cada uno de ellos y se comentará cual es el propósito de dicho
+	nodo.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{./informe/desarrollo/img/Cluster-Storm}
+		\caption{Arquitectura básica de un clúster de Apache Storm\cite{Prakash2016}}
+	\end{figure}
+		
 	También basada en una imagen de docker de Ubuntu 14.04 Trusty se crea la imagen
 	base para todos los servicios de Storm. 
 	Cada nodo de Storm debe correr dos aplicaciones \emph{storm-supervisor} y
 	\emph{storm-logviewer}. Para correr ambos procesos en un container de Docker, se
 	utiliza un sistema de control de procesos hecho en Python llamado
-	\emph{supervisord}
+	\emph{supervisord}.
 	
 	Es necesario correr tres servicios, \emph{Storm Nimbus}, \emph{Storm
 	UI} y al menos un nodo \emph{Storm Supervisor}. Dado que los tres compartes
@@ -273,13 +284,13 @@ BROKER_LIST=192.168.0.104:9092,192.168.0.104:9093,192.168.0.104:9094
 	se debe realizar un procedimiento similar al seguido con Apache Kafka.
 	Por último, se copian varios archivos de configuración que son necesarios para la
 	ejecución de supervisord y Apache Storm.
-
-	\lstinputlisting[language=Bash,
+	
+	\lstinputlisting[language=XML,
 					 caption={Archivo de configuración de Apache Storm storm.yaml},
 					 label=code_storm_yaml
 					]{./docker_images/storm/storm-base/storm.yaml}
 
-	\lstinputlisting[language=Bash,
+	\lstinputlisting[language=XML,
 					 caption={Archivo de configuración de Apache Storm cluster.xml},
 					 label=code_cluster_xml
 					]{./docker_images/storm/storm-base/cluster.xml}
@@ -296,6 +307,13 @@ BROKER_LIST=192.168.0.104:9092,192.168.0.104:9093,192.168.0.104:9094
 	
 	\subsection{Storm Nimbus}
 	\label{docker-images-storm-nimbus}
+	
+		Storm Nimbus, es el nodo maestro y coordinador de Apache Storm. Es el
+		encargado de asignar las tareas a los nodos trabajadores (\emph{workers}),
+		monitorear el cluster buscando fallas y distribuir el código
+		(\emph{topologías}) entre todos los nodos del cluster. Corre un proceso
+		demonio llamado \textbf{\emph{nimbus}}.
+		
 		\lstinputlisting[language=Bash,
 					 caption={Dockerfile para la imagen de Storm Nimbus},
 					 label=code_storm_nimbus_dockerfile
@@ -303,6 +321,11 @@ BROKER_LIST=192.168.0.104:9092,192.168.0.104:9093,192.168.0.104:9094
 	
 	\subsection{Storm Supervisor}
 	\label{docker-images-storm-supervisor}
+	
+		Son los nodos trabajadores (\emph{workers}). Corren un proceso
+		demonio llamado \textbf{\emph{supervisor}}. Son nodos que estan escuchando
+		permanente al nodo nimbus esperando que les sean asignadas tareas.
+	
 		\lstinputlisting[language=Bash,
 					 caption={Dockerfile para la imagen de Storm Supervisor},
 					 label=code_storm_supervisor_dockerfile
@@ -310,6 +333,10 @@ BROKER_LIST=192.168.0.104:9092,192.168.0.104:9093,192.168.0.104:9094
 					
 	\subsection{Storm UI}
 	\label{docker-images-storm-ui}
+	
+		Ésta imágen de Docker es la encargada de levantar la interfaz gráfica de
+		Apache Storm.
+		
 		\lstinputlisting[language=Bash,
 					 caption={Dockerfile para la imagen de Storm UI},
 					 label=code_storm_ui_dockerfile
@@ -317,7 +344,7 @@ BROKER_LIST=192.168.0.104:9092,192.168.0.104:9093,192.168.0.104:9094
 	
 	\subsection{Iniciar Apache Storm}
 	
-			Finaliza la construcción de todas las imágenes anteriores, es posible
+			Finalizada la construcción de todas las imágenes anteriores, es posible
 			poner a correr un servidor de Apache Storm utilizando el siguiente comando:
 
 \lstset{language=Bash}
