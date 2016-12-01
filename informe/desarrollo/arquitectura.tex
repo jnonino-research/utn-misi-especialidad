@@ -16,15 +16,36 @@
 \chapter{Diseño de la Arquitectura del Sistema}
 \label{chapter_arquitectura}
 
+Para cumplir con el objetivo de armar un sistema de procesamiento de dato en
+tiempo real utilizando tecnologías como Docker, Apache Zookeeper, Apache Kafka y
+Apache Storm. Se plantea un sistema multinodo, con cada nodo corriendo un
+determinado servicio basado en la imagen de Docker generada.
+
+Como se observa en la siguiente figura\ref{arquitectura_general}, se generarán
+tres nodos de Apache Zookeeper, al igual que con Apache Kafka. Esto permite
+garantizar la disponibiliad de los servicios. En el caso de Apache Storm, se
+generan tres nodos, uno para el procesamiento de datos (podrían existir más), un
+único nodo encargado de controlar el clúster, \emph{Storm Nimbus}, y un nodo
+adicional para acceder a la interfaz gráfica de Apache Storm.
 
 \begin{figure}[H]
 	\centering
+	\label{arquitectura_general}
 	\includegraphics[width=1\linewidth]{./informe/desarrollo/img/ArquitecturaServidor}
 	\caption{Arquitectura general del Clúster incluyendo Zookeeper, Kafka y Storm}
 \end{figure}
 
+\newpage
+
+También, se implementan dos simples aplicaciones en Java. Una, para actuar de
+productor de datos para Apache Kafka, simulando algún dispositivo o sistema que
+envía datos al servidor. La otra es la topología de Apache Storm encargada de
+leer los datos desde Apache Kafka y efectuarles algún procesamiento. Ésta
+topología, será subida al nodo \emph{Storm Nimbus}.
+
 \begin{figure}[H]
 	\centering
+	\label{arquitectura general_clientes}
 	\includegraphics[width=1\linewidth]{./informe/desarrollo/img/ArquitecturaConexionClientes}
 	\caption{Arquitectura general del Clúster conectado a los programas cliente}
 \end{figure}
