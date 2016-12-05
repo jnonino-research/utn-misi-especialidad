@@ -16,39 +16,102 @@
 \chapter{Aplicaciones Desarrolladas}
 \label{chapter_aplicaciones_desarrolladas}
 
-\section{Productor de Datos de Kafka}
-\label{productor_kafka}
+En éste capítulo se mostrarán las aplicaciones desarrolladas para hacer uso del
+sistema de procesamiento de datos presentado en secciones
+anteriores (\ref{arquitectura_general}).
 
-\lstinputlisting[language=Java,
-				 caption={Clase Main de la aplicación de Apache Kafka},
-				 label=kafka_app_main
-				]{./software/kafka/src/main/java/ar/edu/utn/frc/posgrado/jnonino/kafka/Main.java}
-				
-\lstinputlisting[language=Java,
-				 caption={Productor de datos de la aplicación de Apache Kafka},
-				 label=kafka_app_producer
-				]{./software/kafka/src/main/java/ar/edu/utn/frc/posgrado/jnonino/kafka/DataProducer.java}
+Los datos ingresan al sistema a través de Apache Kafka, por ello, se comenzó
+generando una aplicación para enviar datos al servicio de Apache Kafka y otra
+para consumirlos directmente desde Apache Kafka.
 
-\lstinputlisting[language=Java,
-				 caption={Consumidor de prueba de la aplicación de Apache Kafka},
-				 label=kafka_app_consumer
-				]{./software/kafka/src/main/java/ar/edu/utn/frc/posgrado/jnonino/kafka/DataConsumer.java}
-			
-\section{Topología de Procesamiento de Datos de Storm}
-\label{topologia_storm}
+También, se desarrollo una aplicación de Apache Storm, \textbf{topología}, que
+recuperará los datos del servicio de Apache Kafka teniendolos disponibles para
+procesarlos en Apache Storm.
 
-\lstinputlisting[language=Java,
-				 caption={Clase Main de la topología para Apache Storm},
-				 label=storm_topology_main
-				]{./software/storm/src/main/java/ar/edu/utn/frc/posgrado/jnonino/storm/Main.java}
+	\section{Productor de Datos de Kafka}
+	\label{productor_kafka}
 
-\lstinputlisting[language=Java,
-				 caption={Bolt de procesamiento de datos de la topología para Apache Storm},
-				 label=storm_topology_bolt
-				]{./software/storm/src/main/java/ar/edu/utn/frc/posgrado/jnonino/storm/DataProcessBolt.java}
-				
-\lstinputlisting[language=Java,
-				 caption={Objeto utilizado para procesar las tuplas recibidas en la
-				 topología para Apache Storm}, 
-				 label=storm_topology_metric_record
-				]{./software/storm/src/main/java/ar/edu/utn/frc/posgrado/jnonino/storm/MetricRecord.java}
+	Para generar una entrada de datos al sistema, se implementó una aplicación Java
+	encargada de publicar datos en Apacker Kafka. Paralelamente, se implementó una
+	aplicación consumidora de datos con el objetivo de comprobar que la producción
+	de datos es correcta.
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=.6\linewidth]{./informe/desarrollo/img/KafkaClassDiagram}
+	\end{figure}
+
+	Existe una clase \emph{Main} encargada de recibir los parámetros de entrada de
+	la aplicación e inicializar hilos de ejecución productores y/o consumidores de
+	datos según sea necesario.
+
+	\lstinputlisting[language=Java,
+					 caption={Clase Main de la aplicación de Apache Kafka},
+					 label=kafka_app_main
+					]{./software/kafka/src/main/java/ar/edu/utn/frc/posgrado/jnonino/kafka/Main.java}
+	
+	Como parámetros, se reciben la lista de brokers de Apache Kafka,
+	indicadores \emph{yes|no} para habilitar el hilo productor y/o el hilo
+	consumidor y finalmente, un parámetro númerico indicando, en milisegundos, la
+	tasa de producción de mensajes.
+
+	\newpage
+
+	La producción de datos se hacer en una clase llamada
+	DataProducer (\ref{kafka_app_producer}) que extiende de la clase \emph{Thread}
+	de Java. Al momento de instanciar un objeto de ésta clase, se debe enviar la
+	lista de brokers de Kafka y el valor de milisegundos que indica la tasa de
+	producción de mensajes.
+
+	\lstinputlisting[language=Java,
+					 caption={Productor de datos de la aplicación de Apache Kafka},
+					 label=kafka_app_producer
+					]{./software/kafka/src/main/java/ar/edu/utn/frc/posgrado/jnonino/kafka/DataProducer.java}
+
+	El método \emph{run} lee datos desde un archivo texto donde cada línea es un
+	mensaje independiente y los publica en Apache Kafka. El formato de los
+	mensajes incluye pais, provincia, ciudad, tiempo, temperatura, humedad,
+	presión, velocidad y dirección del viento.
+	
+\lstset{language=Bash}
+\begin{lstlisting}
+Argentina,Catamarca,Aconquija,1207105200000,25.2,49.7,962,5.1,SUR
+\end{lstlisting}
+
+	\newpage
+	
+	Para el caso del consumidor de datos, se repite el mismo esquema de instanciar
+	un objeto que extiende la clase \emph{Thread} de Java recibiendo como parámetro
+	la lista de brokers de Kafka.
+	
+	En el método \emph{run}, se recuperan mensajes desde el servidor y se los
+	imprimi en la consola de usuario.
+
+	\lstinputlisting[language=Java,
+					 caption={Consumidor de prueba de la aplicación de Apache Kafka},
+					 label=kafka_app_consumer
+					]{./software/kafka/src/main/java/ar/edu/utn/frc/posgrado/jnonino/kafka/DataConsumer.java}
+
+	\section{Topología de Procesamiento de Datos de Storm}
+	\label{topologia_storm}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{./informe/desarrollo/img/StormClassDiagram}
+	\end{figure}
+	
+	\lstinputlisting[language=Java,
+					 caption={Clase Main de la topología para Apache Storm},
+					 label=storm_topology_main
+					]{./software/storm/src/main/java/ar/edu/utn/frc/posgrado/jnonino/storm/Main.java}
+	
+	\lstinputlisting[language=Java,
+					 caption={Bolt de procesamiento de datos de la topología para Apache Storm},
+					 label=storm_topology_bolt
+					]{./software/storm/src/main/java/ar/edu/utn/frc/posgrado/jnonino/storm/DataProcessBolt.java}
+					
+	\lstinputlisting[language=Java,
+					 caption={Objeto utilizado para procesar las tuplas recibidas en la
+					 topología para Apache Storm}, 
+					 label=storm_topology_metric_record
+					]{./software/storm/src/main/java/ar/edu/utn/frc/posgrado/jnonino/storm/MetricRecord.java}

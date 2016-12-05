@@ -1,11 +1,15 @@
 package ar.edu.utn.frc.posgrado.jnonino.kafka;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.IntegerSerializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.util.Properties;
 
 /**
  * Created by Julián on 2/4/2016.
@@ -17,9 +21,17 @@ public class DataProducer extends Thread {
     private final KafkaProducer<Integer, String> producer;
     private long producingRateMillis = 1000;
 
-    public DataProducer(KafkaProducer<Integer, String> prod, long producingRateInMillis) {
-        this.producer = prod;
+    public DataProducer(String kafkaBrokerList, long producingRateInMillis) {
+        Properties properties = new Properties();
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBrokerList);
+        properties.put(ProducerConfig.ACKS_CONFIG, "all");
+        properties.put(ProducerConfig.RETRIES_CONFIG, 2);
+        properties.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
+        properties.put(ProducerConfig.LINGER_MS_CONFIG, 0);
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         this.producingRateMillis = producingRateInMillis;
+        this.producer = new KafkaProducer<>(properties);
     }
 
     public void run() {
@@ -33,7 +45,6 @@ public class DataProducer extends Thread {
                     sleep(this.producingRateMillis);
                 } catch (InterruptedException e) {
                     logger.error("Interrupted Exception while waiting producing rate time");
-                    e.printStackTrace();
                 }
                 count += 1;
                 ProducerRecord<Integer, String> record = new ProducerRecord<>("metrics", count, line);
