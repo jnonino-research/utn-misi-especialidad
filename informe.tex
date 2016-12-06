@@ -3,7 +3,7 @@
 %	TRABAJO:	Trabajo Final													%
 %				Especialidad en Ingeniería en Sistemas de Información			%
 %																				%
-%		Titulo:																	%
+%		Titulo:	Procesamiento de Datos en Tiempo Real							%
 %																				%
 %		Autor:	Julián Nonino													%
 %																				%
@@ -25,8 +25,6 @@
 		\usepackage{float} % Para posicionar imágenes donde uno quiera. Solo hay que poner la opcion [H]
 	% Apendice
 		\usepackage{appendix}
-	%Tablas	
-	%\usepackage{tabular}
 	% Margenes
 		\usepackage{anysize}
 	% Tabla de conteido
@@ -56,7 +54,6 @@
 	% URLs
 		\usepackage{url}
 	% Referencias
-		%\usepackage[dcucite]{harvard}
 		\usepackage{hyperref}
 		\usepackage[style=numeric,backend=bibtex,sorting=none]{biblatex}
 		\addbibresource{./informe/referencias.bib}
@@ -83,6 +80,7 @@
 
 		\setcounter{secnumdepth}{3} % Para numerar subsubsecciones
 		\setcounter{tocdepth}{3}	% Para incluir subsubsecciones en la TOC	
+	
 	% INICIO DE LA PRIMERA PARTE. Resumen ejecutivo
  		\frontmatter
  		% Portada
@@ -120,23 +118,6 @@
  					\input{./informe/conclusiones/resultados}	
  				% Conclusiones
  					\input{./informe/conclusiones/conclusiones_trabajo_futuro}
- 	
-	% APENDICES
-		%\appendix
-		%\part{Apéndices}
-		
-			% Nuevo proyecto en Xilinx XPS
-				%\input{./informe/apendices/nuevos_proyectos_XPS/nuevos_proyectos_XPS}
-			% Creacion de un nuevo IP core	
-				%\input{./informe/apendices/creacion_IP_core/creacion_IP_core}
-			% Interrupciones en los IP core
-				%\input{./informe/apendices/interrupciones/interrupciones}
-			% Gestión de la metodología de desarrollo
-				%\input{./informe/apendices/metodologia/metodologia}
-			% Códigos en Verilog de los IP cores
-				%\input{./informe/apendices/codigos_ipcores/codigos_ipcores}
-			% Códigos en C de los programas ejecutados
-				%\input{./informe/apendices/codigos_programas/codigos_programas}
 	
 	%INICIO DE LA PARTE FINAL. Bibliografia e Índices
 		\backmatter
