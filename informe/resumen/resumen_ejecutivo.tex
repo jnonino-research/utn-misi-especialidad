@@ -14,3 +14,67 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter*{Resumen Ejecutivo}
+
+En los últimos años, con las llegada de las Redes Sociales, Big Data, Internet
+de las Cosas, entre otras, la cantidad de datos generados creció
+exponencialmente. Paralelamente, se vió incrementada la necesidad de tomar
+acciones en base a dichos datos en el menor tiempo posible. En medio de éste
+fenómeno, surgen los sistemas en la nube, con escalabilidad para crecer y
+decrecer en base a los requerimientos de procesamiento de cada momento. En ese
+marco surgen nuevas tecnologías como \emph{Docker}, \emph{Apache Zookeeper},
+\emph{Apache kafka} y \emph{Apache Storm}.
+
+Con \emph{Docker} es posible utilizar contenedores de software independientes
+que pueden comunicarse con otros contenedores proporcionando una capa de
+virtualización sencilla a nivel de sistema operativo Linux. Su principal
+ventaja radica en la facilidad de despligue de apliacación que provee su uso.
+
+\emph{Apache Zookeeper} surge como un servicio de coordinación de alto
+rendimiento para aplicaciones distribuidas. Expone servicios comunes, tales como
+nomenclatura, manejo de las configuraciones, sincronización, etcétera. Entre
+otras funciones, se utiliza para implementar consenso, manejar grupos, elección
+de nodo líder y protocolos de presencia.
+
+\emph{Apache Kafka} es un sistema de mensajes distrubuido, particionado y con
+replicación. Su principal objetivo es recibir datos desde el mundo exterior al
+sistema y garantizar su diponibildiad para otros componentes del sistema que
+necesiten leerlos y procesarlos.
+
+\emph{Apache Storm} es una herramienta de procesamiento de datos en tiempo real
+de código abierto y gratuita creada por Twitter y luego liberada bajo la órbita
+de los proyectos Apache. La finalidad de Storm es proveer un mecanismo confiable
+para procesamiento de flujos de datos ilimitados. De acuerdo a su documentación,
+Storm es capaz de procesar un millón de tuplas de datos por segundo por nodo.
+Provee características de escalabilidad, tolerancia a fallos, garantías de que
+todos los datos serán procesados, etcétera\cite{ApacheStorm097}.
+
+Utilizando dichas tecnologías se generan imágenes de Docker para la conformación
+de un clúster de Apache Zookeeper, uno de Apache Kafka y otro de Apache Storm.
+Se utilizará Docker Compose para levantar los servicios necesarios. Para el
+alcance de ésta prueba de concepto, todos los servicios correrán en el mismo
+servidor pero, para aprovechar las propuesta de alta disponibilidad y
+escalabilidad que ofrecen éstas tecnologías, sería recomedable que cada nodo de
+cada uno de los servicios corra en un servidor independiente.
+
+Se desarrolla una aplicación Java para enviar datos a Apache Kafka en el sistema
+y una topología de Apache Storm que buscará los datos en el servicio de Apache
+Kafka y los dejará listos para ser procesados.
+
+%TODO Escribir sobre resultados
+
+%TODO Escribir sobre conclusiones
+
+la prueba de concepto puede ser extendida implementado nuevas topologías de
+Apache Storm para realizar procesamientos más complejos de los datos, utilizar
+un servicio en la nube para alojar los servidores. Por otro lado, implementar
+mecanismos de auto escalabilidad de cada uno de los servicios para que el
+sistema crezca y decrezca dependiendo de las necesidades de procesamiento del
+momento. También, es posible implementar mecanismos de auto descubrimiento de
+servicios para garantizar que al crear o borrar un nodo de algún servicio el
+sistema continue funcionando de manera óptima.
+
+
+
+
+
+

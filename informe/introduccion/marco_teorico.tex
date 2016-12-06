@@ -112,11 +112,12 @@
 	desplieque \emph{Plataforma como Servicio} (\emph{PaaS - Plataform as a
 	Service}).\cite{WikipediaDocker}
 
-	\subsection{Imágenes y Contenedores\cite{GetStartedDocker2016}}
+	\subsection{Imágenes y Contenedores}
 	
 		Un \emph{contenedor (container)} es una version de un sistema operativo Linux,
 		solo con los componentes más básicos. Una \emph{imagen} es software que se carga
 		dentro del contenedor al momento de ejecutar el comando \emph{run}.
+		\cite{GetStartedDocker2016}
 	
 \lstset{language=bash}
 \begin{lstlisting}
@@ -199,7 +200,7 @@ docker images
 docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 \end{lstlisting}	
 	
-	\subsection{Docker Compose\cite{DockerComposeDocumentation}}
+	\subsection{Docker Compose}
 	
 		Docker Compose es una herramienta que permite correr un sistema formado por
 		múltiples contenedores. Para ello, se debe crear un archivo \emph{.yml} en el
@@ -210,9 +211,8 @@ docker tag <IMAGE_ID> <NUEVA_ETIQUETA>
 		Para cada servicio pueden definirse nombres, puertos expuestos, conexiones de
 		red, etcétera, luego, con los siguientes comandos se puede operar con el sistema.
 		
-		Para una lista completa de los comandos de Docker Compose, acceder a
-		\href{https://docs.docker.com/compose/reference/}{Docker Compose Command-Line
-		Reference}\footnote{https://docs.docker.com/compose/reference/}.
+		Para una lista completa de los comandos de Docker Compose, acceder a \emph{Docker Compose
+		Command-Line Reference}\footnote{https://docs.docker.com/compose/reference/}.
 
 	\subsection{Material}
 	
