@@ -13,33 +13,20 @@
 %																				%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Conclusiones}
+\chapter{Conclusiones y Trabajo Futuro}
 
-
-
-
-
-https://www.infoq.com/articles/stream-processing-hadoop
-Conclusion \cite{Wahner2014}
-
-Stream processing is required when data has to be processed fast and / or
-continuously, i.e. reactions have to be computed and initiated in real time.
-This requirement is coming more and more into every vertical. Many different
-frameworks and products are available on the market already, however the number
-of mature solutions with good tools and commercial support is small today.
-Apache Storm is a good, open source framework; however custom coding is required
-due to a lack of development tools and there is no commercial support right now.
-Products such as IBM InfoSphere Streams or TIBCO StreamBase offer complete
-products, which close this gap. You definitely have to try out the different
-products, as the websites do not show you how they differ regarding ease of use,
-rapid development and debugging, and real-time streaming analytics and
-monitoring. Stream processing complements other technologies such as a DWH and
-Hadoop in a big data architecture - this is not an "either/or" question. Stream
-processing has a great future and will become very important for most companies.
-Big Data and Internet of Things are huge drivers of change.
+\section{Conclusiones}
+\label{conclusiones}
+	
+	El procesamiento de flujos de datos es requerido y toma mucha relevancia cuando
+	cada dato debe ser procesado rápidamente y/o continuamente, por ejemplo, cuando
+	hay que tomar acciones en tiempo real\cite{Wahner2014}. Los principales
+	impulsores de éstas tecnologías son Big Data y el Internet de las Cosas
+	(\emph{Internet of Things}).
 
 
 \section{Trabajo Futuro}
+\label{trabjo_futuro}
 
 	Este trabajo puede ser continuado y mejorado desde varias aristas, ampliando la
 	prueba de concepto hasta llegar a implementar un sistema de procesamiento de
@@ -47,6 +34,8 @@ Big Data and Internet of Things are huge drivers of change.
 	de acuerdo a la carga del sistema.
 	
 	\begin{itemize}
+	    \item Diseñar el implementar \emph{bolts} de Apache Storm para tomar
+	    acciones con los datos recibidos.
 	    \item Utilizar un proveedor de servicios en la nube como Amazon Web Services,
 	    Microsoft Azure, Google Cloud Platform, etcétera.
 	    \item Plantear, implementar y probar mecanismos de auto escalabilidad
@@ -60,7 +49,3 @@ Big Data and Internet of Things are huge drivers of change.
 	    sistema fácilmente. Además, nuevas características podrían ser agregadas sin
 	    afectar el resto de la funcionalidad del sistema.
 	\end{itemize}
-
-
-
-

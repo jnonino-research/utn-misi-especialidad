@@ -58,8 +58,8 @@ procesarlos en Apache Storm.
 	\newpage
 
 	La producción de datos se hacer en una clase llamada
-	DataProducer (\ref{kafka_app_producer}) que extiende de la clase \emph{Thread}
-	de Java. Al momento de instanciar un objeto de ésta clase, se debe enviar la
+	\emph{DataProducer} (\ref{kafka_app_producer}) que extiende de la clase
+	\emph{Thread} de Java. Al momento de instanciar un objeto de ésta clase, se debe enviar la
 	lista de brokers de Kafka y el valor de milisegundos que indica la tasa de
 	producción de mensajes.
 
@@ -95,21 +95,50 @@ Argentina,Catamarca,Aconquija,1207105200000,25.2,49.7,962,5.1,SUR
 \section{Topología de Procesamiento de Datos de Storm}
 \label{topologia_storm}
 	
+	La tolopología de Apache Storm diseñada, tiene como objetivo leer datos de
+	Apache Kafka con un \emph{spout} y, un \emph{bolt} que recibirá esos datos
+	imprimiendo en los registros el dato leido. Como trabajo futuro sería posible
+	diseñar e implementar \emph{bolts} más complejos para guardar los datos en una
+	base de datos, implementar agregación de datos para cálculo de promedios,
+	etcétera \ref{trabjo_futuro}.
+	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=1\linewidth]{./informe/desarrollo/img/StormClassDiagram}
+		\includegraphics[width=.75\linewidth]{./informe/desarrollo/img/StormClassDiagram}
 	\end{figure}
+	
+	La clase \emph{Main} tiene como responsabilidad recibir los parámetros el modo
+	de prueba de la topología, puede ser \emph{local} o \emph{cluster}. En el
+	primero, la prueba se realizará en un entorno local de Apache Storm, el
+	segundo, es para utilizar la topología en un entorno como el desarrollado en
+	capítulos anteriores. También, recibe como parámetros, la dirección de Apache
+	Zookeeper, que será utilizada para encontrar las particiones de Apache Kafka
+	para leer los datos.
 	
 	\lstinputlisting[language=Java,
 					 caption={Clase Main de la topología para Apache Storm},
 					 label=storm_topology_main
 					]{./software/storm/src/main/java/ar/edu/utn/frc/posgrado/jnonino/storm/Main.java}
+					
+	Dicha clase (\ref{storm_topology_main}), también es reponsable de armar el
+	\emph{spout} que leerá los datos de Apache Kafka, instanciar un objeto de la
+	clase \emph{DataProcessBolt} (\ref{storm_topology_bolt}) y con ambos, armar la
+	topología.
+	
+	El \emph{bolt} (\ref{storm_topology_bolt}) de procesamiento de datos, recibe
+	una tupla de datos, el mensaje leído de Apache Kafka, y registra su
+	procesamiento utilizando un \emph{logger}. Luego, envía un mensaje de
+	\emph{ackowledgement} avisando que dicha tupla fue procesada.
 	
 	\lstinputlisting[language=Java,
 					 caption={Bolt de procesamiento de datos de la topología para Apache Storm},
 					 label=storm_topology_bolt
 					]{./software/storm/src/main/java/ar/edu/utn/frc/posgrado/jnonino/storm/DataProcessBolt.java}
-					
+	
+	La clase \emph{MetricRecord} (\ref{storm_topology_metric_record}) tiene como
+	objetivo representar al objeto que contiene las métricas recibidas en cada
+	mensaje para facilitar su procesamiento.
+	
 	\lstinputlisting[language=Java,
 					 caption={Objeto utilizado para procesar las tuplas recibidas en la
 					 topología para Apache Storm}, 

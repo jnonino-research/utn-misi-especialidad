@@ -16,7 +16,6 @@ import java.util.Map;
 public class DataProcessBolt extends BaseRichBolt {
 
     private static final Logger logger = LogManager.getLogger(Main.class);
-
     private OutputCollector collector = null;
 
     @Override
@@ -33,7 +32,5 @@ public class DataProcessBolt extends BaseRichBolt {
     }
 
     @Override
-    public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-
-    }
+    public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) { }
 }

@@ -24,6 +24,7 @@ public class Main {
     private static final String clusterModeOption = "cluster";
 
     public static void main(String[] args) {
+
         String mode = null;
         String zookeeperConnStr = null;
 
@@ -47,21 +48,9 @@ public class Main {
         builder.setBolt("processBolt", new DataProcessBolt()).shuffleGrouping("kafkaSpout");
 
         Config conf = new Config();
-        // This sets the number of worker processes to use to execute the topology. For example, if you set this to 25,
-        // there will be 25 Java processes across the cluster executing all the tasks.
         conf.setNumWorkers(1);
-        // This sets the number of executors that will track tuple trees and detect when a spout tuple has been fully
-        // processed. Ackers are an integral part of Storm's reliability model. By not setting this variable or setting
-        // it as null, Storm will set the number of acker executors to be equal to the number of workers configured for
-        // this topology. If this variable is set to 0, then Storm will immediately ack tuples as soon as they come off
-        // the spout, effectively disabling reliability.
         conf.setNumAckers(1);
-        // This sets the maximum number of spout tuples that can be pending on a single spout task at once (pending
-        // means the tuple has not been acked or failed yet). It is highly recommended you set this config to prevent
-        // queue explosion.
         conf.setMaxSpoutPending(2000);
-        // This is the maximum amount of time a spout tuple has to be fully completed before it is considered failed.
-        // This value defaults to 30 seconds, which is sufficient for most topologies.
         conf.setMessageTimeoutSecs(60);
 
         if (mode.equalsIgnoreCase(localModeOption)) {
@@ -82,6 +71,7 @@ public class Main {
             }
         } else {
             logger.error("The selected deploy mode is not valid");
+            System.exit(1);
         }
     }
 }

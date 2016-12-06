@@ -37,52 +37,29 @@ public class MetricRecord {
         boolean invalidMetric = this.country.equalsIgnoreCase("")
                 || this.state.equalsIgnoreCase("")
                 || this.city.equalsIgnoreCase("");
-
         return !invalidMetric;
     }
 
-    public String getCountry() {
-        return country;
-    }
+    public String getCountry() { return country; }
 
-    public String getState() {
-        return state;
-    }
+    public String getState() { return state; }
 
-    public String getCity() {
-        return city;
-    }
+    public String getCity() { return city; }
 
-    public long getTimestamp() {
-        return timestamp;
-    }
+    public long getTimestamp() { return timestamp; }
 
-    public float getTemperature() {
-        return temperature;
-    }
+    public float getTemperature() { return temperature; }
 
-    public float getHumidity() {
-        return humidity;
-    }
+    public float getHumidity() { return humidity; }
 
-    public float getPressure() {
-        return pressure;
-    }
+    public float getPressure() { return pressure; }
 
-    public float getWindSpeed() {
-        return windSpeed;
-    }
+    public float getWindSpeed() { return windSpeed; }
 
-    public String getWindDirection() {
-        return windDirection;
-    }
+    public String getWindDirection() { return windDirection; }
 
-    public String getOwner() {
-        return owner;
-    }
+    public String getOwner() { return owner; }
 
     @Override
-    public String toString() {
-        return this.country + "-" + this.city + "-" + this.timestamp;
-    }
+    public String toString() { return this.country + "-" + this.city + "-" + this.timestamp; }
 }
