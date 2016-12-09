@@ -60,7 +60,17 @@ Se desarrolla una aplicación Java para enviar datos a Apache Kafka en el sistema
 y una topología de Apache Storm que buscará los datos en el servicio de Apache
 Kafka y los dejará listos para ser procesados.
 
-%TODO Escribir sobre resultados
+Se mostrará como se realiza el despliegue del sistema con tres nodos de
+\emph{Apache Zookeeper}, tres nodos de \emph{Apache Kafka} y tres nodos para
+\emph{Apache Storm}, uno para el nodo \emph{Nimbus}, otro para el nodo
+\emph{Supervisor} y un nodo para \emph{Interfaz Gráfica}.
+
+También se muestra como se carga la topología desarrollada en el clúster de
+Apache Storm y luego, como enviarle datos al sistema mediando una aplicación
+Java que actúa como productor de datos para Apache Kafka.
+
+Finalmente, se comprueba que el sistema, está recibiendo datos (Apache Kafka) y
+efectivamente, llegan al sistema de procesamiento (Apache Storm).
 
 %TODO Escribir sobre conclusiones
 
