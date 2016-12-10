@@ -14,3 +14,218 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Resultados}
+\label{chapter_resultados}
+
+En este capítulo, se mostrará como desplegar el sistema y como ponerlo en
+funcionamiento. Se comienza listando las imágenes de Docker que han sido
+creadas, para mas información, ir al capítulo \ref{chapter_docker_images}. Esto
+se hace mediante el comando:
+
+\lstset{language=Bash}
+\begin{lstlisting}
+docker images
+\end{lstlisting}
+
+\begin{figure}[H]
+	\centering
+	\label{lista_imagenes_docker}
+	\includegraphics[width=1\linewidth]{./informe/conclusiones/img/ImagenesDocker}
+	\caption{Listado de imágenes de Docker creadas para el sistema}
+\end{figure}
+
+Mediante Docker Compose, se hace el despliegue de los clúster de Apache
+Zookeeper, Apache Kafka y Apache Storm.
+
+\begin{figure}[H]
+	\centering
+	\label{inicio_cluster_zookeeper}
+	\includegraphics[width=1\linewidth]{./informe/conclusiones/img/IniciarClusterZookeeper}
+	\caption{Inicio del clúster de Apache Zookeeper}
+\end{figure}
+
+\newpage
+
+Luego de esperar algunos minutos, se procede a iniciar el clúster de Apache
+Kafka. Esto se hace para garantizar que Apache Zookeeper está listo para recibir conexiones.
+
+\begin{figure}[H]
+	\centering
+	\label{inicio_cluster_kafka}
+	\includegraphics[width=1\linewidth]{./informe/conclusiones/img/IniciarClusterKafka}
+	\caption{Inicio del clúster de Apache Kafka}
+\end{figure}
+
+Esperando algunos minutos para asegurar que Apache Kafka está corriendo
+correctamente, se despliegue el clúster de Apache Storm.
+
+\begin{figure}[H]
+	\centering
+	\label{inicio_cluster_storm}
+	\includegraphics[width=1\linewidth]{./informe/conclusiones/img/IniciarClusterStorm}
+	\caption{Inicio del clúster de Apache Storm}
+\end{figure}
+
+Si no se tratara de una prueba de concepto y fuera un sistema productivo real,
+se debería establecer un mecanismo de sincronización automático para garantizar
+que un servicio está disponible antes de iniciar el siguiente. A los fines de
+esta prueba de concepto, es suficiente con esperar algunos minutos antes de
+desplegar cada servicio.
+
+Cuando todo el sistema se encuentra corriendo correctamente, es posible acceder
+a la interfaz gráfica de Apache Storm utilizando la dirección
+\url{http://<IP_SERVICIO_STORM_UI>:8080}.
+
+\newpage
+
+\begin{figure}[H]
+	\centering
+	\label{storm_ui_limpio}
+	\includegraphics[width=.95\linewidth]{./informe/conclusiones/img/UIStorm}
+	\caption{Interfaz gráfica de Apache Storm con el sistema limpio}
+\end{figure}
+
+\section{Compilación de aplicaciones}
+
+	Ambas aplicaciones desarrolladas, tanto el productor de datos de Apache Kafka
+	como la topología de Apache Storm, han sido creadas como un multi-proyecto de
+	Apache Maven. De esta manera, se pueden compilar al mismo tiempo con el comando
+	\emph{mvn clean install}.
+
+	\begin{figure}[H]
+		\centering
+		\label{storm_ui_limpio}
+		\includegraphics[width=1\linewidth]{./informe/conclusiones/img/CompilandoAplicaciones}
+		\caption{Compilación de las aplicaciones Java desarrolladas}
+	\end{figure}
+
+\section{Despliegue de la topología de Apache Storm}
+
+	Para el despliegue de la topología de Apache Storm, se debe contar con el
+	ejecutable descargado desde el sitio
+	oficial\footnote{http://storm.apache.org/downloads.html} version 0.9.7, esto
+	permite tener el comando \emph{storm} disponible en la línea de comandos.
+
+\lstset{language=Bash}
+\begin{lstlisting}
+storm jar storm-1.0-SNAPSHOT-jar-with-dependencies.jar
+ar.edu.utn.frc.posgrado.jnonino.storm.Main <IP_NODO_ZOOKEEPER>:<PUERTO_NODO_ZOOKEEPER>
+\end{lstlisting}
+
+	\begin{figure}[H]
+		\centering
+		\label{comando_despliegue_topologia}
+		\includegraphics[width=.8\linewidth]{./informe/conclusiones/img/SubiendoTopologiaStorm}
+		\caption{Ejecución del comando de despliegue de la topología de Apache Storm}
+	\end{figure}
+
+	La siguiente imagen muestra en la interfaz gráfica de Apache Storm que la
+	topología fue desplegada correctamente.
+
+	\begin{figure}[H]
+		\centering
+		\label{topologia_desplegada}
+		\includegraphics[width=.6\linewidth]{./informe/conclusiones/img/TopologiaSubida}
+		\caption{Topología de Apache Storm desplegada correctamente}
+	\end{figure}
+
+	Luego de dicho procedimiento, la topología queda lista para recibir datos
+	nuevos y procesarlos.
+
+	\newpage
+	
+\section{Producción de datos}
+
+	La producción de datos se realiza con una aplicación Java desarrollada para
+	conectarse con Apache Kafka y enviarle mensajes. El comando para la ejecución
+	de dicha aplicación comienza con \emph{java -jar <JAR-A-UTILIZAR>} seguido de
+	los argumentos de ejecución. El primer argumento es lista de \emph{brokers} de
+	Apache Kafka. Le sigue un parámetro \emph{yes|no} habilitando o deshabilitando
+	la producción de mensajes y un argumento de numero entero indicando en
+	milisegundos la tasa de producción de mensajes. Y, finalmente, otro parámetro
+	\emph{yes|no} indicando si se habilita o no el consumidor de datos de prueba.
+
+	\begin{figure}[H]
+		\centering
+		\label{inicio_produccion_datos}
+		\includegraphics[width=.82\linewidth]{./informe/conclusiones/img/KafkaProduciendoDatos1}
+		\caption{Comienzo de la producción de datos de Apache Kafka}
+	\end{figure}
+
+	En la siguiente imagen (\ref{produccion_datos}) se observará como la aplicación
+	registra en la consola cada dato que va enviando al clúster de Apache Kafka.
+
+	\begin{figure}[H]
+		\centering
+		\label{produccion_datos}
+		\includegraphics[width=.82\linewidth]{./informe/conclusiones/img/KafkaProduciendoDatos2}
+		\caption{Producción de datos de Apache Kafka}
+	\end{figure}
+
+	\newpage
+
+\section{Procesamiento de datos}
+
+	Con la aplicación productora de datos enviando mensajes a Apache Kafka, la
+	topología de Apache Storm comenzara a recolectarlos a través de un
+	\emph{spout}, ver imagen \ref{spout_storm}.
+
+	\begin{figure}[H]
+		\centering
+		\label{spout_storm}
+		\includegraphics[width=.92\linewidth]{./informe/conclusiones/img/StormProcesandoDatosSpout}
+		\caption{Estadísticas de procesamiento del \emph{spout} de Apache Storm}
+	\end{figure}
+	
+	Luego, el \emph{bolt}, es encargado de recibir dichos mensajes desde el
+	\emph{spout} y procesarlos, para esta prueba de concepto, el procesamiento
+	consiste en imprimir un registro del mensaje procesado en los registros de
+	Apache Storm. Aplicaciones productivas reales, podrían hacer agregación de
+	datos, lanzar alarmas ante algún mensaje en particular, etcétera. Ver imagen
+	\ref{bolt_storm}.
+	
+	\begin{figure}[H]
+		\centering
+		\label{bolt_storm}
+		\includegraphics[width=.92\linewidth]{./informe/conclusiones/img/StormProcesandoDatosBolt}
+		\caption{Estadísticas de procesamiento del \emph{bolt} de Apache Storm}
+	\end{figure}
+	
+	\newpage
+	
+	La siguiente imagen (figura \ref{logs_storm}) muestra desde la interfaz gráfica
+	de Apache Storm los registros de ejecución (\emph{logs}). En ellos, se puede
+	apreciar como el \emph{bolt} de procesamiento está haciendo los registros
+	correspondientes tal como fue programado, ver sección \ref{topologia_storm}.
+	
+	\begin{figure}[H]
+		\centering
+		\label{logs_storm}
+		\includegraphics[width=1\linewidth]{./informe/conclusiones/img/StormProcesandoDatos}
+		\caption{Registros de Apache Storm mostrando los mensajes que están siendo procesados}
+	\end{figure}
+	
+	\newpage
+	
+\section{Limpieza del sistema}
+
+	Para detener el sistema, se utiliza el comando \emph{docker stop
+	<numero-contenedor>}. De esta manera, se procede a detener cada uno de los
+	contenedores corriendo.
+	
+	\begin{figure}[H]
+		\centering
+		\label{deteniendo_contenedores}
+		\includegraphics[width=1\linewidth]{./informe/conclusiones/img/DeteniendoContenedores}
+		\caption{Deteniendo contenedores de Docker}
+	\end{figure}
+	
+	Luego, si se desea, es posible remover esos contenedores detenidos mediante el
+	comando \emph{docker rm <numero-contenedor>}, dejando el sistema limpio
+	nuevamente.
+	
+	\begin{figure}[H]
+		\centering
+		\label{removiendo_contenedores}
+		\includegraphics[width=1\linewidth]{./informe/conclusiones/img/RemoviendoContenedores}
+		\caption{Removiendo contenedores de Docker}
+	\end{figure}
