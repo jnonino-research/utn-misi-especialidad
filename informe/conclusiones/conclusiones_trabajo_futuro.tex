@@ -17,13 +17,26 @@
 
 \section{Conclusiones}
 \label{conclusiones}
-	
+
+	En este trabajo se ha logrado implementar una prueba de concepto utilizando
+	Docker como mecanismo de generación de la infraestructura. Se ha mostrado cómo
+	utilizar una tecnología como \emph{Apache Kafka} para recibir y reenviar
+	mensajes para que sean procesados en el sistema. También, el despliegue y
+	configuración de \emph{Apache Storm} para procesar dichos mensajes. Además, se
+	muestra el uso de \emph{Apache Zookeeper} como mecanismo de coordinación entre
+	estos servicios.
+
+	Por otro lado, se muestra código de aplicaciones desarrolladas para la
+	publicación y lectura de datos en Apache Kafka. De la misma manera, se
+	implementa una topología de Apache Storm para leer datos desde el servicio de
+	Apache Kafka y procesarlos en tiempo real, a medida que son recibidos en el
+	sistema.
+
 	El procesamiento de flujos de datos es requerido y toma mucha relevancia cuando
 	cada dato debe ser procesado rápidamente y/o continuamente, por ejemplo, cuando
-	hay que tomar acciones en tiempo real\cite{Wahner2014}. Los principales
-	impulsores de éstas tecnologías son Big Data y el Internet de las Cosas
-	(\emph{Internet of Things}).
-
+	hay que tomar acciones en tiempo real\cite{Wahner2014}, es especialmente
+	importante en productos Big Data e Internet de las Cosas (\emph{Internet of
+	Things}).
 
 \section{Trabajo Futuro}
 \label{trabajo_futuro}
