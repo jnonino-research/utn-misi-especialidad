@@ -44,14 +44,14 @@ ejecutarse como Docker Containers, formarán el sistema de procesamiento de datos
 en tiempo real que se quiere demostrar. Las imágenes desarrolladas son:
 
 \begin{itemize}
-    \item Nodo de Apache Zookeeper (\ref{docker-image-nodo-zookeeper}).
-    \item Nodo de Apache Kafka (\ref{docker-image-nodo-kafka}).
-    \item Imagenes de Apache Storm (\ref{docker-images-storm}).
+    \item Nodo de Apache Zookeeper (\ref{docker_image_nodo_zookeeper}).
+    \item Nodo de Apache Kafka (\ref{docker_image_nodo_kafka}).
+    \item Imagenes de Apache Storm (\ref{docker_images_storm}).
     	\begin{itemize}
-    	  \item Nodo de Apache Storm Nimbus (\ref{docker-images-storm-nimbus}).
+    	  \item Nodo de Apache Storm Nimbus (\ref{docker_images_storm_nimbus}).
     	  \item Nodo de Apache Storm
-    	  Supervisor (\ref{docker-images-storm-supervisor}).
-    	  \item Nodo de Apache Storm UI (\ref{docker-images-storm-ui}).
+    	  Supervisor (\ref{docker_images_storm_supervisor}).
+    	  \item Nodo de Apache Storm UI (\ref{docker_images_storm_ui}).
 		\end{itemize}
 \end{itemize}
 
@@ -62,7 +62,7 @@ en tiempo real que se quiere demostrar. Las imágenes desarrolladas son:
 \end{figure}
 	
 \section{Nodo Apache Zookeeper}
-\label{docker-image-nodo-zookeeper}
+\label{docker_image_nodo_zookeeper}
 
 	Basado en una imagen de Ubuntu 14.04 Trusty, se desarrolla la imagen de
 	Apache Zookeeper.
@@ -154,7 +154,7 @@ zk_followers	2
 \end{lstlisting}
 
 \section{Nodo de Apache Kafka}
-\label{docker-image-nodo-kafka}
+\label{docker_image_nodo_kafka}
 
 	De la misma manera que los nodos de Apache Zookeeper, ésta imagen es basada en la
 	imagen Ubuntu 14.04 Trusty. Y, como primera medida, se procede a la actualización
@@ -248,7 +248,7 @@ BROKER_LIST=<IP_NODO_KAFKA>:9092,<IP_NODO_KAFKA>:9093,<IP_NODO_KAFKA>:9094
 	\end{figure}
 
 \section{Apache Storm}
-\label{docker-images-storm}
+\label{docker_images_storm}
 
 	Un clúster de Apache Storm necesita contar con varios tipos de nodos para su
 	operación. En las siguientes secciones se mostrarán las imágenes de Docker
@@ -306,7 +306,7 @@ BROKER_LIST=<IP_NODO_KAFKA>:9092,<IP_NODO_KAFKA>:9093,<IP_NODO_KAFKA>:9094
 					]{./docker_images/storm/storm-base/start-supervisor.sh}
 	
 	\subsection{Storm Nimbus}
-	\label{docker-images-storm-nimbus}
+	\label{docker_images_storm_nimbus}
 	
 		Storm Nimbus, es el nodo maestro y coordinador de Apache Storm. Es el
 		encargado de asignar las tareas a los nodos trabajadores (\emph{workers}),
@@ -320,7 +320,7 @@ BROKER_LIST=<IP_NODO_KAFKA>:9092,<IP_NODO_KAFKA>:9093,<IP_NODO_KAFKA>:9094
 					]{./docker_images/storm/storm-nimbus/Dockerfile.}
 	
 	\subsection{Storm Supervisor}
-	\label{docker-images-storm-supervisor}
+	\label{docker_images_storm_supervisor}
 	
 		Son los nodos trabajadores (\emph{workers}). Corren un proceso
 		demonio llamado \textbf{\emph{supervisor}}. Son nodos que estan escuchando
@@ -332,7 +332,7 @@ BROKER_LIST=<IP_NODO_KAFKA>:9092,<IP_NODO_KAFKA>:9093,<IP_NODO_KAFKA>:9094
 					]{./docker_images/storm/storm-supervisor/Dockerfile.}
 					
 	\subsection{Storm UI}
-	\label{docker-images-storm-ui}
+	\label{docker_images_storm_ui}
 	
 		Ésta imágen de Docker es la encargada de levantar la interfaz gráfica de
 		Apache Storm.
