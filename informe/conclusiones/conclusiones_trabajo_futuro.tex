@@ -18,51 +18,88 @@
 \section{Conclusiones}
 \label{conclusiones}
 
-	En este trabajo se ha logrado implementar una prueba de concepto utilizando
-	Docker como mecanismo de generación de la infraestructura. Se ha mostrado cómo
-	utilizar una tecnología como \emph{Apache Kafka} para recibir y reenviar
-	mensajes para que sean procesados en el sistema. También, el despliegue y
-	configuración de \emph{Apache Storm} para procesar dichos mensajes. Además, se
-	muestra el uso de \emph{Apache Zookeeper} como mecanismo de coordinación entre
-	estos servicios.
-
-	Por otro lado, se muestra código de aplicaciones desarrolladas para la
-	publicación y lectura de datos en Apache Kafka. De la misma manera, se
-	implementa una topología de Apache Storm para leer datos desde el servicio de
-	Apache Kafka y procesarlos en tiempo real, a medida que son recibidos en el
-	sistema.
-
 	El procesamiento de flujos de datos es requerido y toma mucha relevancia cuando
 	cada dato debe ser procesado rápidamente y/o continuamente, por ejemplo, cuando
 	hay que tomar acciones en tiempo real\cite{Wahner2014}, es especialmente
 	importante en productos Big Data e Internet de las Cosas (\emph{Internet of
 	Things}).
-	
-	A modo de conclusion, es posible decir que 
+
+	En este trabajo se ha investigado sobre el uso de algunas de las herramientas
+	de procesamiento de datos en tiempo real más utilizadas en la industria,
+	cumpliendo el objetivo de desarrollar una prueba de concepto sobre el uso de
+	estas tecnologías, \emph{Apache Zookeeper}, \emph{Apache Kafka} y \emph{Apache
+	Storm}.
+
+	Se ha cumplido el objetivo de utilizar \emph{Docker} como mecanismo de
+	definición y despliegue de los diferentes servicios que forman parte del sistema. En el
+	trabajo puede apreciarse como el uso de imágenes de Docker brinda un enfoque
+	más simple y económico que el uso de servidores físicos y/o virtualizados.
+	Docker permite garantizar que se utilizan las versiones correctas de cada uno
+	de los componentes, con las librerías necesarias, el entorno apropiado y el
+	sistema operativo correspondiente. Docker simplifica el trabajo del operador
+	del sistema ya que evita la necesidad de instalación de programas, generación
+	de variables, etcétera. Así mismo, el uso de \emph{Docker Compose} simplifica
+	aún más la puesta en marcha del sistema y la forma de comunicación entre cada uno de
+	los servicios.
+
+	Se generaron aplicaciones Java para interactuar con Apache Kafka, cumpliendo el
+	objetivo de demostrar el rol de esta herramienta en el procesamiento de datos.
+	Queda claro como una aplicación simple puede contactarse y emitir mensajes para
+	que Apache Kafka los procese.
+
+	De la misma manera queda expuesto la simplicidad para comenzar el desarrollo de
+	una topología de Apache Storm y como la complejidad reside en la lógica de
+	negocio que uno desee implementar porque tanto el despliegue como la
+	configuración de la topología son sencillos.
+
+	Habiendo cumplido todos los objetivos planteados, el trabajo sirve como punto
+	de partida para el uso de estas herramientas. Además, abre las puertas para
+	continuar experimentando y ampliando la prueba de concepto hasta alcanzar un
+	sistema productivo.
 
 \section{Trabajo Futuro}
 \label{trabajo_futuro}
 
-	Este trabajo puede ser continuado y mejorado desde varias aristas, ampliando la
-	prueba de concepto hasta llegar a implementar un sistema de procesamiento de
-	datos en tiempo real, desplegado en la nube, con capacidad de crecer y decrecer
-	de acuerdo a la carga del sistema.
+	Como se ha dicho en la sección anterior (\ref{conclusiones}), es posible llegar
+	a un sistema listo para ser puesto en producción a partir de la prueba de concepto
+	realizada en éste trabajo.
 	
-	\begin{itemize}
-	    \item Diseñar e implementar \emph{bolts} de Apache Storm para realizar un
-	    procesamiento de datos más complejo, como por ejemplo, tomar promedios,
-	    calcular máximos y mínimos, evaluar reglas para enviar notificaciones o
-	    ejecutar acciones ante algún determinado valor, etcétera.
-	    \item Utilizar un proveedor de servicios en la nube como Amazon Web Services,
-	    Microsoft Azure, Google Cloud Platform, etcétera.
-	    \item Plantear, implementar y probar mecanismos de auto escalabilidad
-	    (crecimiento y decrecimiento) del sistema de acuerdo con la carga de datos.
-	    \item Plantear, implementar y probar un subsistema de almacenamiento de datos
-	    utilizando tecnologías bases de datos como Apache HBase, Cassandra, etcétera.
-	    \item Plantear, implementar y probar un subsistema de análisis de datos y
-	    generación de reportes (\emph{analytics}).
-	    \item Diseñar y plantear modificaciones en el sistema de acuerdo a un modelo
-	    de micro servicios permitiendo activar y desactivar características del
-	    sistema fácilmente. Además, nuevas características podrían ser agregadas sin
-	    afectar el resto de la funcionalidad del sistema.
-	\end{itemize}
+	Como primera mejora, es posible trabajar en el \emph{autodescubrimiento de
+	servicios}. Esto implica mejorar el uso de Apache Zookeeper y/o implementar
+	alguna herramienta para evitar poner en duro direcciones IP para comunicar los
+	diferentes servicios. Luego de ésta mejora, debería ser posible levantar un
+	nuevo nodo de Apache Zookeeper mediante la imagen de Docker y que, por sus
+	propios medios, el nodo se conecte al sistema y que disponible para realizar su
+	tarea. Lo mismo aplica para los nodos de Apache Kafka y Apache Storm. Con esto,
+	se podría decidir aumentar la cantidad de nodos de un servicio ante una mayor
+	carga de trabajo o disminuirla en el caso contrario. Sería un \emph{sistema
+	escalable}.
+
+	Contando con un sistema escalable, el siguiente paso sería ir a un
+	\emph{proveedor de servicios en la nube} como Amazon Web Services, Microsoft
+	Azure, Google Cloud Platform, OpenStack, etcétera. Estos proveedores brindan
+	\emph{mecanismos de auto escalabilidad} mediante alarmas y reglas que harán que
+	la cantidad de nodos aumente o disminuya automáticamente de acuerdo a métricas
+	como cantidad de solicitudes, uso de CPU, uso de memoria, tercera.
+	
+	Otro componente que no ha sido contemplado en este trabajo y podría ser
+	agregado es un \emph{servicio de almacenamiento de datos} como Apache HBase,
+	Cassandra, etcétera. Esto permitirá al sistema tomar decisiones en base a la
+	historia y no solo en base a los mensajes que arriban en tiempo real.
+
+	Con un sistema de persistencia de datos implementado, es posible diseñar e
+	implementar un servicio de \emph{analytics}. El mismo, permitirá analizar los
+	datos, generar reportes, etcétera.
+
+	La siguiente mejora posible es diseñar e implementar \emph{bolts} de Apache
+	Storm para realizar un procesamiento de datos más complejo, como por ejemplo,
+	tomar promedios, calcular máximos y mínimos, evaluar reglas para enviar
+	notificaciones o ejecutar acciones ante algún determinado valor, etcétera.
+
+	Habiendo aplicado las mejoras anteriores se tendría un sistema productivo capaz
+	de procesar millones de mensajes por segundo tomando decisiones y generando
+	alertas y notificaciones en base a cada mensaje recibido o en base al
+	historial. Pero aún es posible ir un paso más allá y replantear el sistema de
+	acuerdo a un \emph{diseño basado en micro servicios independientes}. Esto
+	permitiría activar y desactivar características del sistema sin afectar el
+	funcionamiento normal del mismo.
