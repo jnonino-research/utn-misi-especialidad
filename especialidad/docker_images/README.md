@@ -1,27 +1,51 @@
+# Imagenes de Docker #
 
-#### Construir la imagen de Docker de Apache Zookeeper
+## Construir imágenes ##
 
-docker build -t jnonino/zookeeper zookeeper
+### Apache Zookeeper ###
+    
+    docker build -t jnonino/zookeeper zookeeper
+    
+### Apache Kafka ###
+    
+    docker build -t jnonino/kafka kafka
 
-#### Construir la imagen de Apache Kafka
+### Apache Storm ###
+    
+    docker build -t jnonino/storm-base storm-base
+    docker build -t jnonino/storm-nimbus storm-nimbus
+    docker build -t jnonino/storm-supervisor storm-supervisor
+    docker build -t jnonino/storm-ui storm-ui
+   
+## Iniciar el clúster ##
 
-docker build -t jnonino/kafka kafka
+Se deben reemplazar los siguientes valores para que las diferentes
+partes del sistema se vean entre sí.
+- En el archivo zookeeper/start_zookeeper.yml  
+Reemplazar los valores de la variable "<ZOOKEEPER_NODE_IP>" por
+la dirección IP de la máquina donde correrán los containers de Docker
+de Zookeeper.
+- En el archivo kafka/start_kafka.yml  
+Reemplazar los valores de la variable "<ZOOKEEPER_NODE_IP>" por
+la dirección IP de la máquina donde están corriendo los containers de
+Docker de Zookeeper.  
+Reemplazar los valores de la variable "<KAFKA_NODE_IP>" por
+la dirección IP de la máquina donde correrán los containers de Docker
+de Kafka.
+- En el archivo storm/start_storm.yml  
+Reemplazar los valores de la variable "<ZOOKEEPER_NODE_IP>" por
+la dirección IP de la máquina donde están corriendo los containers de
+Docker de Zookeeper.  
+Reemplazar las variables "<NIMBUS_HOST_IP>", "<UI_NODE_IP>" y
+"<SUPERVISOR_NODE_IP>" por las direcciones IP de las máquinas donde
+correrán los servicios Nimbus, UI y Supervisor de APache Storm
+respectivamente.
 
-#### Construir la imagen base de Apache Storm
+Luego de generar todas las imágenes de Docker del sistema y 
+reemplazar las variables por las direcciones correctas, se
+deben correr los siguientes comandos para poner el sistema en
+funcionamiento.
 
-docker build -t jnonino/storm-base storm/storm-base
-docker build -t jnonino/storm-nimbus storm/storm-nimbus
-docker build -t jnonino/storm-supervisor storm/storm-supervisor
-docker build -t jnonino/storm-ui storm/storm-ui
-
-#### Para inciar el cluster
-
-docker-compose -f zookeeper/start_zookeeper.yml up -d
-docker-compose -f kafka/start_kafka.yml up -d
-docker-compose -f storm/start_storm.yml up -d
-
-#### Verificar que el cluster de Zookeeper esta funcionando
-Ejecutar:
-for i in {2181..2183}; do echo mntr | nc <DOCKER_HOST_IP> $i | grep zk_followers ; done
-Resultado esperado:
-zk_followers 2
+    docker-compose -f zookeeper/start_zookeeper.yml up -d
+    docker-compose -f kafka/start_kafka.yml up -d
+    docker-compose -f storm/start_storm.yml up -d
